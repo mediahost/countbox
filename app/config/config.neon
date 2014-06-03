@@ -17,7 +17,8 @@ php:
 
 nette:
 	application:
-		errorPresenter: Error
+		errorPresenter: 'Base:Error'
+		#catchExceptions: TRUE
 		mapping:
 			*: App\*Module\Presenters\*Presenter
 
