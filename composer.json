@@ -1,0 +1,42 @@
+{
+    "name": "mediahost/countbox",
+    "description": "Countbox",
+    "homepage": "http://mediahost.sk",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Petr Poupě",
+            "email": "pupe.dupe@gmail.com",
+            "homepage": "http://pupitooo.cz/",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mediahost/adminer-custom"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mediahost/WebLoader.git"
+        }
+    ],
+    "require": {
+        "php": ">= 5.3.7",
+        "nette/nette": "~2.2.0",
+        "dg/adminer-custom": "@dev",
+        "kdyby/doctrine": "1.*",
+        "janmarek/webloader": "@dev",
+        "natxet/CssMin": "dev-master",
+        "rm/header": "dev-master",
+        "leafo/lessphp": "0.4.*@dev",
+        "o5/grido": "dev-master",
+        "venne/forms": "@dev",
+        "h4kuna/exchange": "4.0.*"
+    },
+    "require-dev": {
+        "nette/tester": "~1.1.0"
+    },
+    "minimum-stability": "stable"
+}
