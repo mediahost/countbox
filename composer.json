@@ -33,7 +33,8 @@
         "leafo/lessphp": "0.4.*@dev",
         "o5/grido": "dev-master",
         "venne/forms": "@dev",
-        "h4kuna/exchange": "4.0.*"
+        "h4kuna/exchange": "4.0.*",
+        "dg/ftp-deployment": "dev-master"
     },
     "require-dev": {
         "nette/tester": "~1.1.0"
