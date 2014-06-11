@@ -2,7 +2,8 @@ extensions:
     webloader: WebLoader\Nette\Extension
 
 services:
-    wlCssFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
+    cssUrlFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
+    cssUrlReplacerAssets: WebLoader\Filter\CssUrlReplacerFilter(["../img/", "../../img/"], "../assets/img/")
     lessFilter: WebLoader\Filter\LessFilter
     cssMinFilter: WebLoader\Filter\CssMinFilter
 
@@ -12,30 +13,81 @@ webloader:
             files:
                 - {files: ["*.less"], from: %wwwDir%/less/front/includes}
             filters:
-                - @wlCssFilter
+                - @cssUrlFilter
                 - @cssMinFilter
             fileFilters:
                 - @lessFilter
-            #joinFiles: false
+
+        metronicCore:
+            remoteFiles:
+                - "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all"
+            files:
+                - ../assets/plugins/font-awesome/less/font-awesome.less
+                - ../assets/plugins/bootstrap/css/bootstrap.css
+                - ../assets/plugins/uniform/css/uniform.default.css
+            filters:
+                - @cssUrlFilter
+                - @cssMinFilter
+            fileFilters:
+                - @lessFilter
+
+        metronicPlugin:
+            files:
+                - ../assets/plugins/bootstrap-datepicker/build/build.less
+            filters:
+                - @cssUrlFilter
+                - @cssMinFilter
+            fileFilters:
+                - @lessFilter
+
+        metronicTheme:
+            files:
+                - {files: ["style-metronic.css"], from: %wwwDir%/assets/css}
+                - {files: ["style.css"], from: %wwwDir%/assets/css}
+                - {files: ["style-responsive.css"], from: %wwwDir%/assets/css}
+                - {files: ["plugins.css"], from: %wwwDir%/assets/css}
+                - {files: ["default.css"], from: %wwwDir%/assets/css/themes}
+                - {files: ["custom.css"], from: %wwwDir%/assets/css}
+            filters:
+                - @cssUrlFilter
+                - @cssUrlReplacerAssets
+                - @cssMinFilter
 
         print:
             files:
-                - print.css
+                - {files: ["*.less"], from: %wwwDir%/less/print/includes}
             filters:
-                - @wlCssFilter
+                - @cssUrlFilter
                 - @cssMinFilter
             fileFilters:
                 - @lessFilter
 
     js:
-        default:
-            remoteFiles:
-                #- http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js
-                #- http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js
+        app:
             files:
-                - jquery.min.js
-                - nette.ajax.js
-                - netteForms.js
-                - main.js
+                - ../assets/scripts/app.js
+                - ../assets/scripts/custom/components-pickers.js
+                - ../assets/scripts/init.js
+        appPlugins:
+            files:
+                - ../js/netteForms.js
+        metronicPlugins:
+            files:
+                - ../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js
+        metronicCore:
+            files:
+                - ../assets/plugins/jquery-1.10.2.min.js
+                - ../assets/plugins/jquery-migrate-1.2.1.min.js
+                - ../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js
+                - ../assets/plugins/bootstrap/js/bootstrap.min.js
+                - ../assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js
+                - ../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js
+                - ../assets/plugins/jquery.blockui.min.js
+                - ../assets/plugins/jquery.cookie.min.js
+                - ../assets/plugins/uniform/jquery.uniform.min.js
+        metronicCoreIE9:
+            files:
+                - ../assets/plugins/respond.min.js
+                - ../assets/plugins/excanvas.min.js
 
                 
