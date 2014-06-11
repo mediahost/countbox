@@ -6,6 +6,8 @@
 #
 includes:
 	- extensions/webloader.neon
+	- extensions/doctrine.neon
+	- model/model.neon
 
 parameters:
 
@@ -27,6 +29,5 @@ nette:
 
 
 services:
-	- App\Model\UserManager
 	- App\RouterFactory
 	router: @App\RouterFactory::createRouter
