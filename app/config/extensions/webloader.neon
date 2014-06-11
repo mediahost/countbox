@@ -23,6 +23,7 @@ webloader:
                 - "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all"
             files:
                 - ../assets/plugins/font-awesome/less/font-awesome.less
+                - ../assets/plugins/simple-line-icons/simple-line-icons.less
                 - ../assets/plugins/bootstrap/css/bootstrap.css
                 - ../assets/plugins/uniform/css/uniform.default.css
             filters:
@@ -42,10 +43,9 @@ webloader:
 
         metronicTheme:
             files:
-                - {files: ["style-metronic.css"], from: %wwwDir%/assets/css}
-                - {files: ["style.css"], from: %wwwDir%/assets/css}
-                - {files: ["style-responsive.css"], from: %wwwDir%/assets/css}
+                - {files: ["components.css"], from: %wwwDir%/assets/css}
                 - {files: ["plugins.css"], from: %wwwDir%/assets/css}
+                - {files: ["layout.css"], from: %wwwDir%/assets/css}
                 - {files: ["default.css"], from: %wwwDir%/assets/css/themes}
                 - {files: ["custom.css"], from: %wwwDir%/assets/css}
             filters:
@@ -65,7 +65,9 @@ webloader:
     js:
         app:
             files:
-                - ../assets/scripts/app.js
+                - ../assets/scripts/metronic.js
+                - ../assets/scripts/layout.js
+                - ../assets/scripts/quick-sidebar.js
                 - ../assets/scripts/custom/components-pickers.js
                 - ../assets/scripts/init.js
         appPlugins:
@@ -76,14 +78,14 @@ webloader:
                 - ../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js
         metronicCore:
             files:
-                - ../assets/plugins/jquery-1.10.2.min.js
+                - ../assets/plugins/jquery-1.11.0.min.js
                 - ../assets/plugins/jquery-migrate-1.2.1.min.js
                 - ../assets/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js
                 - ../assets/plugins/bootstrap/js/bootstrap.min.js
                 - ../assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js
                 - ../assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js
                 - ../assets/plugins/jquery.blockui.min.js
-                - ../assets/plugins/jquery.cookie.min.js
+                - ../assets/plugins/jquery.cokie.min.js
                 - ../assets/plugins/uniform/jquery.uniform.min.js
         metronicCoreIE9:
             files:

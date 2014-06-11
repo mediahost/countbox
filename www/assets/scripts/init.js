@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-    App.init(); // initlayout and core plugins
+    Metronic.init(); // init metronic core componets
+    Layout.init(); // init layout
+    QuickSidebar.init() // init quick sidebar
 
     ComponentsPickers.init();
 });

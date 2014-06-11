@@ -40,6 +40,7 @@ Behaviors :
 * angleArc : arc size in degrees | default=360.
 * stopper : stop at min & max on keydown/mousewheel | default=true.
 * readOnly : disable input and events | default=false.
+* rotation : direction of progression | default=clockwise.
 
 UI :
 * cursor : display mode "cursor", cursor size could be changed passing a numeric value to the option, default width is used when passing boolean value "true" | default=gauge.
@@ -84,7 +85,7 @@ Hooks
 
 * 'cancel' : triggered on [esc] keydown
 
-* 'error' : called if the browser doesn't support canvases and the plugin didn't initialize as a result
+* 'format' : allows to format output (add unit %, ms ...)
 
 The scope (this) of each hook function is the current Knob instance (refer to the demo code).
 
@@ -129,26 +130,6 @@ Set the value
 Supported browser
 -------
 
-Tested on Chrome, Safari, Firefox, IE 9.0.
+Tested on Chrome, Safari, Firefox, IE>=8.0 (IE8.0 with excanvas).
 
-MIT License
--------
-
-Copyright (C) 2013 Anthony Terrien
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+![secretplan](https://raw.github.com/aterrien/jQuery-Knob/master/secretplan.jpg)

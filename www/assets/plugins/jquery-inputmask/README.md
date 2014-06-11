@@ -1,4 +1,4 @@
-#jquery.inputmask
+#jquery.inputmask 3.x
 
 Copyright (c) 2010 - 2014 Robin Herbots
 Licensed under the MIT license (http://opensource.org/licenses/mit-license.php)
@@ -18,9 +18,9 @@ Highlights:
 - many features can be enabled/disabled/configured by options
 - supports readonly/disabled/dir="rtl" attributes
 - support data-inputmask attribute  
-- multi-mask support  
+- multi-mask support
 - regex-mask support
-- value formatting without input element
+- value formatting / validating without input element
 
 Demo page see http://robinherbots.github.io/jquery.inputmask
 
@@ -42,13 +42,14 @@ Define your masks:
 
 ```javascript
 $(document).ready(function(){
-   $("#date").inputmask("d/m/y");  //direct mask
-   $("#phone").inputmask("mask", {"mask": "(999) 999-9999"}); //specifying fn & options
-   $("#tin").inputmask({"mask": "99-9999999"}); //specifying options only
+   $(selector).inputmask("99-9999999");  //direct mask
+   $(selector).inputmask("mask", {"mask": "(999) 999-9999"}); //specifying fn & options
+   $(selector).inputmask({"mask": "99-9999999"}); //specifying options only
+   $(selector).inputmask("9-a{1,3}9{1,3}"); //direct mask with dynamic syntax 
 });
 ```
 
-or
+or via data-inputmask attribute
 
 ```html
 <input data-inputmask="'alias': 'date'" />
@@ -61,6 +62,20 @@ $(document).ready(function(){
 });
 ```
 
+Any option can also be passed through the use of a data attribute. Use data-inputmask-***the name op the option***="value"
+
+```html
+<input id="example1" data-inputmask-clearmaskonlostfocus="false" />
+<input id="example2" data-inputmask-regex="[a-za-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?" />
+```
+```javascript
+$(document).ready(function(){
+   $("#example1").inputmask("99-9999999");
+   $("#example2").inputmask("Regex");
+});
+```
+
+
 #### Default masking definitions
 
   - 9 : numeric
@@ -69,6 +84,98 @@ $(document).ready(function(){
 
 There are more definitions defined within the extensions.  
 You can find info within the js-files or by further exploring the options.
+
+## Masking types
+### Basic masks
+
+TODO
+
+### Optional masks
+
+TODO
+
+### Dynamic masks
+
+TODO
+
+### Multi masks
+
+TODO
+
+## Define custom definitions
+
+You can define your own definitions to use in your mask.  
+Start by choosing a masksymbol. 
+
+##### validator
+Next define your validator.  The validator can be a regular expression or a function.
+
+##### cardinality
+Cardinality specifies how many characters are represented and validated for the definition.
+
+##### prevalidator
+The prevalidator option is 
+used to validate the characters before the definition cardinality is reached. (see 'j' example)
+
+##### definitionSymbol
+When you insert or delete characters, they are only shifted when the definition type is the same.  This behavior can be overridden
+by giving a definitionSymbol. (see example x, y, z, which can be used for ip-address masking, the validation is different, but it is allowed to shift the characters between the definitions)
+
+```javascript
+$.extend($.inputmask.defaults.definitions, {
+    'f': {  //masksymbol
+        "validator": "[0-9\(\)\.\+/ ]",
+        "cardinality": 1,
+        'prevalidator': null
+    },
+	'g': {
+        "validator": function (chrs, buffer, pos, strict, opts) { 
+			//do some logic and return true, false, or { "pos": new position, "c": character to place }
+		}		
+        "cardinality": 1,
+        'prevalidator': null
+    },
+	'j': { //basic year
+            validator: "(19|20)\\d{2}",
+            cardinality: 4,
+            prevalidator: [
+                        { validator: "[12]", cardinality: 1 },
+                        { validator: "(19|20)", cardinality: 2 },
+                        { validator: "(19|20)\\d", cardinality: 3 }
+            ]
+     }, 
+	 'x': {
+        validator: "[0-2]",
+        cardinality: 1,
+        definitionSymbol: "i" //this allows shifting values from other definitions, with the same masksymbol or definitionSymbol
+     },
+     'y': {
+        validator: function (chrs, buffer, pos, strict, opts) {
+                        var valExp2 = new RegExp("2[0-5]|[01][0-9]");
+                        return valExp2.test(buffer[pos - 1] + chrs);
+                    },
+        cardinality: 1,
+        definitionSymbol: "i"
+     },
+     'z': {
+        validator: function (chrs, buffer, pos, strict, opts) {
+                       var valExp3 = new RegExp("25[0-5]|2[0-4][0-9]|[01][0-9][0-9]");
+                        return valExp3.test(buffer[pos - 2] + buffer[pos - 1] + chrs);
+        },
+        cardinality: 1,
+        definitionSymbol: "i"
+      }
+});
+```
+
+### set defaults
+
+```javascript
+$.extend($.inputmask.defaults, {
+    'autoUnmask': true
+});
+```
+
 
 ## Options:
 
@@ -167,80 +274,6 @@ $(document).ready(function(){
 
 	var tbDate = document.getElementById("<%= tbDate.ClientID%>");
     alert(tbDate.value);	// shows 23031973     (autoUnmask: true)
-});
-```
-
-### add custom definitions
-
-You can define your own definitions to use in your mask.  
-Start by choosing a masksymbol. 
-
-##### validator
-Next define your validator.  The validator can be a regular expression or a function.
-
-##### cardinality
-Cardinality specifies how many characters are represented and validated for the definition.
-
-##### prevalidator
-The prevalidator option is 
-used to validate the characters before the definition cardinality is reached. (see 'j' example)
-
-##### definitionSymbol
-When you insert or delete characters, they are only shifted when the definition type is the same.  This behavior can be overridden
-by giving a definitionSymbol. (see example x, y, z, which can be used for ip-address masking, the validation is different, but it is allowed to shift the characters between the definitions)
-
-```javascript
-$.extend($.inputmask.defaults.definitions, {
-    'f': {  //masksymbol
-        "validator": "[0-9\(\)\.\+/ ]",
-        "cardinality": 1,
-        'prevalidator': null
-    },
-	'g': {
-        "validator": function (chrs, buffer, pos, strict, opts) { 
-			//do some logic and return true, false, or { "pos": new position, "c": character to place }
-		}		
-        "cardinality": 1,
-        'prevalidator': null
-    },
-	'j': { //basic year
-            validator: "(19|20)\\d{2}",
-            cardinality: 4,
-            prevalidator: [
-                        { validator: "[12]", cardinality: 1 },
-                        { validator: "(19|20)", cardinality: 2 },
-                        { validator: "(19|20)\\d", cardinality: 3 }
-            ]
-     }, 
-	 'x': {
-        validator: "[0-2]",
-        cardinality: 1,
-        definitionSymbol: "i" //this allows shifting values from other definitions, with the same masksymbol or definitionSymbol
-     },
-     'y': {
-        validator: function (chrs, buffer, pos, strict, opts) {
-                        var valExp2 = new RegExp("2[0-5]|[01][0-9]");
-                        return valExp2.test(buffer[pos - 1] + chrs);
-                    },
-        cardinality: 1,
-        definitionSymbol: "i"
-     },
-     'z': {
-        validator: function (chrs, buffer, pos, strict, opts) {
-                       var valExp3 = new RegExp("25[0-5]|2[0-4][0-9]|[01][0-9][0-9]");
-                        return valExp3.test(buffer[pos - 2] + buffer[pos - 1] + chrs);
-        },
-        cardinality: 1,
-        definitionSymbol: "i"
-      }
-});
-```
-
-### set defaults
-
-```javascript
-$.extend($.inputmask.defaults, {
-    'autoUnmask': true
 });
 ```
 
@@ -474,6 +507,22 @@ $(document).ready(function(){
 });
 ```
 
+### onBeforeMask
+
+This callback allows for preprocessing the initial value before actually handling the value for masking.  This can be usefull for stripping away some characters before processing.
+
+```javascript
+$(document).ready(function(){
+   $("#test").inputmask("99.", {
+                repeat: 4,
+                onBeforeMask: function (initialValue) {
+                    //do somehing with the value
+                    return initialValue;
+                }
+            });
+});
+```
+
 ### hasMaskedValue
 
 Check whether the returned value is masked or not; currently only works reliably when using jquery.val fn to retrieve the value 
@@ -542,6 +591,18 @@ Show the current mask definition as a tooltip.
   $(selector).inputmask({ mask: ["999-999-9999 [x99999]", "+099 99 99 9999[9]-9999"], showTooltip: true });
 ```
 
+## Function overrides
+### isComplete
+With this call-in you can override the default implementation of the isComplete function.  
+
+```javascript
+$("selector).inputmask("Regex", { 
+	regex: "[0-9]*", 
+	isComplete: function(buffer, opts) {
+		return new RegExp(opts.regex).test(buffer.join(''));
+	}
+});
+```
 
 ## Supported markup options
 ### RTL attribute
@@ -587,6 +648,14 @@ Think of formatting values to show in jqGrid or on other elements then inputs.
 
 ```javascript
 var formattedDate = $.inputmask.format("2331973", { alias: "dd/mm/yyyy"});
+```
+
+## Value validating
+
+Validate a given value against the mask.
+
+```javascript
+var isValid = $.inputmask.isValid("23/03/1973", { alias: "dd/mm/yyyy"});
 ```
 
 ## Compiling with Google Closure Compiler

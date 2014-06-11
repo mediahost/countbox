@@ -9,7 +9,7 @@ jsTree can display trees by parsing HTML or JSON and supports AJAX, it is themea
 
 Download or checkout the latest copy and include the scripts and styles in your web page. Then create an instance (in this case using the inline HTML).
 
-```
+```html
 <link rel="stylesheet" href="dist/themes/default/style.min.css" />
 <script src="dist/libs/jquery.js"></script>
 <script src="dist/jstree.min.js"></script>
@@ -31,7 +31,7 @@ $(function() {
 
 Listen for changes on the tree using events:
 
-```
+```html
 <script>
 $(function () {
   $('#container').on('changed.jstree', function (e, data) {
@@ -43,7 +43,7 @@ $(function () {
 
 And interact with the tree:
 
-```
+```html
 <script>
 $(function () {
 	$('#container').jstree(true).select_node('child_node');
@@ -56,7 +56,7 @@ For a complete list of configuration options, events and available functions ref
 [demo]: http://jstree.com/demo
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
 
 _Please do NOT edit files in the "dist" subdirectory as they are generated via grunt. You'll find source code in the "src" subdirectory!_
 

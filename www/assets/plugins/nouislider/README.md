@@ -1,32 +1,37 @@
 # noUiSlider
-_Current version: 4.0.2_
 
-noUiSlider is a super tiny jQuery plugin that allows you to create range sliders.  
-It fully supports touch, and it is way(!) less bloated than the jQueryUI library.
+noUiSlider is lightweight plugin, developed to be a jQuery UI alternative. It features cross-browser support, a `just-another-input-type` style of getting and setting values, a wide range of options and support for a bunch of touch devices. It works wonders on Android phones, iPhone & iPad, Windows phone and touch-screen laptops and tablets. It works excellent on the desktop too; All modern browsers and IE7+ are supported. The end result? A lean, extendible and bloat-less plugin that'll just do its job. To add even more flexibility, noUiSlider is compatible with both jQuery and Zepto.js. Oh, and the licensing terms are simple: [just do what you want](http://refreshless.com/nouislider/terms-of-use).
 
-A full documentation, including examples, is available on the [noUiSlider documentation page](http://refreshless.com/nouislider/).
+Documentation
+-------
+
+An extensive documentation, including **examples**, **options** and **configuration details**, is available here: [noUiSlider documentation](http://refreshless.com/nouislider/).
 
 Changes
 -------
 
-**Changelog for version 4.0.2:**  
-_[current patch release]_
-+ Fixed some minor CSS issues in the default theme
-+ The slider will no longer force an arbitrary width or height
-+ Changed source to comply to more JsLint suggestions
-+ Removed compressed versions from the tracking system.  They'll still be produced and provided, but they'll only be bundled in the [Github Releases Feature](https://github.com/blog/1547-release-your-software).
-+ Some very small changes to internal input testing
+**Changelog for version 6.1.0:**
+**Compatible with 6.0.0**
 
-**Changelog for version 4:**  
-_[current major release]_
++ Split out value methods into [$.classVal](https://github.com/leongersen/classVal). This is **included** in the release download.
++ `$.noUiSlider.Link` is now an alias to `$.Link`. The Link functionality has been moved into a new file. (also in the download).
++ Several bug fixes.
++ Added `to` and `from` to [number formatting](http://refreshless.com/nouislider/number-formatting)
 
-+ Massive update overhauling the entire code style
-+ Better styling possibilities
-+ Brand new Flat theme
-+ Windows Phone 8 support
-+ Performance improvements
-+ New way of handling disabled sliders
-+ Internal option testing provides feedback on issues
+**Changelog for version 6.0.0:**
+
+**Please note:** noUiSlider 6 is a *major* revision, which means it isn't compatible with version 5. Your stylesheet will keep working, but the JavaScript API has changed, and your current implementation will no longer work.
+
++ Added optional **non-linear** ranges, including stepping.
++ Added new behaviour settings.
++ Added object-oriented serialization.
++ Change events to use jQuery's/Zepto's `.on` and `.off`.
++ Removed `block` event.
+
+Unit Testing
+------------
+
+Unit tests where added with noUiSlider 6. The event testing coverage isn't 100% yet, but coverage of the `Link` is extensive. More tests will be added eventually.
 
 Version numbering
 ------------------------------
@@ -36,32 +41,16 @@ You'll find an excellent documentation at [Semver.org](http://semver.org/).
 Compression and Error checking
 ------------------------------
 **CSS** ([CSSMinifier](http://cssminifier.com/))  
-The stylesheet is trimmed of whitespace and comments to provide a `min` version.
+The stylesheet is trimmed to remove whitespace and comments to provide a `min` version.
 
 **JS** ([Google Closure Compiler](http://closure-compiler.appspot.com/home))  
-The plugin is compressed using the Google Closure compiler, using the 'simple' optimization option.  
-
+The plugin is compressed using the Google Closure compiler. The source was adapted to facilitate the `ADVANCED_OPTIMIZATIONS` level.
 
 **Code** ([JsLint](http://jslint.com/))  
-The plugin code is checked using JsLint, with the following options:
-```
-browser: true
-devel: true
-plusplus: true
-unparam: true
-sloppy: true
-white: true
-```
-
-Please note that while some errors remain without these options, they are merely differences in coding style. Using `++` for example, is in my opinion very clear in a `for` loop. Some jQuery methods offer callbacks noUiSlider doesn't require, thus requiring `unparam`, and the `devel` option is required for the `console` statements.  The `sloppy` option refers to a missing `"use strict"` statement, which isn't included for lack of testing.  
+The plugin code is checked using JsLint. Any remaining errors and warnings are intentional.
 
 Known issues
 ------------
-There are some minor issues remaining in noUiSlider 4. It is a priority to fix these issues.
+There are some minor issues remaining in noUiSlider. It is a priority to fix these issues, but they may be fixed by browser updates in the future.
 
-+ Firefox will prefer scrolling to dragging the slider on touch events. The `preventDefault()` call that prevents this in other browser seems to fail here.
-+ In IE10, tapping the slider to move it will fail in with these conditions:
-    + The paged is zoomed;
-	+ The slider uses the `orientation: vertical` option
-	+ The page is scrolled, so that `scrollTop` > 0  
-	This issue affects both IE10 in Windows 8 and Windows Phone 8.
++ Firefox and Safari on Windows will emulate mouse-events on touch screens, but prefer scrolling to dragging the slider.

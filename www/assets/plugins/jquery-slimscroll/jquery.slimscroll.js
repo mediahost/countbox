@@ -2,6 +2,7 @@
  * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
  * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
  *
+ * Improved by keenthemes for Metronic Theme
  * Version: 1.3.2
  *
  */
@@ -76,7 +77,10 @@
         borderRadius: '7px',
 
         // sets border radius of the rail
-        railBorderRadius : '7px'
+        railBorderRadius : '7px',
+
+        // sets animation status on a given scroll(added my keenthemes)
+        animate: true,
       };
 
       var o = $.extend(defaults, options);
@@ -92,6 +96,10 @@
 
         // used in event handlers and for better minification
         var me = $(this);
+
+        //begin: windows phone fix added by keenthemes
+        me.css("-ms-touch-action", "none");
+        //end: windows phone fix added by keenthemes
 
         // ensure we are not binding it again
         if (me.parent().hasClass(o.wrapperClass))
@@ -233,6 +241,25 @@
           });
         }
 
+        //begin: windows phone fix added by keenthemes
+        if (window.navigator.msPointerEnabled) {
+          me.bind('MSPointerDown', function(e,b){
+                // record where touch started
+                touchDif = e.originalEvent.pageY;
+          });
+
+          me.bind('MSPointerMove', function(e){
+              // prevent scrolling the page if necessary
+              e.originalEvent.preventDefault();
+              // see how far user swiped
+              var diff = (touchDif - e.originalEvent.pageY) / o.touchScrollStep;
+              // scroll content
+              scrollContent(diff, true);
+              touchDif = e.originalEvent.pageY;
+          });
+      }
+      //end: windows phone fix added by keenthemes
+
         // on rail over
         rail.hover(function(){
           showBar();
@@ -270,8 +297,8 @@
           // prevent scrolling the page if necessary
           if(!releaseScroll)
           {
-  		      e.originalEvent.preventDefault();
-		      }
+            e.originalEvent.preventDefault();
+          }
           if (e.originalEvent.touches.length)
           {
             // see how far user swiped
@@ -363,16 +390,21 @@
           }
 
           // scroll content
-          me.scrollTop(delta);
+          if ('scrollTo' in o && o.animate){
+                me.animate({ scrollTop: delta });
+          } else {
+                me.scrollTop(delta);
+          }
 
           // fire scrolling event
-          me.trigger('slimscrolling', ~~delta);
+                  me.trigger('slimscrolling', ~~delta);
 
-          // ensure bar is visible
-          showBar();
+                  // ensure bar is visible
+                  showBar();
 
-          // trigger hide when scroll is stopped
-          hideBar();
+                  // trigger hide when scroll is stopped
+                  hideBar();
+          
         }
 
         function attachWheel()

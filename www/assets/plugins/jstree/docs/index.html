@@ -138,7 +138,7 @@
 							<li>
 								<h4 class="list-group-item-heading">Setup a container</h4>
 								<p class="list-group-item-text">This is the element where you want the tree to appear, a <code>&lt;div&gt;</code> is enough. This example has a nested <code>&lt;ul&gt;</code> as there is no other data source configured (such as JSON).</p>
-								<pre style="margin-top:1em;"><code>  &lt;div <strong>id="jstree_demo_div"</strong>&gt;&lt;div&gt;</code></pre>
+								<pre style="margin-top:1em;"><code>  &lt;div <strong>id="jstree_demo_div"</strong>&gt;&lt;/div&gt;</code></pre>
 							</li>
 							<li>
 								<h4 class="list-group-item-heading">Include jQuery</h4>
@@ -153,7 +153,7 @@
 							<li>
 								<h4 class="list-group-item-heading">Create an instance</h4>
 								<p class="list-group-item-text">Once the DOM is ready you can start creating jstree instances.</p>
-								<pre style="margin-top:1em;"><code>$(function () { <strong>$('#jstree_demo_div').jstree();</strong> }</code></pre>
+								<pre style="margin-top:1em;"><code>$(function () { <strong>$('#jstree_demo_div').jstree();</strong> });</code></pre>
 							</li>
 							<li>
 								<h4 class="list-group-item-heading">Listen for events</h4>
@@ -434,7 +434,6 @@ $('#jstree').jstree();</code></pre>
       'data' : function (node) {
         return { 'id' : node.id };
       }
-      return { 'id' : node.id };
     }
   }
 });
@@ -591,7 +590,7 @@ $('#jstree').jstree();</code></pre>
 							       { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
 							       { "id" : "ajson2", "parent" : "#", "text" : "Root node 2", "state" : { "opened" : true } },
 							       { "id" : "ajson3", "parent" : "ajson2", "text" : "Child 1" },
-							       { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" },
+							       { "id" : "ajson4", "parent" : "ajson2", "text" : "Child 2" }
 							    ]
 							} });
 						});</script>
@@ -794,6 +793,7 @@ $.jstree.reference('#jstree')
 		<!--..-->
 		<div class="row page" id="demo">
 			<div class="col-md-12">
+				<h3>Basic AJAX demo</h3>
 				<div class="row">
 					<div class="col-md-4 col-sm-8 col-xs-8">
 						<button type="button" class="btn btn-success btn-sm" onclick="demo_create();"><i class="glyphicon glyphicon-asterisk"></i> Create</button>
@@ -805,8 +805,8 @@ $.jstree.reference('#jstree')
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
-						<div id="jstree_demo" class="demo" style="margin-top:1em; min-height:400px;"></div>
+					<div class="col-md-12">
+						<div id="jstree_demo" class="demo" style="margin-top:1em; min-height:200px;"></div>
 						<script>
 						function demo_create() {
 							var ref = $('#jstree_demo').jstree(true),
@@ -867,8 +867,11 @@ $.jstree.reference('#jstree')
 						});
 						</script>
 					</div>
-					<div class="col-md-6">
-						<pre style="margin-top:1em;"><code>$('#jstree_demo').jstree({
+					<div class="col-md-12">
+						<p style="text-align:center; padding-top:1em;">
+							<button class="btn btn-info" onclick="$(this).blur().parent().next().slideToggle(); return false;">show the complete code</button>
+						</p>
+						<pre style="margin-top:1em; display:none;"><code>$('#jstree_demo').jstree({
   "core" : {
     "animation" : 0,
     "check_callback" : true,
@@ -908,9 +911,21 @@ $.jstree.reference('#jstree')
 });</code></pre>
 					</div>
 				</div>
-				<div class="row" style="display:none;">
+				<div class="row" style="margin-top:2em;">
 					<div class="col-md-12">
-						<p style="text-align:center; margin-top:2em;"><a href="http://jsfiddle.net/vakata/3khw3/">This demo is available as a jsFiddle &raquo;</a></p>
+						<div class="alert alert-block alert-info" style="text-align:center;">You can see the code of the following demos in the <code>demo</code> folder of the download</div>
+					</div>
+				</div>
+				<div class="row" style="margin-top:2em;">
+					<div class="col-md-12">
+						<h3>Filebrowser demo</h3>
+						<iframe src="./../demo/filebrowser/index.php" style="border:0; display:block; height:450px; width:100%; border-radius:5px; box-shadow:0 0 5px #CCCCCC; padding:10px;" frameborder="0"></iframe>
+					</div>
+				</div>
+				<div class="row" style="margin-top:2em;">
+					<div class="col-md-12">
+						<h3>Database demo</h3>
+						<iframe src="./../demo/sitebrowser/index.php" style="border:0; display:block; height:450px; width:100%; border-radius:5px; box-shadow:0 0 5px #CCCCCC; padding:10px;" frameborder="0"></iframe>
 					</div>
 				</div>
 			</div>
@@ -919,8 +934,8 @@ $.jstree.reference('#jstree')
 		<div class="row page" id="api">
 			<div class="col-md-12">
 				<div id="api_inner" style="">
-					<div id="no_res" style="text-align:center;"><h4 style="font-size:1.1em; font-weight:bold;">Sorry, no results found.</h4><button class="btn btn-link" onclick="$('#srch').val('').keyup();">clear this search</button></div>
-					<div id="cl_src" style="text-align:center;"><h4 style="font-size:1.1em; font-weight:bold;">This is a filtered view.</h4><button class="btn btn-link" onclick="$('#srch').val('').keyup();">clear this search</button></div>
+					<div id="no_res" style="text-align:center; display:none;"><h4 style="font-size:1.1em; font-weight:bold;">Sorry, no results found.</h4><button class="btn btn-link" onclick="$('#srch').val('').keyup();">clear this search</button></div>
+					<div id="cl_src" style="text-align:center; display:none;"><h4 style="font-size:1.1em; font-weight:bold;">This is a filtered view.</h4><button class="btn btn-link" onclick="$('#srch').val('').keyup();">clear this search</button></div>
 				</div>
 			</div>
 		</div>
