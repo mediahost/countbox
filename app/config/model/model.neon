@@ -1,2 +1,3 @@
 services:
     - App\Model\Facade\BookFacade(@doctrine.dao(App\Model\Entity\Book))
+    - App\Model\Facade\AuthorFacade(@doctrine.dao(App\Model\Entity\Author))

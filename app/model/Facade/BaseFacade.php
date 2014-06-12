@@ -4,6 +4,7 @@ namespace App\Model\Facade;
 
 abstract class BaseFacade extends \Nette\Object
 {
+
     /** @var \Kdyby\Doctrine\EntityDao */
     protected $dao;
 
@@ -12,18 +13,19 @@ abstract class BaseFacade extends \Nette\Object
         $this->dao = $dao;
     }
 
-    public function findById($id)
+    public function find($id)
     {
         return $this->dao->findOneBy(array('id' => $id));
     }
-    
-    public function save(\Kdyby\Doctrine\Entities\IdentifiedEntity $article)
+
+    public function save(\Kdyby\Doctrine\Entities\IdentifiedEntity $entity)
     {
-        return $this->dao->save($article);
+        return $this->dao->save($entity);
     }
-    
+
     public function findAll()
     {
         return $this->dao->findAll();
     }
+
 }

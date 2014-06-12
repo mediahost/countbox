@@ -2,7 +2,7 @@
 
 namespace App\Model\Facade;
 
-class BookFacade extends BaseFacade
+class AuthorFacade extends BaseFacade
 {
     
 }

@@ -20,4 +20,15 @@ class Author extends \Kdyby\Doctrine\Entities\IdentifiedEntity
      * @ORM\Column(type="string", length=128)
      */
     protected $surname;
+
+    public function setFirstname($value)
+    {
+        $this->firstname = $value;
+    }
+
+    public function setSurname($value)
+    {
+        $this->surname = $value;
+    }
+
 }
