@@ -2,7 +2,8 @@
 
 namespace App\FrontModule\Presenters;
 
-use Nette;
+use Nette,
+    Tracy\Debugger as Debug;
 
 /**
  * Sign in/out presenters.
@@ -10,24 +11,14 @@ use Nette;
 class SignPresenter extends BasePresenter
 {
 
-    /**
-     * Sign-in form factory.
-     * @return Nette\Application\UI\Form
-     */
-    protected function createComponentSignInForm()
+    /** @var \App\Forms\SignInFormFactory @inject */
+    public $sinInFormFactory;
+
+// <editor-fold defaultstate="collapsed" desc="Forms">
+
+    public function createComponentSignInForm()
     {
-        $form = new Nette\Application\UI\Form;
-        $form->addText('username', 'Username:')
-                ->setRequired('Please enter your username.');
-
-        $form->addPassword('password', 'Password:')
-                ->setRequired('Please enter your password.');
-
-        $form->addCheckbox('remember', 'Keep me signed in');
-
-        $form->addSubmit('send', 'Sign in');
-
-        // call method signInFormSucceeded() on success
+        $form = $this->sinInFormFactory->create();
         $form->onSuccess[] = $this->signInFormSucceeded;
         return $form;
     }
@@ -42,7 +33,7 @@ class SignPresenter extends BasePresenter
 
         try {
             $this->getUser()->login($values->username, $values->password);
-            $this->redirect('Homepage:');
+            $this->redirect(':Admin:Dashboard:');
         } catch (Nette\Security\AuthenticationException $e) {
             $form->addError($e->getMessage());
         }

@@ -4,6 +4,8 @@ extensions:
 services:
     cssUrlFilter: WebLoader\Filter\CssUrlsFilter(%wwwDir%)
     cssUrlReplacerAssets: WebLoader\Filter\CssUrlReplacerFilter(["../img/", "../../img/"], "../assets/img/")
+    cssUrlReplacerUniform: WebLoader\Filter\CssUrlReplacerFilter(["../images/"], "../assets/img/uniform/")
+    cssUrlReplacerSelect2: WebLoader\Filter\CssUrlReplacerFilter(["select2"], "../assets/img/select2/select2")
     lessFilter: WebLoader\Filter\LessFilter
     cssMinFilter: WebLoader\Filter\CssMinFilter
     varFilter: WebLoader\Filter\VariablesFilter([basePath=@urlScript::getBasePath()])
@@ -13,6 +15,15 @@ webloader:
         front:
             files:
                 - {files: ["*.less"], from: %wwwDir%/less/front/includes}
+            filters:
+                - @cssUrlFilter
+                - @cssMinFilter
+            fileFilters:
+                - @lessFilter
+
+        admin:
+            files:
+                - {files: ["*.less"], from: %wwwDir%/less/admin/includes}
             filters:
                 - @cssUrlFilter
                 - @cssMinFilter
@@ -30,6 +41,7 @@ webloader:
             filters:
                 - @cssUrlFilter
                 - @cssMinFilter
+                - @cssUrlReplacerUniform
             fileFilters:
                 - @lessFilter
 
@@ -38,9 +50,11 @@ webloader:
                 - ../assets/plugins/bootstrap-datepicker/build/build.less
                 - ../assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css
                 - ../assets/plugins/bootstrap-switch/css/bootstrap-switch.min.css
+                - ../assets/plugins/select2/select2.css
             filters:
                 - @cssUrlFilter
                 - @cssMinFilter
+                - @cssUrlReplacerSelect2
             fileFilters:
                 - @lessFilter
 
@@ -74,6 +88,7 @@ webloader:
                 - ../assets/scripts/custom/components-pickers.js
                 - ../assets/scripts/custom/html-editors.js
                 - ../assets/scripts/custom/components-form-tools.js
+                - ../assets/scripts/custom/login.js
                 - ../assets/scripts/init.js
             filters:
                 - @varFilter
@@ -87,6 +102,8 @@ webloader:
                 - ../assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js
                 - ../assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js
                 - ../assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js
+                - ../assets/plugins/jquery-validation/js/jquery.validate.min.js
+                - ../assets/plugins/select2/select2.min.js
         metronicCore:
             files:
                 - ../assets/plugins/jquery-1.11.0.min.js

@@ -1,4 +1,144 @@
-{block content}
-<h1>Sign in</h1>
+{layout none}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="{$lang}" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="{$lang}" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="{$lang}"> <!--<![endif]-->
 
-{control signInForm}
+    <!-- BEGIN HEAD -->
+    <head>
+        <title>{block title|striptags}Countbox{/block}</title>
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta name="robots" content="noindex,nofollow">
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->         
+        {control cssMetronicCore}
+        <!-- END GLOBAL MANDATORY STYLES -->
+
+        <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->        
+        {control cssMetronicPlugin}
+        <!-- END PAGE LEVEL PLUGIN STYLES -->
+
+        <!-- BEGIN THEME STYLES -->       
+        {control cssMetronicTheme}
+        <!-- END THEME STYLES -->
+
+        {control cssAdmin}
+        {control cssPrint}
+
+        <link href="{$basePath}/favicon.ico" rel="shortcut icon">
+
+        {block head}{/block}
+    </head>
+    <!-- END HEAD -->
+
+    <!-- BEGIN BODY -->
+    <body class="login">
+        <script> document.documentElement.className += ' js'</script>
+
+        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+        <!-- BEGIN LOGO -->
+        <div class="logo">
+            <a n:href="Homepage:">
+                <img src="{$basePath}/assets/img/logo-big.png" alt=""/>
+            </a>
+        </div>
+        <!-- END LOGO -->
+        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        <div class="menu-toggler sidebar-toggler">
+        </div>
+        <!-- END SIDEBAR TOGGLER BUTTON -->
+
+        <!-- BEGIN LOGIN -->
+        <div class="content">
+            <!-- BEGIN LOGIN FORM -->
+
+            {form signInForm, class=>'login-form'}
+                <h3 class="form-title">Login to your account</h3>
+                <div class="alert alert-danger" n:if="$form->ownErrors">
+                    <button class="close" data-close="alert"></button>
+                    {foreach $form->ownErrors as $error}
+                    <span>{$error}</span><br n:if="!$iterator->isLast()"/>
+                    {/foreach}
+                </div>
+
+                <div class="form-group">
+                    {label username, class=>'control-label visible-ie8 visible-ie9' /}
+                    <div class="input-icon">
+                        <i class="fa fa-user"></i>
+                        {input username, class=>'form-control placeholder-no-fix'}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {label password, class=>'control-label visible-ie8 visible-ie9' /}
+                    <div class="input-icon">
+                        <i class="fa fa-lock"></i>
+                        {input password, class=>'form-control placeholder-no-fix'}
+                    </div>
+                </div>
+                <div class="form-actions">
+                    {input remember}
+                    {button _submit, class=>"btn green pull-right"}
+                    {caption}
+                    <i class="m-icon-swapright m-icon-white"></i>
+                    {/button}
+                </div>
+
+                <div class="login-options">
+                    <h4>Or login with</h4>
+                    <ul class="social-icons">
+                        <li>
+                            <a class="facebook" data-original-title="facebook" n:href="this">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="twitter" data-original-title="Twitter" n:href="this">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="googleplus" data-original-title="Goole Plus" n:href="this">
+                            </a>
+                        </li>
+                        <li>
+                            <a class="linkedin" data-original-title="Linkedin" n:href="this">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            {/form}
+            <!-- END LOGIN FORM  -->
+        </div>
+            <!-- END LOGIN -->
+            <!-- BEGIN COPYRIGHT -->
+            <div class="copyright">
+                2014 &copy; Countbox by Mediahost.
+            </div>
+            <!-- END COPYRIGHT -->
+
+            {block scripts}
+            <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+            <!-- BEGIN CORE PLUGINS -->
+            <!--[if lt IE 9]>
+            {control jsMetronicCoreIE9}
+            <![endif]-->
+            {control jsMetronicCore}
+            <!-- END CORE PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL PLUGINS -->
+            {control jsMetronicPlugins}
+            {control jsAppPlugins}
+            <!-- END PAGE LEVEL PLUGINS -->
+
+            <!-- BEGIN PAGE LEVEL SCRIPTS -->
+            {control jsApp}
+            <!-- END PAGE LEVEL SCRIPTS -->
+            <!-- END JAVASCRIPTS -->
+
+            {/block}
+    </body>
+</html>

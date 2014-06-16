@@ -10,6 +10,9 @@ use Nette;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
+    /** @var \Venne\Bridges\Kdyby\DoctrineForms\FormFactoryFactory @inject */
+    public $formFactoryFactory;
+
     /** @var \WebLoader\LoaderFactory @inject */
     public $webLoader;
 
@@ -31,6 +34,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->lang = $this->lang;
 
         $this->_setModuleTemplate();
+    }
+    
+    protected function isAllowed($resource = Nette\Security\IAuthorizator::ALL, $privilege = Nette\Security\IAuthorizator::ALL)
+    {
+        return $this->getUser()->isAllowed($resource, $privilege);
     }
 
 // <editor-fold defaultstate="collapsed" desc="lang">
@@ -70,6 +78,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function createComponentCssFront()
     {
         $css = $this->webLoader->createCssLoader('front')
+                ->setMedia('screen,projection,tv');
+        return $css;
+    }
+
+    /** @return CssLoader */
+    protected function createComponentCssAdmin()
+    {
+        $css = $this->webLoader->createCssLoader('admin')
                 ->setMedia('screen,projection,tv');
         return $css;
     }

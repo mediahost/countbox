@@ -34,8 +34,9 @@ class Permission extends \Nette\Security\Permission
     private function setResources()
     {
         $this->addResource('front');
+        $this->addResource('dashboard');
         
-        $this->addResource('tasks'); 
+        $this->addResource('tasks');
         $this->addResource('comments'); 
         $this->addResource('projects'); 
 
@@ -57,6 +58,8 @@ class Permission extends \Nette\Security\Permission
         $this->deny('guest');
 
         $this->allow('guest', 'front');
+        
+        $this->allow('client', 'dashboard', 'view');
         
         $this->allow('client', 'tasks', 'view-own');
         $this->allow('client', 'comments', 'view');

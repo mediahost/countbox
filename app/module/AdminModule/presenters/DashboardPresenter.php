@@ -20,14 +20,13 @@ class DashboardPresenter extends BasePresenter
     /** @var \App\Forms\AuthorFormFactory @inject */
     public $authorFormFactory;
     
-    /** @var \Venne\Bridges\Kdyby\DoctrineForms\FormFactoryFactory @inject */
-    public $formFactoryFactory;
-    
     /** @var App\Model\Entity\Author */
     private $author;
 
     public function actionDefault()
     {
+        $this->isAllowed("dashboard", "view");
+        
         $bookFacade = $this->bookFacade;
         $authorFacade = $this->authorFacade;
 
