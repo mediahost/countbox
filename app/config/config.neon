@@ -28,9 +28,15 @@ nette:
 	session:
 		expiration: 14 days
 
+	debugger:
+		email: "pupe.dupe@gmail.com"
+
 
 services:
+	authenticator: App\Model\Authenticator\UserAuthenticator
+
 	- App\RouterFactory
 	router: @App\RouterFactory::createRouter
+
 	urlScript:
 		factory: @httpRequest::getUrl()

@@ -2,14 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Modules demo</title>
+        <title>{ifset #title}{include title|striptags} | {/ifset}Nette Sandbox</title>
     </head>
 
     <body>
-        <h1>Modules demo</h1>
-        <ul>
-            <li><a n:href=":Front:Homepage:"><code>:Front:Homepage:</code></a> - link to presenter <code>Front:Homepage</code></li>
-            <li><a n:href=":Admin:Dashboard:"><code>:Admin:Dashboard:</code></a> - link to presenter <code>Admin:Dashboard</code></li>
-        </ul>
+
+        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>        
+
+        {include content}
+        
     </body>
 </html>
