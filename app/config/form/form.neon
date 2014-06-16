@@ -1,0 +1,20 @@
+services:
+
+    - Kdyby\DoctrineForms\EntityFormMapper
+    - Venne\Bridges\Kdyby\DoctrineForms\FormFactoryFactory
+
+    metronicRenderer:
+        class: \App\Forms\Renderers\MetronicFormRenderer
+        arguments: [3, 9]
+
+    metronicFormFactory:
+        class: App\Forms\Form
+        arguments: [NULL, NULL]
+        implement: App\Forms\IFormFactory
+        autowired: no
+        setup:
+            - setRenderer(@metronicRenderer)
+
+
+    fooFormFactory:
+        class: App\Forms\AuthorFormFactory(@metronicFormFactory)

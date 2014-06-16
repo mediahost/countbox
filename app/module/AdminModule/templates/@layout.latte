@@ -3,9 +3,10 @@
 <!--[if IE 9]> <html lang="{$lang}" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="{$lang}"> <!--<![endif]-->
 
+    <!-- BEGIN HEAD -->
     <head>
         <title>{block title|striptags}Countbox{/block}</title>
-        
+
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -24,26 +25,28 @@
         <!-- BEGIN THEME STYLES -->       
         {control cssMetronicTheme}
         <!-- END THEME STYLES -->
-        
+
         {control cssPrint}
 
         <link href="{$basePath}/favicon.ico" rel="shortcut icon">
-        
+
         {block head}{/block}
     </head>
-
+    <!-- END HEAD -->
+    
+    <!-- BEGIN BODY -->
     <body class="page-header-fixed">
         <script> document.documentElement.className += ' js'</script>
 
         <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
         {include 'header.latte'}
-        
+
         <!-- BEGIN CONTAINER -->
         <div class="page-container">
-            
+
             {include 'sidebar.latte'}
-            
+
             <!-- BEGIN CONTENT -->
             <div class="page-content-wrapper">
                 <!-- BEGIN PAGE -->
@@ -58,7 +61,7 @@
                                 <small>accounting system</small>
                                 {/block}
                             </h3>
-  
+
                             <ul class="page-breadcrumb breadcrumb" n:block="breadcrumb">
                                 {block breadcrumbItems}
                                 <li>
@@ -67,7 +70,7 @@
                                     <span class="fa fa-angle-right"></span>
                                 </li>
                                 <li><a n:href="this">Dashboard</a></li>
-                                {/block}
+                                    {/block}
                             </ul>
                             <!-- END PAGE TITLE & BREADCRUMB--> 
                         </div>
@@ -82,12 +85,12 @@
                 <!-- END PAGE -->
             </div>
             <!-- END CONTENT -->
-        
+
         </div>
         <!-- END CONTAINER -->
-        
+
         {include 'footer.latte'}
-        
+
         {block scripts}
         <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
         <!-- BEGIN CORE PLUGINS -->
@@ -96,17 +99,17 @@
         <![endif]-->
         {control jsMetronicCore}
         <!-- END CORE PLUGINS -->
-        
+
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         {control jsMetronicPlugins}
         {control jsAppPlugins}
         <!-- END PAGE LEVEL PLUGINS -->
-        
+
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
         {control jsApp}
         <!-- END PAGE LEVEL SCRIPTS -->
         <!-- END JAVASCRIPTS -->
-        
+
         {/block}
     </body>
 </html>

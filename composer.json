@@ -20,6 +20,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/mediahost/WebLoader.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mediahost/forms.git"
         }
     ],
     "require": {
@@ -27,6 +31,8 @@
         "nette/nette": "~2.2.0",
         "dg/adminer-custom": "@dev",
         "kdyby/doctrine": "1.*",
+        "kdyby/validator": "@dev",
+        "kdyby/doctrine-forms": "@dev",
         "janmarek/webloader": "@dev",
         "natxet/CssMin": "dev-master",
         "rm/header": "dev-master",

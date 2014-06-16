@@ -1,7 +1,10 @@
-jQuery(document).ready(function() {
+var basePath = '{{$basePath}}';
+
+jQuery(document).ready(function() {    
     Metronic.init(); // init metronic core componets
     Layout.init(); // init layout
-    QuickSidebar.init() // init quick sidebar
 
     ComponentsPickers.init();
+    HtmlEditors.init();
+    ComponentsFormTools.init();
 });

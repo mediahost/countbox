@@ -6,6 +6,7 @@ services:
     cssUrlReplacerAssets: WebLoader\Filter\CssUrlReplacerFilter(["../img/", "../../img/"], "../assets/img/")
     lessFilter: WebLoader\Filter\LessFilter
     cssMinFilter: WebLoader\Filter\CssMinFilter
+    varFilter: WebLoader\Filter\VariablesFilter([basePath=@urlScript::getBasePath()])
 
 webloader:
     css:
@@ -35,6 +36,8 @@ webloader:
         metronicPlugin:
             files:
                 - ../assets/plugins/bootstrap-datepicker/build/build.less
+                - ../assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css
+                - ../assets/plugins/bootstrap-switch/css/bootstrap-switch.min.css
             filters:
                 - @cssUrlFilter
                 - @cssMinFilter
@@ -69,13 +72,21 @@ webloader:
                 - ../assets/scripts/layout.js
                 - ../assets/scripts/quick-sidebar.js
                 - ../assets/scripts/custom/components-pickers.js
+                - ../assets/scripts/custom/html-editors.js
+                - ../assets/scripts/custom/components-form-tools.js
                 - ../assets/scripts/init.js
+            filters:
+                - @varFilter
         appPlugins:
             files:
                 - ../js/netteForms.js
         metronicPlugins:
             files:
                 - ../assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js
+                - ../assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js
+                - ../assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js
+                - ../assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js
+                - ../assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js
         metronicCore:
             files:
                 - ../assets/plugins/jquery-1.11.0.min.js
