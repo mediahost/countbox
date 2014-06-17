@@ -8,4 +8,5 @@ jQuery(document).ready(function() {
     HtmlEditors.init();
     ComponentsFormTools.init();
     Login.init();
+    UIToastr.init();
 });

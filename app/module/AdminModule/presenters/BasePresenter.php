@@ -16,7 +16,7 @@ abstract class BasePresenter extends \App\BaseModule\Presenters\BasePresenter
     {
         $isAllowed = parent::isAllowed($resource, $privilege);
         if (!$isAllowed && $redirect) {
-            $this->flashMessage("You can't access to this section");
+            $this->flashMessage("You can't access to this section", "warning");
             $this->redirect(":Front:Sign:in");
         }
         return $isAllowed;

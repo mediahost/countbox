@@ -14,6 +14,21 @@ class SignPresenter extends BasePresenter
     /** @var \App\Forms\SignInFormFactory @inject */
     public $sinInFormFactory;
 
+    public function actionIn()
+    {
+        if ($this->getUser()->isLoggedIn()) {
+            $this->flashMessage('You have been already signed in.', 'warning');
+            $this->redirect('Homepage:');
+        }
+    }
+
+    public function actionOut()
+    {
+        $this->getUser()->logout();
+        $this->flashMessage('You have been signed out.', 'success');
+        $this->redirect('in');
+    }
+
 // <editor-fold defaultstate="collapsed" desc="Forms">
 
     public function createComponentSignInForm()
@@ -39,11 +54,5 @@ class SignPresenter extends BasePresenter
         }
     }
 
-    public function actionOut()
-    {
-        $this->getUser()->logout();
-        $this->flashMessage('You have been signed out.');
-        $this->redirect('in');
-    }
-
+// </editor-fold>
 }

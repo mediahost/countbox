@@ -19,6 +19,7 @@ class HomepagePresenter extends BasePresenter
 
     public function actionDefault()
     {
+        $this->redirect(":Admin:Dashboard:");
 //        $this->roleFacade->create("programmer");
 //        $this->roleFacade->create("manager");
 //        $this->roleFacade->create("client");

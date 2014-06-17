@@ -34,12 +34,10 @@
         {block head}{/block}
     </head>
     <!-- END HEAD -->
-    
+
     <!-- BEGIN BODY -->
     <body class="page-header-fixed">
         <script> document.documentElement.className += ' js'</script>
-
-        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 
         {include 'header.latte'}
 
@@ -73,6 +71,14 @@
                                 <li><a n:href="this">Dashboard</a></li>
                                     {/block}
                             </ul>
+                            <!-- BEGIN FLASH MESSAGES-->
+                            <div n:foreach="$flashes as $flash"
+                                 class="alert alert-{$flash->type} fade in">
+                                <button type="button" class="close" data-dismiss="alert"></button>
+                                {$flash->message}
+                            </div>
+                            <!-- END FLASH MESSAGES-->
+                            
                             <!-- END PAGE TITLE & BREADCRUMB--> 
                         </div>
                     </div>
