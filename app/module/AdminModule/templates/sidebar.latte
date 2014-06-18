@@ -33,7 +33,7 @@
             </li>
 
             <li n:if="$isAllowedDashboard"
-                class="start{ifCurrent Dashboard:} active{/ifCurrent}">
+                class="start{ifCurrent Dashboard:*} active{/ifCurrent}">
                 <a n:href="Dashboard:">
                     <i class="fa fa-calendar"></i>
                     <span class="title">
@@ -45,7 +45,7 @@
             </li>
 
             <li n:if="$isAllowedTasks"
-                class="{ifCurrent Tasks:} active{/ifCurrent}">
+                class="{ifCurrent Tasks:*} active{/ifCurrent}">
                 <a n:href="Tasks:">
                     <i class="fa fa-tasks"></i>
                     <span class="title">
@@ -57,7 +57,7 @@
             </li>
 
             <li n:if="$isAllowedProjects"
-                class="{ifCurrent Projects:} active{/ifCurrent}">
+                class="{ifCurrent Projects:*} active{/ifCurrent}">
                 <a n:href="Projects:">
                     <i class="fa fa-codepen"></i>
                     <span class="title">
@@ -69,7 +69,7 @@
             </li>
 
             <li n:if="$isAllowedClients"
-                class="{ifCurrent Clients:} active{/ifCurrent}">
+                class="{ifCurrent Clients:*} active{/ifCurrent}">
                 <a n:href="Clients:">
                     <i class="fa fa-users"></i>
                     <span class="title">

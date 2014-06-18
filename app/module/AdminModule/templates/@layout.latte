@@ -51,7 +51,71 @@
                 <!-- BEGIN PAGE -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
-                    {include 'title.latte'}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN PAGE TITLE-->
+                            <h3 class="page-title" n:block="pageTitle">
+                                {block pageTitleText}
+                                Countbox
+                                <small>accounting system</small>
+                                {/block}
+                            </h3>
+                            <!-- END PAGE TITLE--> 
+
+                            <!-- BEGIN BREADCRUMB-->
+                            <ul class="page-breadcrumb breadcrumb" n:block="breadcrumb">
+                                {block breadcrumbActions}
+                                <li class="btn-group">
+                                    <button type="button" 
+                                            class="btn blue dropdown-toggle" 
+                                            data-toggle="dropdown" 
+                                            data-hover="dropdown" 
+                                            data-delay="1000" 
+                                            data-close-others="true">
+                                        <span>
+                                            {block breadcrumbActionsName}New{/block}
+                                        </span>
+                                        <i class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        {block breadcrumbActionsList}
+                                        <li n:if="$isAllowedTasksAdd">
+                                            <a n:href="Tasks:add">
+                                                <i class="fa fa-tasks"></i>
+                                                Task
+                                            </a>
+                                        </li>
+                                        <li n:if="$isAllowedProjectsAdd">
+                                            <a n:href="Projects:add">
+                                                <i class="fa fa-codepen"></i>
+                                                Project
+                                            </a>
+                                        </li>
+                                        <li n:if="$isAllowedClientsAdd">
+                                            <a n:href="Clients:add">
+                                                <i class="fa fa-user"></i>
+                                                Client
+                                            </a>
+                                        </li>
+                                        {/block}
+                                    </ul>
+                                </li>
+                                {/block}
+
+                                {block breadcrumbItems}
+                                <li>
+                                    <i class="fa fa-home"></i>
+                                    <a n:href="Dashboard:">Home</a> 
+                                    <span class="fa fa-angle-right"></span>
+                                </li>
+                                {block breadcrumbLast}
+                                <li><a n:href="Dashboard:">Dashboard</a></li>
+                                    {/block}
+                                    {/block}
+                            </ul>
+                            <!-- END FLASH BREADCRUMB-->
+                        </div>
+                    </div>
                     <!-- END PAGE HEADER-->
 
                     <!-- BEGIN FLASH MESSAGES-->

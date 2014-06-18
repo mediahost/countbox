@@ -82,7 +82,9 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     // <editor-fold defaultstate="collapsed" desc="password setters & getters">
     public function setPassword($value)
     {
-        $this->password = \Nette\Security\Passwords::hash($value);
+        if ($value !== "" && $value !== NULL) {
+            $this->password = \Nette\Security\Passwords::hash($value);
+        }
         return $this;
     }
 

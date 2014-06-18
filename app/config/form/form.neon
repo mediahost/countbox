@@ -23,6 +23,7 @@ services:
 
     - App\Forms\SignInFormFactory(@defaultFormFactory)
     - App\Forms\AuthorFormFactory(@metronicFormFactory)
+    - App\Forms\UserFormFactory(@metronicFormFactory)
 
 nette:
     latte:
