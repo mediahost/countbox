@@ -19,14 +19,14 @@ class HomepagePresenter extends BasePresenter
 
     public function actionDefault()
     {
-        $this->redirect(":Admin:Dashboard:");
+//        $this->redirect(":Admin:Dashboard:");
 //        $this->roleFacade->create("programmer");
 //        $this->roleFacade->create("manager");
 //        $this->roleFacade->create("client");
         
-        $role1 = $this->roleFacade->findByName("programmer");
-        $role2 = $this->roleFacade->findByName("manager");
-        $role3 = $this->roleFacade->findByName("client");
+//        $role1 = $this->roleFacade->findByName("programmer");
+//        $role2 = $this->roleFacade->findByName("manager");
+//        $role3 = $this->roleFacade->findByName("client");
         
 //        $user = $this->userFacade->create("pupe.dupe@gmail.com", "pto");
 //        $user = $this->userFacade->findByUsername("pupe.dupe@gmail.com");

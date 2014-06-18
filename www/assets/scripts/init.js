@@ -9,4 +9,5 @@ jQuery(document).ready(function() {
     ComponentsFormTools.init();
     Login.init();
     UIToastr.init();
+    Fullscreen.init();
 });

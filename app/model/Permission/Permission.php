@@ -34,11 +34,12 @@ class Permission extends \Nette\Security\Permission
     private function setResources()
     {
         $this->addResource('front');
-        $this->addResource('dashboard');
         
+        $this->addResource('dashboard');
         $this->addResource('tasks');
         $this->addResource('comments'); 
         $this->addResource('projects'); 
+        $this->addResource('clients');
 
         $this->addResource('admin');
         $this->addResource('service');
@@ -47,12 +48,13 @@ class Permission extends \Nette\Security\Permission
     private function setPrivileges()
     {
         /**
-         * VIEW-OWN - view own data
-         * VIEW - view all data
-         * EDIT-OWN - can edit own
-         * EDIT - can edit
-         * DELETE-OWN - can delete own
-         * DELETE - can delete
+         * VIEW - view own data
+         * VIEW-ALL - view all data
+         * ADD - can add data
+         * EDIT - can edit own data
+         * EDIT-ALL - can edit all data
+         * DELETE - can delete own data
+         * DELETE-ALL - can delete all data
          */
 
         $this->deny('guest');
@@ -60,11 +62,13 @@ class Permission extends \Nette\Security\Permission
         $this->allow('guest', 'front');
         
         $this->allow('client', 'dashboard', 'view');
-        
-        $this->allow('client', 'tasks', 'view-own');
+        $this->allow('client', 'tasks', 'view');
+        $this->allow('client', 'tasks', 'add');
+        $this->allow('client', 'tasks', 'edit');
         $this->allow('client', 'comments', 'view');
-        $this->allow('client', 'projects', 'view-own');        
+        $this->allow('client', 'projects', 'view');        
 
+        $this->allow('manager', 'clients');
         $this->allow('manager', 'tasks');
         $this->allow('manager', 'comments');
         $this->allow('manager', 'projects');

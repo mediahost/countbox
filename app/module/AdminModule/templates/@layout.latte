@@ -51,38 +51,16 @@
                 <!-- BEGIN PAGE -->
                 <div class="page-content">
                     <!-- BEGIN PAGE HEADER-->
-                    <div class="row" n:block="pageHeader">
-                        <div class="col-md-12">
-                            <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-                            <h3 class="page-title" n:block="pageTitle">
-                                {block pageTitleText}
-                                Countbox
-                                <small>accounting system</small>
-                                {/block}
-                            </h3>
-
-                            <ul class="page-breadcrumb breadcrumb" n:block="breadcrumb">
-                                {block breadcrumbItems}
-                                <li>
-                                    <i class="fa fa-home"></i>
-                                    <a n:href="this">Home</a> 
-                                    <span class="fa fa-angle-right"></span>
-                                </li>
-                                <li><a n:href="this">Dashboard</a></li>
-                                    {/block}
-                            </ul>
-                            <!-- BEGIN FLASH MESSAGES-->
-                            <div n:foreach="$flashes as $flash"
-                                 class="alert alert-{$flash->type} fade in">
-                                <button type="button" class="close" data-dismiss="alert"></button>
-                                {$flash->message}
-                            </div>
-                            <!-- END FLASH MESSAGES-->
-                            
-                            <!-- END PAGE TITLE & BREADCRUMB--> 
-                        </div>
-                    </div>
+                    {include 'title.latte'}
                     <!-- END PAGE HEADER-->
+
+                    <!-- BEGIN FLASH MESSAGES-->
+                    <div n:foreach="$flashes as $flash"
+                         class="alert alert-{$flash->type} fade in">
+                        <button type="button" class="close" data-dismiss="alert"></button>
+                        {$flash->message}
+                    </div>
+                    <!-- END FLASH MESSAGES-->
 
                     <!-- CONTENT BODY-->
                     {include content}

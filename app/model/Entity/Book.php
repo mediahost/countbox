@@ -30,16 +30,19 @@ class Book extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     public function setTitle($value)
     {
         $this->title = $value;
+        return $this;
     }
 
     public function setPublished($value)
     {
         $this->published = $value;
+        return $this;
     }
 
     public function setAuthor(Author $value)
     {
         $this->author = $value;
+        return $this;
     }
 
 }

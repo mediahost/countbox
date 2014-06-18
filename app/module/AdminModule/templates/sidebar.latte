@@ -32,9 +32,10 @@
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
 
-            <li class="start active ">
-                <a n:href="this">
-                    <i class="icon-home"></i>
+            <li n:if="$isAllowedDashboard"
+                class="start{ifCurrent Dashboard:} active{/ifCurrent}">
+                <a n:href="Dashboard:">
+                    <i class="fa fa-calendar"></i>
                     <span class="title">
                         Dashboard
                     </span>
@@ -43,9 +44,45 @@
                 </a>
             </li>
 
+            <li n:if="$isAllowedTasks"
+                class="{ifCurrent Tasks:} active{/ifCurrent}">
+                <a n:href="Tasks:">
+                    <i class="fa fa-tasks"></i>
+                    <span class="title">
+                        Tasks
+                    </span>
+                    <span class="selected">
+                    </span>
+                </a>
+            </li>
+
+            <li n:if="$isAllowedProjects"
+                class="{ifCurrent Projects:} active{/ifCurrent}">
+                <a n:href="Projects:">
+                    <i class="fa fa-codepen"></i>
+                    <span class="title">
+                        Projects
+                    </span>
+                    <span class="selected">
+                    </span>
+                </a>
+            </li>
+
+            <li n:if="$isAllowedClients"
+                class="{ifCurrent Clients:} active{/ifCurrent}">
+                <a n:href="Clients:">
+                    <i class="fa fa-users"></i>
+                    <span class="title">
+                        Clients
+                    </span>
+                    <span class="selected">
+                    </span>
+                </a>
+            </li>
+
             <li class="last ">
                 <a n:href=":Front:Homepage:">
-                    <i class="icon-logout"></i>
+                    <i class="fa fa-sign-out"></i>
                     <span class="title">
                         Front End
                     </span>

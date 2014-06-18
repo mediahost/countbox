@@ -250,7 +250,7 @@ class UploadHandler
         $file->deleteUrl = $this->options['script_url']
             .$this->get_query_separator($this->options['script_url'])
             .$this->get_singular_param_name()
-            .'='.rawurlencode($file->name);
+            .'='.rawurlencode($file->message);
         $file->deleteType = $this->options['delete_type'];
         if ($file->deleteType !== 'DELETE') {
             $file->deleteUrl .= '&_method=DELETE';
@@ -359,7 +359,7 @@ class UploadHandler
             $file->error = $this->get_error_message('post_max_size');
             return false;
         }
-        if (!preg_match($this->options['accept_file_types'], $file->name)) {
+        if (!preg_match($this->options['accept_file_types'], $file->message)) {
             $file->error = $this->get_error_message('accept_file_types');
             return false;
         }
@@ -383,7 +383,7 @@ class UploadHandler
         if (is_int($this->options['max_number_of_files']) &&
                 ($this->count_file_objects() >= $this->options['max_number_of_files']) &&
                 // Ignore additional chunks of existing files:
-                !is_file($this->get_upload_path($file->name))) {
+                !is_file($this->get_upload_path($file->message))) {
             $file->error = $this->get_error_message('max_number_of_files');
             return false;
         }
@@ -996,10 +996,10 @@ class UploadHandler
     protected function handle_image_file($file_path, $file) {
         $failed_versions = array();
         foreach($this->options['image_versions'] as $version => $options) {
-            if ($this->create_scaled_image($file->name, $version, $options)) {
+            if ($this->create_scaled_image($file->message, $version, $options)) {
                 if (!empty($version)) {
                     $file->{$version.'Url'} = $this->get_download_url(
-                        $file->name,
+                        $file->message,
                         $version
                     );
                 } else {

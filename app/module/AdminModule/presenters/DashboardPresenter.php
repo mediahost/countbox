@@ -11,6 +11,12 @@ use Tracy\Debugger as Debug;
 class DashboardPresenter extends BasePresenter
 {
 
+    /** @var \App\Model\Facade\TimeFacade @inject */
+    public $timeFacade;
+
+    /** @var \App\Model\Facade\ProjectFacade @inject */
+    public $projectFacade;
+
     /** @var \App\Model\Facade\BookFacade @inject */
     public $bookFacade;
 
@@ -26,6 +32,18 @@ class DashboardPresenter extends BasePresenter
     public function actionDefault()
     {
         $this->isAllowed("dashboard", "view");
+        
+//        $time = new \App\Model\Entity\Time();
+//        $time->setInterval(65);
+//        $this->timeFacade->save($time);
+//        $time = $this->timeFacade->find(4);
+//        Debug::barDump($time);
+        
+//        $project = new \App\Model\Entity\Project;
+//        $project->setName("project Manhattan");
+//        $this->projectFacade->save($project);
+//        $project = $this->projectFacade->find(1);
+//        Debug::barDump($project);
         
         $bookFacade = $this->bookFacade;
         $authorFacade = $this->authorFacade;

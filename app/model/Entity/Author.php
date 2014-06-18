@@ -24,11 +24,13 @@ class Author extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     public function setFirstname($value)
     {
         $this->firstname = $value;
+        return $this;
     }
 
     public function setSurname($value)
     {
         $this->surname = $value;
+        return $this;
     }
 
 }

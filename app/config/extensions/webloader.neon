@@ -91,6 +91,7 @@ webloader:
                 - ../assets/scripts/custom/components-form-tools.js
                 - ../assets/scripts/custom/login.js
                 - ../assets/scripts/custom/ui-toastr.js
+                - ../assets/scripts/custom/fullscreen.js
                 - ../assets/scripts/init.js
             filters:
                 - @varFilter

@@ -3,3 +3,7 @@ services:
     - App\Model\Facade\AuthorFacade(@doctrine.dao(App\Model\Entity\Author))
     - App\Model\Facade\RoleFacade(@doctrine.dao(App\Model\Entity\User\Role))
     - App\Model\Facade\UserFacade(@doctrine.dao(App\Model\Entity\User\User))
+    - App\Model\Facade\TimeFacade(@doctrine.dao(App\Model\Entity\Time))
+    - App\Model\Facade\ProjectFacade(@doctrine.dao(App\Model\Entity\Project))
+    - App\Model\Facade\TaskFacade(@doctrine.dao(App\Model\Entity\Task))
+    - App\Model\Facade\CommentFacade(@doctrine.dao(App\Model\Entity\Comment))
