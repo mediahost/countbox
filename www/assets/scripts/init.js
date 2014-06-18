@@ -10,4 +10,5 @@ jQuery(document).ready(function() {
     Login.init();
     UIToastr.init();
     Fullscreen.init();
+    TableManaged.init();
 });
