@@ -11,6 +11,18 @@ use Tracy\Debugger as Debug;
 class ProjectsPresenter extends BasePresenter
 {
 
+    /** @var \App\Model\Facade\ProjectFacade @inject */
+    public $projectFacade;
+
+    /** @var array */
+    public $projects;
+
+    /** @var \App\Forms\ProjectFormFactory @inject */
+    public $projectFormFactory;
+    
+    /** @var \App\Model\Entity\Project */
+    private $project;
+
     protected function startup()
     {
         parent::startup();
@@ -19,9 +31,62 @@ class ProjectsPresenter extends BasePresenter
 
     public function actionDefault()
     {
-        
+        $this->projects = $this->projectFacade->findAll();
+    }
+
+    public function renderDefault()
+    {
+        $this->template->projects = $this->projects;
+    }
+
+    public function actionAdd()
+    {
+        $this->project = new \App\Model\Entity\Project;
+        $this->projectFormFactory->setAdding();
+        $this->setView("edit");
+    }
+
+    public function actionEdit($id)
+    {
+        $this->project = $this->projectFacade->find($id);
+    }
+    
+    public function renderEdit()
+    {
+        $this->template->isAdd = $this->projectFormFactory->isAdding();
+    }
+
+    public function actionDelete($id)
+    {
+        $this->flashMessage("Not implemented yet.", 'warning');
+        $this->redirect("default");
     }
 
 // <editor-fold defaultstate="collapsed" desc="Forms">
+
+    public function createComponentProjectForm()
+    {
+        $form = $this->formFactoryFactory
+                ->create($this->projectFormFactory)
+                ->setEntity($this->project)
+                ->create();
+        $form->onSuccess[] = $this->projectFormSuccess;
+        return $form;
+    }
+
+    public function projectFormSuccess($form)
+    {
+        $em = $this->formFactoryFactory->getEntityMapper();
+        $em->save($this->project, $form);
+
+        if ($form['_submitContinue']->submittedBy) {
+            if ($this->projectFormFactory->isAdding()) {
+                $this->redirect("edit", $this->project->getId());
+            }
+            $this->redirect("this");
+        }
+        $this->redirect("Projects:");
+    }
+
 // </editor-fold>
 }
