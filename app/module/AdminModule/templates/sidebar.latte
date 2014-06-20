@@ -69,22 +69,13 @@
             </li>
 
             <li n:if="$isAllowedClients"
-                class="{ifCurrent Clients:*} active{/ifCurrent}">
+                class="{ifCurrent Clients:*} active{/ifCurrent} last">
                 <a n:href="Clients:">
                     <i class="fa fa-users"></i>
                     <span class="title">
                         Clients
                     </span>
                     <span class="selected">
-                    </span>
-                </a>
-            </li>
-
-            <li class="last ">
-                <a n:href=":Front:Homepage:">
-                    <i class="fa fa-sign-out"></i>
-                    <span class="title">
-                        Front End
                     </span>
                 </a>
             </li>

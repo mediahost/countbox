@@ -11,26 +11,20 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <meta name="robots" content="noindex">
 
-        <!-- BEGIN GLOBAL MANDATORY STYLES -->          
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->         
+        {control cssMetronicCore}
         <!-- END GLOBAL MANDATORY STYLES -->
 
-        <!-- BEGIN PAGE LEVEL PLUGIN STYLES --> 
+        <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->        
+        {control cssMetronicPlugin}
         <!-- END PAGE LEVEL PLUGIN STYLES -->
 
-        <!-- BEGIN THEME STYLES --> 
-        <link href="{$basePath}/assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/css/style-responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/css/plugins.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-        <link href="{$basePath}/assets/css/pages/error.css" rel="stylesheet" type="text/css"/>
-        <link href="{$basePath}/assets/css/print.css" rel="stylesheet" type="text/css" media="print"/>
-        <link href="{$basePath}/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+        <!-- BEGIN THEME STYLES -->       
+        {control cssMetronicTheme}
         <!-- END THEME STYLES -->
+
+        {control cssFront}
+        {control cssPrint}
 
         <link rel="shortcut icon" href="{$basePath}/favicon.ico">
         
@@ -40,33 +34,26 @@
     <body class="{block bodyClass}{/block}">
         
         {include content}
-        
+
         {block scripts}
         <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
         <!-- BEGIN CORE PLUGINS -->
         <!--[if lt IE 9]>
-        <script src="{$basePath}/assets/plugins/respond.min.js"></script>
-        <script src="{$basePath}/assets/plugins/excanvas.min.js"></script>
+        {control jsMetronicCoreIE9}
         <![endif]-->
-        <script src="{$basePath}/assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
-        <script src="{$basePath}/assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-        <script src="{$basePath}/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="{$basePath}/assets/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript" ></script>
-        <script src="{$basePath}/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-        <script src="{$basePath}/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>  
-        <script src="{$basePath}/assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
-        <script src="{$basePath}/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+        {control jsMetronicCore}
         <!-- END CORE PLUGINS -->
-        
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        {control jsMetronicPlugins}
+        {control jsAppPlugins}
+        <!-- END PAGE LEVEL PLUGINS -->
+
         <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="{$basePath}/assets/scripts/app.js" type="text/javascript"></script>      
-        <!-- END PAGE LEVEL SCRIPTS -->  
-        <script>
-          jQuery(document).ready(function() {    
-             App.init(); // initlayout and core plugins
-          });
-        </script>
+        {control jsApp}
+        <!-- END PAGE LEVEL SCRIPTS -->
         <!-- END JAVASCRIPTS -->
         {/block}
+        
     </body>
 </html>

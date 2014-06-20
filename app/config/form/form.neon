@@ -22,7 +22,6 @@ services:
         autowired: no
 
     - App\Forms\SignInFormFactory(@defaultFormFactory)
-    - App\Forms\AuthorFormFactory(@metronicFormFactory)
     - App\Forms\UserFormFactory(@metronicFormFactory)
     - App\Forms\TaskFormFactory(@metronicFormFactory)
     - App\Forms\ProjectFormFactory(@metronicFormFactory)

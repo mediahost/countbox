@@ -43,3 +43,4 @@ composer.lock
 /purge/*
 /deployment/*
 !/deployment/deployment.bat
+!/www/webtemp/.htaccess
