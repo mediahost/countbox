@@ -35,13 +35,15 @@ class Permission extends \Nette\Security\Permission
     {
         $this->addResource('front');
         
+        $this->addResource('admin');
         $this->addResource('dashboard');
         $this->addResource('tasks');
         $this->addResource('comments'); 
         $this->addResource('projects'); 
         $this->addResource('clients');
+        
+        $this->addResource('users');
 
-        $this->addResource('admin');
         $this->addResource('service');
     }
 
@@ -61,6 +63,7 @@ class Permission extends \Nette\Security\Permission
 
         $this->allow('guest', 'front');
         
+        $this->allow('client', 'admin', 'view');
         $this->allow('client', 'dashboard', 'view');
         $this->allow('client', 'tasks', 'view');
         $this->allow('client', 'tasks', 'add');
@@ -73,7 +76,7 @@ class Permission extends \Nette\Security\Permission
         $this->allow('manager', 'comments');
         $this->allow('manager', 'projects');
 
-        $this->allow('admin', 'admin');
+        $this->allow('admin', 'users');
 
         $this->allow('superadmin'); // všechna práva a zdroje pro administrátora
     }
