@@ -7,27 +7,8 @@ namespace App\Forms;
  *
  * @author Petr Poupě
  */
-class UserFormFactory implements IFormFactory
+class UserFormFactory extends FormFactory
 {
-
-    private $formFactory;
-    private $add = FALSE;
-
-    public function __construct(IFormFactory $formFactory)
-    {
-        $this->formFactory = $formFactory;
-    }
-    
-    public function setAdding($add = TRUE)
-    {
-        $this->add = $add;
-        return $this;
-    }
-    
-    public function isAdding()
-    {
-        return $this->add;
-    }
 
     public function create()
     {
@@ -41,7 +22,7 @@ class UserFormFactory implements IFormFactory
             $password->addRule(Form::FILLED, "Password must be filled");
         }
 //        $form->addMultiSelect('role', 'Role');
-        
+
         $form->addSubmit('_submit', 'Save');
         $form->addSubmit('_submitContinue', 'Save and continue edit');
         return $form;

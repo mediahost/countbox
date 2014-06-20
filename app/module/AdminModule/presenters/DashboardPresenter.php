@@ -25,26 +25,30 @@ class DashboardPresenter extends BasePresenter
 
     /** @var \App\Forms\AuthorFormFactory @inject */
     public $authorFormFactory;
-    
+
     /** @var App\Model\Entity\Author */
     private $author;
 
+    protected function startup()
+    {
+        parent::startup();
+        $this->isAllowed("dashboard", "view");
+    }
+
     public function actionDefault()
     {
-        $this->isAllowed("dashboard", "view");
-        
+
 //        $time = new \App\Model\Entity\Time();
 //        $time->setInterval(65);
 //        $this->timeFacade->save($time);
 //        $time = $this->timeFacade->find(4);
 //        Debug::barDump($time);
-        
 //        $project = new \App\Model\Entity\Project;
 //        $project->setName("project Manhattan");
 //        $this->projectFacade->save($project);
 //        $project = $this->projectFacade->find(1);
 //        Debug::barDump($project);
-        
+
         $bookFacade = $this->bookFacade;
         $authorFacade = $this->authorFacade;
 

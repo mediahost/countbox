@@ -23,10 +23,14 @@ class ClientsPresenter extends BasePresenter
     /** @var \App\Model\Entity\User\User */
     private $user;
 
+    protected function startup()
+    {
+        parent::startup();
+        $this->isAllowed("clients", "view");
+    }
+
     public function actionDefault()
     {
-        $this->isAllowed("clients", "view");
-
         $this->users = $this->userFacade->findAll();
     }
 
@@ -46,7 +50,7 @@ class ClientsPresenter extends BasePresenter
     {
         $this->user = $this->userFacade->find($id);
     }
-    
+
     public function renderEdit()
     {
         $this->template->isAdd = $this->userFormFactory->isAdding();

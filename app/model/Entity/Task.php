@@ -16,6 +16,11 @@ class Task extends \Kdyby\Doctrine\Entities\IdentifiedEntity
      */
     protected $name;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $text_html;
+
     // <editor-fold defaultstate="collapsed" desc="setters">
     /**
      * 
@@ -28,6 +33,17 @@ class Task extends \Kdyby\Doctrine\Entities\IdentifiedEntity
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return Task
+     */
+    public function setText($value)
+    {
+        $this->text_html = $value;
+        return $this;
+    }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
     /**
@@ -37,6 +53,15 @@ class Task extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text_html;
     }
 
     // </editor-fold>

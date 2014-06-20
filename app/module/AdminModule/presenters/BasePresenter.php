@@ -12,15 +12,11 @@ use Nette,
  */
 abstract class BasePresenter extends BaseBasePresenter
 {
-
-    protected function isAllowed($resource = Nette\Security\IAuthorizator::ALL, $privilege = Nette\Security\IAuthorizator::ALL, $redirect = TRUE)
+    
+    protected function startup()
     {
-        $isAllowed = parent::isAllowed($resource, $privilege);
-        if (!$isAllowed && $redirect) {
-            $this->flashMessage("You can't access to this section", "warning");
-            $this->redirect(":Front:Deny:");
-        }
-        return $isAllowed;
+        parent::startup();
+        $this->isAllowed("admin", "view");
     }
     
     protected function beforeRender()
@@ -34,6 +30,16 @@ abstract class BasePresenter extends BaseBasePresenter
         $this->template->isAllowedTasks = BaseBasePresenter::isAllowed("tasks", "view");
         $this->template->isAllowedTasksAdd = BaseBasePresenter::isAllowed("tasks", "add");
         $this->template->isAllowedComments = BaseBasePresenter::isAllowed("comments", "view");
+    }
+
+    protected function isAllowed($resource = Nette\Security\IAuthorizator::ALL, $privilege = Nette\Security\IAuthorizator::ALL, $redirect = TRUE)
+    {
+        $isAllowed = parent::isAllowed($resource, $privilege);
+        if (!$isAllowed && $redirect) {
+            $this->flashMessage("You can't access to this section", "warning");
+            $this->redirect(":Front:Deny:");
+        }
+        return $isAllowed;
     }
 
 }

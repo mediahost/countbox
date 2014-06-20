@@ -7,15 +7,8 @@ namespace App\Forms;
  *
  * @author Petr Poupě
  */
-class SignInFormFactory implements IFormFactory
+class SignInFormFactory extends FormFactory
 {
-
-    private $formFactory;
-
-    public function __construct(IFormFactory $formFactory)
-    {
-        $this->formFactory = $formFactory;
-    }
 
     public function create()
     {

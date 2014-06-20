@@ -11,9 +11,15 @@ use Tracy\Debugger as Debug;
 class ProjectsPresenter extends BasePresenter
 {
 
+    protected function startup()
+    {
+        parent::startup();
+        $this->isAllowed("projects", "view");
+    }
+
     public function actionDefault()
     {
-        $this->isAllowed("projects", "view");
+        
     }
 
 // <editor-fold defaultstate="collapsed" desc="Forms">
