@@ -11,4 +11,6 @@ jQuery(document).ready(function() {
     UIToastr.init();
     Fullscreen.init();
     TableManaged.init();
+    
+    Background.init();
 });

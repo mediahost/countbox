@@ -92,10 +92,11 @@ webloader:
                 - ../assets/scripts/custom/components-pickers.js
                 - ../assets/scripts/custom/html-editors.js
                 - ../assets/scripts/custom/components-form-tools.js
-                - ../assets/scripts/custom/login.js
                 - ../assets/scripts/custom/ui-toastr.js
                 - ../assets/scripts/custom/fullscreen.js
                 - ../assets/scripts/custom/table-managed.js
+                - ../assets/scripts/custom/login.js
+                - ../assets/scripts/custom/background.js
                 - ../assets/scripts/init.js
             filters:
                 - @varFilter
@@ -114,6 +115,7 @@ webloader:
                 - ../assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js
                 - ../assets/plugins/jquery-validation/js/jquery.validate.min.js
                 - ../assets/plugins/select2/select2.min.js
+                - ../assets/plugins/backstretch/jquery.backstretch.min.js
         metronicCore:
             files:
                 - ../assets/plugins/jquery-1.11.0.min.js

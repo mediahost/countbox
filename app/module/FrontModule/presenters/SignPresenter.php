@@ -13,13 +13,24 @@ class SignPresenter extends BasePresenter
 
     /** @var \App\Forms\SignInFormFactory @inject */
     public $sinInFormFactory;
+    
+    public function actionDefault()
+    {
+        if ($this->getUser()->isLoggedIn()) {
+            $this->flashMessage('You have been already signed in.', 'warning');
+            $this->redirect("Deny:");
+        } else {
+            $this->redirect("in");
+        }
+    }
 
     public function actionIn()
     {
         if ($this->getUser()->isLoggedIn()) {
             $this->flashMessage('You have been already signed in.', 'warning');
-            $this->redirect('Homepage:');
+            $this->redirect('Deny:');
         }
+        $this->setLayout("metronic.layout");
     }
 
     public function actionOut()
