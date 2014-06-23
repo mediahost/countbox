@@ -23,13 +23,15 @@ abstract class BasePresenter extends BaseBasePresenter
     {
         parent::beforeRender();
         $this->template->isAllowedDashboard = BaseBasePresenter::isAllowed("dashboard", "view");
-        $this->template->isAllowedClients = BaseBasePresenter::isAllowed("clients", "view");
-        $this->template->isAllowedClientsAdd = BaseBasePresenter::isAllowed("clients", "add");
+        $this->template->isAllowedCompanies = BaseBasePresenter::isAllowed("companies", "view");
+        $this->template->isAllowedCompaniesAdd = BaseBasePresenter::isAllowed("companies", "add");
         $this->template->isAllowedProjects = BaseBasePresenter::isAllowed("projects", "view");
         $this->template->isAllowedProjectsAdd = BaseBasePresenter::isAllowed("projects", "add");
         $this->template->isAllowedTasks = BaseBasePresenter::isAllowed("tasks", "view");
         $this->template->isAllowedTasksAdd = BaseBasePresenter::isAllowed("tasks", "add");
         $this->template->isAllowedComments = BaseBasePresenter::isAllowed("comments", "view");
+        $this->template->isAllowedUsers = BaseBasePresenter::isAllowed("users", "view");
+        $this->template->isAllowedUsersAdd = BaseBasePresenter::isAllowed("users", "add");
     }
 
     protected function isAllowed($resource = Nette\Security\IAuthorizator::ALL, $privilege = Nette\Security\IAuthorizator::ALL, $redirect = TRUE)

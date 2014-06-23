@@ -9,6 +9,8 @@ use DateTimeInterface;
 /**
  * @ORM\Entity
  * @ORM\Table(name="time")
+ * @property DateTime $start
+ * @property DateTime $end
  */
 class Time extends Entity
 {

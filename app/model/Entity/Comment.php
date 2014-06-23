@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="comment")
+ * @property string $message
  */
 class Comment extends Entity
 {

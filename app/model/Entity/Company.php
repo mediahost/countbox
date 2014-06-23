@@ -6,16 +6,22 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="project")
+ * @ORM\Table(name="company")
  * @property string $name
+ * @property Address $address
  */
-class Project extends Entity
+class Company extends Entity
 {
 
     /**
      * @ORM\Column(type="string", length=128)
      */
     protected $name;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Address", fetch="EAGER")
+     */
+    protected $address;
 
     // <editor-fold defaultstate="collapsed" desc="setters">
     // </editor-fold>

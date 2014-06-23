@@ -1,5 +1,5 @@
 {block breadcrumbLast}
-<li><a n:href="Clients:">Clients</a></li>
+<li><a n:href="Users:">Users</a></li>
     {/block}
 
 {block content}
@@ -14,7 +14,7 @@
             <div class="portlet-body">
                 <div class="table-toolbar">
                     <div class="btn-group">
-                        <a n:href="Clients:add"
+                        <a n:href="Users:add"
                            class="btn green">
                             Add User 
                             <i class="fa fa-plus"></i>
@@ -54,12 +54,12 @@
                                 {$user->rolesArray|implode:', '}
                             </td>
                             <td>
-                                <a n:href="Clients:edit, $user->id">
+                                <a n:href="Users:edit, $user->id">
                                     Edit
                                 </a>
                             </td>
                             <td>
-                                <a n:href="Clients:delete, $user->id" class="delete-confirm">
+                                <a n:href="Users:delete, $user->id" class="delete-confirm">
                                     Delete
                                 </a>
                             </td>

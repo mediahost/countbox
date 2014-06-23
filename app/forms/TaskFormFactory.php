@@ -12,9 +12,15 @@ class TaskFormFactory extends FormFactory
     
     private $entityId;
     
+    /**
+     * 
+     * @param type $id
+     * @return TaskFormFactory
+     */
     public function setEntityId($id)
     {
         $this->entityId = $id;
+        return $this;
     }
 
     public function create()

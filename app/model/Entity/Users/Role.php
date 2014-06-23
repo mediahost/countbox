@@ -7,6 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="role")
+ * @property string $name
+ * @method string getName()
+ * @method Role setName(string $value)
  */
 class Role extends \Kdyby\Doctrine\Entities\IdentifiedEntity
 {
@@ -17,18 +20,21 @@ class Role extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     protected $name;
 
     // <editor-fold defaultstate="collapsed" desc="setters">
-    public function setName($value)
-    {
-        $this->name = $value;
-        return $this;
-    }
-
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
-    public function getName()
+    // </editor-fold>
+    
+    public function __toString()
+    {
+        return $this->render();
+    }
+    
+    /**
+     * Render entity
+     * @return string
+     */
+    public function render()
     {
         return $this->name;
     }
-
-    // </editor-fold>
 }

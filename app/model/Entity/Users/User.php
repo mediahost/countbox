@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
+ * @property string $username
+ * @method string getUsername()
  */
 class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
 {
@@ -41,6 +43,12 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     }
 
     // <editor-fold defaultstate="collapsed" desc="setters">
+    /**
+     * 
+     * @param type $value
+     * @return \App\Model\Entity\User\User
+     * @throws \Nette\Utils\AssertionException
+     */
     public function setMail($value)
     {
         if (!\Nette\Utils\Validators::isEmail($value)) {
@@ -49,6 +57,13 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
         return $this->setUsername($value, FASE);
     }
 
+    /**
+     * 
+     * @param type $value
+     * @param type $validate
+     * @return \App\Model\Entity\User\User
+     * @throws \Nette\Utils\AssertionException
+     */
     public function setUsername($value, $validate = TRUE)
     {
         if ($validate && !\Nette\Utils\Validators::isEmail($value)) {
@@ -65,15 +80,6 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
      * @return string
      */
     public function getMail()
-    {
-        return $this->username;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    public function getUsername()
     {
         return $this->username;
     }

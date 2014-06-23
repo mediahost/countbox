@@ -6,9 +6,9 @@ use Nette;
 use Tracy\Debugger as Debug;
 
 /**
- * Clients presenter.
+ * Users presenter.
  */
-class ClientsPresenter extends BasePresenter
+class UsersPresenter extends BasePresenter
 {
 
     /** @var \App\Model\Facade\UserFacade @inject */
@@ -26,7 +26,7 @@ class ClientsPresenter extends BasePresenter
     protected function startup()
     {
         parent::startup();
-        $this->isAllowed("clients", "view");
+        $this->isAllowed("users", "view");
     }
 
     public function actionDefault()
@@ -88,7 +88,7 @@ class ClientsPresenter extends BasePresenter
             }
             $this->redirect("this");
         }
-        $this->redirect("Clients:");
+        $this->redirect("Users:");
     }
 
 // </editor-fold>

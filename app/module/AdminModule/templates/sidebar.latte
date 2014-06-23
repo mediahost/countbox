@@ -68,12 +68,24 @@
                 </a>
             </li>
 
-            <li n:if="$isAllowedClients"
-                class="{ifCurrent Clients:*} active{/ifCurrent} last">
-                <a n:href="Clients:">
+            <li n:if="$isAllowedCompanies"
+                class="{ifCurrent Companies:*} active{/ifCurrent}">
+                <a n:href="Companies:">
+                    <i class="fa fa-building"></i>
+                    <span class="title">
+                        Companies
+                    </span>
+                    <span class="selected">
+                    </span>
+                </a>
+            </li>
+
+            <li n:if="$isAllowedUsers"
+                class="{ifCurrent Users:*} active{/ifCurrent} last">
+                <a n:href="Users:">
                     <i class="fa fa-users"></i>
                     <span class="title">
-                        Clients
+                        Users
                     </span>
                     <span class="selected">
                     </span>

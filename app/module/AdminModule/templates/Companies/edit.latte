@@ -1,6 +1,6 @@
 {block breadcrumbLast}
 <li>
-    <a n:href="Clients:">Clients</a>
+    <a n:href="Companies:">Companies</a>
     <span class="fa fa-angle-right"></span>
 </li>
 <li>
@@ -14,11 +14,11 @@
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-edit"></i>{if $isAdd}Add{else}Edit{/if} user
+                    <i class="fa fa-edit"></i>{if $isAdd}Add{else}Edit{/if} company
                 </div>
             </div>
             <div class="portlet-body form">
-                {control userForm}
+                {control companyForm}
             </div>
         </div>
     </div>

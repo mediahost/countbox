@@ -91,10 +91,16 @@
                                                 Project
                                             </a>
                                         </li>
-                                        <li n:if="$isAllowedClientsAdd">
-                                            <a n:href="Clients:add">
+                                        <li n:if="$isAllowedCompaniesAdd">
+                                            <a n:href="Companies:add">
+                                                <i class="fa fa-building"></i>
+                                                Company
+                                            </a>
+                                        </li>
+                                        <li n:if="$isAllowedUsersAdd">
+                                            <a n:href="Users:add">
                                                 <i class="fa fa-user"></i>
-                                                Client
+                                                User
                                             </a>
                                         </li>
                                         {/block}

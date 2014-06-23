@@ -25,6 +25,7 @@ services:
     - App\Forms\UserFormFactory(@metronicFormFactory)
     - App\Forms\TaskFormFactory(@metronicFormFactory)
     - App\Forms\ProjectFormFactory(@metronicFormFactory)
+    - App\Forms\CompanyFormFactory(@metronicFormFactory)
 
 nette:
     latte:

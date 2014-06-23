@@ -5,3 +5,4 @@ services:
     - App\Model\Facade\ProjectFacade(@doctrine.dao(App\Model\Entity\Project))
     - App\Model\Facade\TaskFacade(@doctrine.dao(App\Model\Entity\Task))
     - App\Model\Facade\CommentFacade(@doctrine.dao(App\Model\Entity\Comment))
+    - App\Model\Facade\CompanyFacade(@doctrine.dao(App\Model\Entity\Company))

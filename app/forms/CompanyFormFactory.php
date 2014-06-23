@@ -3,11 +3,11 @@
 namespace App\Forms;
 
 /**
- * ProjectFormFactory
+ * CompanyFormFactory
  *
  * @author Petr Poupě
  */
-class ProjectFormFactory extends FormFactory
+class CompanyFormFactory extends FormFactory
 {
 
     public function create()
@@ -15,7 +15,7 @@ class ProjectFormFactory extends FormFactory
         $form = $this->formFactory->create();
         $form->addText('name', 'Name')
                 ->setRequired("Name must be filled")
-                ->setAttribute("placeholder", "Project name");
+                ->setAttribute("placeholder", "Company name");
         
         $form->addSubmit('_submit', 'Save');
         $form->addSubmit('_submitContinue', 'Save and continue edit');

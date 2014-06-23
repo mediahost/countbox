@@ -40,7 +40,7 @@ class Permission extends \Nette\Security\Permission
         $this->addResource('tasks');
         $this->addResource('comments'); 
         $this->addResource('projects'); 
-        $this->addResource('clients');
+        $this->addResource('companies');
         
         $this->addResource('users');
 
@@ -71,7 +71,7 @@ class Permission extends \Nette\Security\Permission
         $this->allow('client', 'comments', 'view');
         $this->allow('client', 'projects', 'view');        
 
-        $this->allow('manager', 'clients');
+        $this->allow('manager', 'companies');
         $this->allow('manager', 'tasks');
         $this->allow('manager', 'comments');
         $this->allow('manager', 'projects');
