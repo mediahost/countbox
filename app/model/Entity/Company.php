@@ -26,11 +26,17 @@ class Company extends Entity
     /**
      * @ORM\ManyToMany(targetEntity="User", fetch="LAZY")
      */
-    protected $user;
+    protected $users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="company", fetch="LAZY")
+     */
+    protected $projects;
 
     public function __construct()
     {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->projects = new \Doctrine\Common\Collections\ArrayCollection;
     }
 
     // <editor-fold defaultstate="collapsed" desc="setters">

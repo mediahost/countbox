@@ -17,6 +17,11 @@ class Project extends Entity
      */
     protected $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Company", fetch="EAGER")
+     */
+    protected $company;
+
     // <editor-fold defaultstate="collapsed" desc="setters">
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
