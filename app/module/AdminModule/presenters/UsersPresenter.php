@@ -76,11 +76,8 @@ class UsersPresenter extends BasePresenter
 
     public function userFormSuccess($form, $values)
     {
-        $this->user->setUsername($values->username);
-        if ($values->new_password !== "") {
-            $this->user->setPassword($values->new_password);
-        }
-        $this->userFacade->save($this->user);
+        $em = $this->formFactoryFactory->getEntityMapper();
+        $em->save($this->user, $form);
 
         if ($form['_submitContinue']->submittedBy) {
             if ($this->userFormFactory->isAdding()) {

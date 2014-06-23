@@ -128,8 +128,11 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     // <editor-fold defaultstate="collapsed" desc="role getters & setters">
 
 
-    public function addRole(Role $element)
+    public function addRole(Role $element, $clear = FALSE)
     {
+        if ($clear) {
+            $this->clearRoles();
+        }
         if (!$this->role->contains($element)) {
             $this->role->add($element);
         }
@@ -141,6 +144,12 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
         if ($this->role->contains($element)) {
             $this->role->removeElement($element);
         }
+        return $this;
+    }
+    
+    public function clearRole()
+    {
+        $this->role->clear();
         return $this;
     }
 
@@ -157,11 +166,11 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
      * 
      * @return array
      */
-    public function getRolesArray()
+    public function getRolesArray($keysOnly = FALSE)
     {
         $array = array();
         foreach ($this->role as $role) {
-            $array[$role->getId()] = $role->getName();
+            $array[$role->getId()] = $keysOnly ? $role->getId() : (string) $role;
         }
         return $array;
     }

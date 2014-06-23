@@ -22,6 +22,11 @@ abstract class BaseFacade extends \Nette\Object
     {
         return $this->dao->save($entity);
     }
+    
+    public function findPairs($value, $orderBy = ["id" => "asc"], $key = "id")
+    {
+        return $this->dao->findPairs(array(), $value, $orderBy, $key);
+    }
 
     public function findAll()
     {

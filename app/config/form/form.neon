@@ -1,6 +1,11 @@
 services:
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+    events: Kdyby\Events\DI\EventsExtension
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    translation: Kdyby\Translation\DI\TranslationExtension
+    validator: Kdyby\Validator\DI\ValidatorExtension
 
-    - Kdyby\DoctrineForms\EntityFormMapper
+    - App\Forms\EntityMapper\EntityFormMapper
     - Venne\Bridges\Kdyby\DoctrineForms\FormFactoryFactory
 
     metronicRenderer:
