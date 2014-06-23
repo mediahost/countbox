@@ -25,6 +25,17 @@ class Form extends \Nette\Application\UI\Form
      * 
      * @param type $name
      * @param type $caption
+     * @return Controls\DateInput
+     */
+    public function addTagInput($name, $caption = NULL)
+    {
+        return $this[$name] = new Controls\TagInput($caption);
+    }
+
+    /**
+     * 
+     * @param type $name
+     * @param type $caption
      * @return Controls\DatePicker
      */
     public function addDatePicker($name, $caption = NULL)
@@ -77,6 +88,19 @@ class Form extends \Nette\Application\UI\Form
     public function addSpinner($name, $caption = NULL)
     {
         return $this[$name] = new Controls\Spinner($caption);
+    }
+
+    /**
+     * 
+     * @param type $name
+     * @param type $label
+     * @return Controls\DateInput
+     */
+    public function addMultiSelect2($name, $label = NULL, array $items = NULL, $size = NULL)
+    {
+        $control = parent::addMultiSelect($name, $label, $items, $size);
+        $control->getControlPrototype()->class = "multi-select";
+        return $control;
     }
 
 }

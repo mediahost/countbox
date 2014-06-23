@@ -11,6 +11,7 @@ jQuery(document).ready(function() {
     UIToastr.init();
     Fullscreen.init();
     TableManaged.init();
+    ComponentsDropdowns.init();
     
     Background.init();
 });

@@ -74,16 +74,15 @@ class UsersPresenter extends BasePresenter
         return $form;
     }
 
-    public function userFormSuccess($form, $values)
+    public function userFormSuccess($form)
     {
-        $em = $this->formFactoryFactory->getEntityMapper();
-        $em->save($this->user, $form);
+        $this->formFactoryFactory
+                ->getEntityMapper()
+                ->save($this->user, $form);
+        $this->userFacade->save($this->user);
 
         if ($form['_submitContinue']->submittedBy) {
-            if ($this->userFormFactory->isAdding()) {
-                $this->redirect("edit", $this->user->getId());
-            }
-            $this->redirect("this");
+            $this->redirect("edit", $this->user->getId());
         }
         $this->redirect("Users:");
     }

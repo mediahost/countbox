@@ -10,7 +10,7 @@ namespace App\Forms\Controls;
 class TouchSpin extends \Nette\Forms\Controls\TextInput
 {
 
-    public function __construct($label = NULL, $rows = NULL)
+    public function __construct($label = NULL)
     {
         parent::__construct($label);
         $this->control->class = "touchspin";

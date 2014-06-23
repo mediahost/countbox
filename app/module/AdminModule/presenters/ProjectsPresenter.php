@@ -19,7 +19,7 @@ class ProjectsPresenter extends BasePresenter
 
     /** @var \App\Forms\ProjectFormFactory @inject */
     public $projectFormFactory;
-    
+
     /** @var \App\Model\Entity\Project */
     private $project;
 
@@ -50,7 +50,7 @@ class ProjectsPresenter extends BasePresenter
     {
         $this->project = $this->projectFacade->find($id);
     }
-    
+
     public function renderEdit()
     {
         $this->template->isAdd = $this->projectFormFactory->isAdding();
@@ -76,14 +76,13 @@ class ProjectsPresenter extends BasePresenter
 
     public function projectFormSuccess($form)
     {
-        $em = $this->formFactoryFactory->getEntityMapper();
-        $em->save($this->project, $form);
+        $this->formFactoryFactory
+                ->getEntityMapper()
+                ->save($this->project, $form);
+        $this->projectFacade->save($this->project);
 
         if ($form['_submitContinue']->submittedBy) {
-            if ($this->projectFormFactory->isAdding()) {
-                $this->redirect("edit", $this->project->getId());
-            }
-            $this->redirect("this");
+            $this->redirect("edit", $this->project->getId());
         }
         $this->redirect("Projects:");
     }

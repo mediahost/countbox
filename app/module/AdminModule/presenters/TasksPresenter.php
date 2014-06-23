@@ -19,10 +19,10 @@ class TasksPresenter extends BasePresenter
 
     /** @var \App\Forms\TaskFormFactory @inject */
     public $taskFormFactory;
-    
+
     /** @var \App\Model\Entity\Task */
     private $task;
-    
+
     protected function startup()
     {
         parent::startup();
@@ -51,7 +51,7 @@ class TasksPresenter extends BasePresenter
         $this->task = $this->taskFacade->find($id);
         $this->taskFormFactory->setEntityId($this->task->getId());
     }
-    
+
     public function renderEdit()
     {
         $this->template->isAdd = $this->taskFormFactory->isAdding();
@@ -77,14 +77,13 @@ class TasksPresenter extends BasePresenter
 
     public function taskFormSuccess($form)
     {
-        $em = $this->formFactoryFactory->getEntityMapper();
-        $em->save($this->task, $form);
+        $this->formFactoryFactory
+                ->getEntityMapper()
+                ->save($this->task, $form);
+        $this->taskFacade->save($this->task);
 
         if ($form['_submitContinue']->submittedBy) {
-            if ($this->taskFormFactory->isAdding()) {
-                $this->redirect("edit", $this->task->getId());
-            }
-            $this->redirect("this");
+            $this->redirect("edit", $this->task->getId());
         }
         $this->redirect("Tasks:");
     }
