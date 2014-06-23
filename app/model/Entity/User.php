@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="user")
  * @property string $username
+ * @property \Doctrine\ORM\PersistentCollection $roles
  * @method string getUsername()
+ * @method \Doctrine\ORM\PersistentCollection getRoles()
  */
 class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
 {
@@ -26,11 +28,11 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     /**
      * @ORM\ManyToMany(targetEntity="Role", fetch="EAGER")
      */
-    protected $role;
+    protected $roles;
 
     public function __construct()
     {
-        $this->role = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection;
     }
 
     public function toArray()
@@ -133,33 +135,24 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
         if ($clear) {
             $this->clearRoles();
         }
-        if (!$this->role->contains($element)) {
-            $this->role->add($element);
+        if (!$this->roles->contains($element)) {
+            $this->roles->add($element);
         }
         return $this;
     }
 
     public function removeRole(Role $element)
     {
-        if ($this->role->contains($element)) {
-            $this->role->removeElement($element);
+        if ($this->roles->contains($element)) {
+            $this->roles->removeElement($element);
         }
         return $this;
     }
     
-    public function clearRole()
+    public function clearRoles()
     {
-        $this->role->clear();
+        $this->roles->clear();
         return $this;
-    }
-
-    /**
-     * 
-     * @return \Doctrine\ORM\PersistentCollection
-     */
-    public function getRoles()
-    {
-        return $this->role;
     }
 
     /**
@@ -169,7 +162,7 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     public function getRolesArray($keysOnly = FALSE)
     {
         $array = array();
-        foreach ($this->role as $role) {
+        foreach ($this->roles as $role) {
             $array[$role->getId()] = $keysOnly ? $role->getId() : (string) $role;
         }
         return $array;

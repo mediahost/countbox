@@ -40,7 +40,7 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
             if ($form->values->password !== NULL && $form->values->password !== "") {
                 $entity->setPassword($form->values->password);
             }
-            $entity->clearRole();
+            $entity->clearRoles();
             foreach ($form->values->role as $roleId) {
                 $role = $this->roleFacade->find($roleId);
                 if ($role) {
