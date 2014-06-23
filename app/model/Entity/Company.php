@@ -23,6 +23,16 @@ class Company extends Entity
      */
     protected $address;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="User", fetch="LAZY")
+     */
+    protected $user;
+
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="setters">
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">

@@ -20,7 +20,7 @@ class UsersPresenter extends BasePresenter
     /** @var \App\Forms\UserFormFactory @inject */
     public $userFormFactory;
 
-    /** @var \App\Model\Entity\User\User */
+    /** @var \App\Model\Entity\User */
     private $user;
 
     protected function startup()
@@ -41,7 +41,7 @@ class UsersPresenter extends BasePresenter
 
     public function actionAdd()
     {
-        $this->user = new \App\Model\Entity\User\User;
+        $this->user = new \App\Model\Entity\User;
         $this->userFormFactory->setAdding();
         $this->setView("edit");
     }

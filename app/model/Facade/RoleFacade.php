@@ -8,7 +8,7 @@ class RoleFacade extends BaseFacade
     /**
      * 
      * @param type $name
-     * @return \App\Model\Entity\User\User
+     * @return \App\Model\Entity\User
      */
     public function findByName($name)
     {

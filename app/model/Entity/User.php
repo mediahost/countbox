@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Entity\User;
+namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -46,7 +46,7 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     /**
      * 
      * @param type $value
-     * @return \App\Model\Entity\User\User
+     * @return \App\Model\Entity\User
      * @throws \Nette\Utils\AssertionException
      */
     public function setMail($value)
@@ -61,7 +61,7 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
      * 
      * @param type $value
      * @param type $validate
-     * @return \App\Model\Entity\User\User
+     * @return \App\Model\Entity\User
      * @throws \Nette\Utils\AssertionException
      */
     public function setUsername($value, $validate = TRUE)

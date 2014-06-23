@@ -23,7 +23,7 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
 
     public function load($entity, $form)
     {
-        if ($entity instanceof \App\Model\Entity\User\User) {
+        if ($entity instanceof \App\Model\Entity\User) {
             $form->setValues(array(
                 "username" => $entity->getUsername(),
                 "role" => $entity->getRolesArray(TRUE),
@@ -35,7 +35,7 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
 
     public function save($entity, $form)
     {
-        if ($entity instanceof \App\Model\Entity\User\User) {
+        if ($entity instanceof \App\Model\Entity\User) {
             $entity->setUsername($form->values->username);
             if ($form->values->password !== NULL && $form->values->password !== "") {
                 $entity->setPassword($form->values->password);

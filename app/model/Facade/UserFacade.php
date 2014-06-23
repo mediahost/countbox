@@ -8,7 +8,7 @@ class UserFacade extends BaseFacade
     /**
      * 
      * @param type $username
-     * @return \App\Model\Entity\User\User
+     * @return \App\Model\Entity\User
      */
     public function findByUsername($username)
     {
@@ -29,12 +29,12 @@ class UserFacade extends BaseFacade
      * Create user if isnt exists
      * @param type $username
      * @param type $password
-     * @return \App\Model\Entity\User\User|null
+     * @return \App\Model\Entity\User|null
      */
     public function create($username, $password)
     {
         if ($this->findByUsername($username) === NULL) { // check unique
-            $entity = new \App\Model\Entity\User\User;
+            $entity = new \App\Model\Entity\User;
             $entity->setUsername($username);
             $entity->setPassword($password);
             return $this->save($entity);
