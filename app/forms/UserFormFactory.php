@@ -39,11 +39,11 @@ class UserFormFactory extends FormFactory
                 ->setOption("description", "username must be e-mail")
                 ->addRule(Form::EMAIL, "Username must be e-mail")
                 ->addRule(Form::FILLED, "Username must be filled");
-        $password = $form->addText('passwords', 'Password');
+        $password = $form->addText('password', 'Password');
         if ($this->isAdding()) {
             $password->addRule(Form::FILLED, "Password must be filled");
         }
-        $role = $form->addMultiSelect('roles', 'Role', $this->getRoles())
+        $role = $form->addMultiSelect2('role', 'Role', $this->getRoles())
                 ->setRequired("Select any role");
         
         $defaultRole = $this->roleFacade->findByName("client");
