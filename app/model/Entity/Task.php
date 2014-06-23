@@ -7,8 +7,26 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="task")
+ * @property string $name
+ * @property string $text
+ * @property bool $done
+ * @property bool $inProcess
+ * @property int $priority
+ * @property \Nette\Utils\DateTime $dueDate
+ * @method string getName()
+ * @method string getText()
+ * @method bool getDone()
+ * @method bool getInProcess()
+ * @method int getPriority()
+ * @method \Nette\Utils\DateTime getDueDate()
+ * @method Task setName(string $value)
+ * @method Task setText(string $value)
+ * @method Task setDone(bool $value)
+ * @method Task setInProcess(bool $value)
+ * @method Task setPriority(int $value)
+ * @method Task setDueDate(\Nette\Utils\DateTime $value)
  */
-class Task extends \Kdyby\Doctrine\Entities\IdentifiedEntity
+class Task extends Entity
 {
 
     /**
@@ -17,52 +35,37 @@ class Task extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     protected $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="text_html", type="text")
      */
-    protected $text_html;
+    protected $text;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $done = FALSE;
+
+    /**
+     * @ORM\Column(name="in_process", type="boolean")
+     */
+    protected $inProcess = FALSE;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    protected $priority = 5;
+
+    /**
+     * @ORM\Column(name="create_date", type="datetime")
+     */
+    protected $createDate;
+
+    /**
+     * @ORM\Column(name="due_date", type="datetime")
+     */
+    protected $dueDate;
 
     // <editor-fold defaultstate="collapsed" desc="setters">
-    /**
-     * 
-     * @param type $value
-     * @return Task
-     */
-    public function setName($value)
-    {
-        $this->name = $value;
-        return $this;
-    }
-
-    /**
-     * 
-     * @param type $value
-     * @return Task
-     */
-    public function setText($value)
-    {
-        $this->text_html = $value;
-        return $this;
-    }
-
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
-    /**
-     * 
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    public function getText()
-    {
-        return $this->text_html;
-    }
-
     // </editor-fold>
 }

@@ -49,6 +49,7 @@ class TasksPresenter extends BasePresenter
     public function actionEdit($id)
     {
         $this->task = $this->taskFacade->find($id);
+        $this->taskFormFactory->setEntityId($this->task->getId());
     }
     
     public function renderEdit()

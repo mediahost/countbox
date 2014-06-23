@@ -28,6 +28,12 @@
                                 ID
                             </th>
                             <th>
+                                Due date
+                            </th>
+                            <th>
+                                Create date
+                            </th>
+                            <th>
                                 Name
                             </th>
                             <th>
@@ -45,8 +51,14 @@
                                 {$task->id}
                             </td>
                             <td>
+                                {$task->dueDate|date:'d.m.Y'}
+                            </td>
+                            <td>
+                                {$task->createDate|date:'d.m.Y'}
+                            </td>
+                            <td>
                                 <a n:href="Tasks:view, $task->id">
-                                    {$task->name}
+                                    {if $task->name}{$task->name}{else}Task #{$task->id}{/if}
                                 </a>
                             </td>
                             <td>

@@ -352,10 +352,17 @@ var ComponentsFormTools = function() {
     }
 
     var handleSpinners = function() {
-        $('#spinner1').spinner();
-        $('#spinner2').spinner({disabled: true});
-        $('#spinner3').spinner({value: 0, min: 0, max: 10});
-        $('#spinner4').spinner({value: 0, step: 5, min: 0, max: 200});
+        $(".form-spinner").each(function() {
+            var params = {};
+            for (var i = 0, attrs = this.attributes, l = attrs.length; i < l; i++) {
+                var attr = attrs.item(i).nodeName;
+                if (attr.substring(0, 5) === "data-") {
+                    var paramName = attr.substring(5).replace(/\-/g, "_");
+                    params[paramName] = $(this).attr(attr);
+                }
+            }
+            $(this).spinner(params);
+        });
     }
 
     var handleTagsInput = function() {
@@ -406,7 +413,7 @@ var ComponentsFormTools = function() {
 //            handleBootstrapSwitch();
             handleBootstrapTouchSpin();
 //            handleBootstrapMaxlength();
-//            handleSpinners();
+            handleSpinners();
 //            handleTagsInput();
 //            handlePasswordStrengthChecker();
         }

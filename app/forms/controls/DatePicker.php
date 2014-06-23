@@ -4,6 +4,8 @@ namespace App\Forms\Controls;
 
 use Nette\Forms\Controls\BaseControl;
 use Nette\Utils\Html;
+use Nette\Utils\DateTime;
+use Tracy\Debugger as Debug;
 
 /**
  * DatePicker
@@ -42,15 +44,16 @@ class DatePicker extends BaseControl
         if (!$control->isRequired() && empty($control->date)) {
             return TRUE;
         } else {
-            $d = \Nette\DateTime::createFromFormat($control->format, $control->date);
-            return $d && $d->format($control->format) == $control->date;
+            $d = DateTime::createFromFormat($control->format, $control->date);
+            $controlDate = $control->date instanceof \DateTimeInterface ? $control->date : DateTime::from($control->date);
+            return $d && $d->format($control->format) == $controlDate->format($control->format);
         }
     }
 
     public function setValue($value)
     {
         if ($value) {
-            $this->date = \Nette\DateTime::from($value);
+            $this->date = DateTime::from($value);
         } else {
             $this->date = NULL;
         }
@@ -59,9 +62,10 @@ class DatePicker extends BaseControl
     /**
      * @return DateTime|NULL
      */
-    public function getValue()
+    public function getValue($formated = FALSE)
     {
-        return self::validateDate($this) ? \Nette\DateTime::createFromFormat($this->format, $this->date) : NULL;
+        $date = DateTime::createFromFormat($this->format, $this->date);
+        return self::validateDate($this) ? ($formated ? $date->format($this->format) : $date) : NULL;
     }
 
     public function loadHttpData()
@@ -122,7 +126,7 @@ class DatePicker extends BaseControl
         $input = Html::el('input class="form-control"')
                 ->name($this->getHtmlName() . '[date]')
                 ->id($this->getHtmlId())
-                ->value(self::validateDate($this) ? $this->date : NULL);
+                ->value($this->getValue(TRUE));
         if ($picker) {
             $input->class("date-picker", TRUE);
         }
@@ -142,6 +146,37 @@ class DatePicker extends BaseControl
         return Html::el('span class="input-group-btn"')
                         ->add(Html::el('button class="btn default" type="button"')
                                 ->add($this->getIcon()));
+    }
+    
+    public function setStartDate(DateTime $value)
+    {
+        $this->attributes["data-start-date"] = $value->format($this->format);
+        return $this;
+    }
+    
+    public function setEndDate(DateTime $value)
+    {
+        $this->attributes["data-end-date"] = $value->format($this->format);
+        return $this;
+    }
+    
+    /**
+     * Set a limit for the view mode. 
+     * Accepts: “days” or 0, “months” or 1, and “years” or 2. 
+     * Gives the ability to pick only a month or an year. 
+     * The day is set to the 1st for “months”, and the month is set to January for “years”.
+     * @param type $value
+     */
+    public function setMinViewMode($value)
+    {
+        $this->attributes["data-min-view-mode"] = $value;
+        return $this;
+    }
+    
+    public function setTodayHighlight($value = TRUE)
+    {
+        $this->attributes["data-today-highlight"] = $value ? "true" : "false";
+        return $this;
     }
 
 }

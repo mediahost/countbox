@@ -1,17 +1,33 @@
-var ComponentsPickers = function () {
+var ComponentsPickers = function() {
 
-    var handleDatePickers = function () {
+    var handleDatePickers = function() {
 
         if (jQuery().datepicker) {
-            $('.date-picker').datepicker({
-                rtl: Metronic.isRTL(),
-                autoclose: true
+            $('.date-picker').each(function() {
+                var params = {
+                    rtl: Metronic.isRTL(),
+                    autoclose: true
+                };
+                for (var i = 0, attrs = this.attributes, l = attrs.length; i < l; i++) {
+                    var attr = attrs.item(i).nodeName;
+                    if (attr.substring(0, 10) !== "data-date-" && attr.substring(0, 5) === "data-") {
+                        var paramName = attr.substring(5).replace(/\-/g, "_");
+                        var paramNameIndex = paramName.indexOf("_");
+                        while (paramNameIndex !== -1) {
+                            paramName = paramName.substring(0, paramNameIndex)
+                                    + paramName.substring(paramNameIndex + 1, paramNameIndex + 2).toUpperCase()
+                                    + paramName.substring(paramNameIndex + 2);
+                            paramNameIndex = paramName.indexOf("_");
+                        }
+                        params[paramName] = $(this).attr(attr);
+                    }
+                }
+                $(this).datepicker(params);
             });
-            //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
-    }
+    };
 
-    var handleTimePickers = function () {
+    var handleTimePickers = function() {
 
         if (jQuery().timepicker) {
             $('.timepicker-default').timepicker({
@@ -33,102 +49,102 @@ var ComponentsPickers = function () {
             });
 
             // handle input group button click
-            $('.timepicker').parent('.input-group').on('click', '.input-group-btn', function(e){
+            $('.timepicker').parent('.input-group').on('click', '.input-group-btn', function(e) {
                 e.preventDefault();
                 $(this).parent('.input-group').find('.timepicker').timepicker('showWidget');
             });
         }
-    }
+    };
 
-    var handleDateRangePickers = function () {
+    var handleDateRangePickers = function() {
         if (!jQuery().daterangepicker) {
             return;
         }
 
         $('#defaultrange').daterangepicker({
-                opens: (Metronic.isRTL() ? 'left' : 'right'),
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                startDate: moment().subtract('days', 29),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2014',
-            },
-            function (start, end) {
-                console.log("Callback has been called!");
-                $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            }
-        );        
+            opens: (Metronic.isRTL() ? 'left' : 'right'),
+            format: 'MM/DD/YYYY',
+            separator: ' to ',
+            startDate: moment().subtract('days', 29),
+            endDate: moment(),
+            minDate: '01/01/2012',
+            maxDate: '12/31/2014',
+        },
+                function(start, end) {
+                    console.log("Callback has been called!");
+                    $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                }
+        );
 
         $('#defaultrange_modal').daterangepicker({
-                opens: (Metronic.isRTL() ? 'left' : 'right'),
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                startDate: moment().subtract('days', 29),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2014',
-            },
-            function (start, end) {
-                $('#defaultrange_modal input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            }
-        );  
+            opens: (Metronic.isRTL() ? 'left' : 'right'),
+            format: 'MM/DD/YYYY',
+            separator: ' to ',
+            startDate: moment().subtract('days', 29),
+            endDate: moment(),
+            minDate: '01/01/2012',
+            maxDate: '12/31/2014',
+        },
+                function(start, end) {
+                    $('#defaultrange_modal input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                }
+        );
 
         // this is very important fix when daterangepicker is used in modal. in modal when daterange picker is opened and mouse clicked anywhere bootstrap modal removes the modal-open class from the body element.
         // so the below code will fix this issue.
-        $('#defaultrange_modal').on('click', function(){
+        $('#defaultrange_modal').on('click', function() {
             if ($('#daterangepicker_modal').is(":visible") && $('body').hasClass("modal-open") == false) {
                 $('body').addClass("modal-open");
             }
         });
 
         $('#reportrange').daterangepicker({
-                opens: (Metronic.isRTL() ? 'left' : 'right'),
-                startDate: moment().subtract('days', 29),
-                endDate: moment(),
-                minDate: '01/01/2012',
-                maxDate: '12/31/2014',
-                dateLimit: {
-                    days: 60
-                },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                    'Last 7 Days': [moment().subtract('days', 6), moment()],
-                    'Last 30 Days': [moment().subtract('days', 29), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-                },
-                buttonClasses: ['btn'],
-                applyClass: 'green',
-                cancelClass: 'default',
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                locale: {
-                    applyLabel: 'Metronicly',
-                    fromLabel: 'From',
-                    toLabel: 'To',
-                    customRangeLabel: 'Custom Range',
-                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    firstDay: 1
-                }
+            opens: (Metronic.isRTL() ? 'left' : 'right'),
+            startDate: moment().subtract('days', 29),
+            endDate: moment(),
+            minDate: '01/01/2012',
+            maxDate: '12/31/2014',
+            dateLimit: {
+                days: 60
             },
-            function (start, end) {
-                console.log("Callback has been called!");
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: true,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                'Last 7 Days': [moment().subtract('days', 6), moment()],
+                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+            },
+            buttonClasses: ['btn'],
+            applyClass: 'green',
+            cancelClass: 'default',
+            format: 'MM/DD/YYYY',
+            separator: ' to ',
+            locale: {
+                applyLabel: 'Metronicly',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
             }
+        },
+        function(start, end) {
+            console.log("Callback has been called!");
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
         );
         //Set the initial state of the picker label
         $('#reportrange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
-    }
+    };
 
-    var handleDatetimePicker = function () {
+    var handleDatetimePicker = function() {
 
         $(".form_datetime").datetimepicker({
             autoclose: true,
@@ -157,9 +173,9 @@ var ComponentsPickers = function () {
         });
 
         $('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
-    }
+    };
 
-    var handleClockfaceTimePickers = function () {
+    var handleClockfaceTimePickers = function() {
 
         if (!jQuery().clockface) {
             return;
@@ -172,7 +188,7 @@ var ComponentsPickers = function () {
             trigger: 'manual'
         });
 
-        $('#clockface_2_toggle').click(function (e) {
+        $('#clockface_2_toggle').click(function(e) {
             e.stopPropagation();
             $('#clockface_2').clockface('toggle');
         });
@@ -182,7 +198,7 @@ var ComponentsPickers = function () {
             trigger: 'manual'
         });
 
-        $('#clockface_2_modal_toggle').click(function (e) {
+        $('#clockface_2_modal_toggle').click(function(e) {
             e.stopPropagation();
             $('#clockface_2_modal').clockface('toggle');
         });
@@ -190,9 +206,9 @@ var ComponentsPickers = function () {
         $('.clockface_3').clockface({
             format: 'H:mm'
         }).clockface('show', '14:30');
-    }
+    };
 
-    var handleColorPicker = function () {
+    var handleColorPicker = function() {
         if (!jQuery().colorpicker) {
             return;
         }
@@ -200,12 +216,12 @@ var ComponentsPickers = function () {
             format: 'hex'
         });
         $('.colorpicker-rgba').colorpicker();
-    }
-   
+    };
+
 
     return {
         //main function to initiate the module
-        init: function () {
+        init: function() {
             handleDatePickers();
 //            handleTimePickers();
 //            handleDatetimePicker();

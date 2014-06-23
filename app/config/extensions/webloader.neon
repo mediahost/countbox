@@ -111,6 +111,7 @@ webloader:
                 - ../assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js
                 - ../assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js
                 - ../assets/plugins/bootstrap-toastr/toastr.min.js
+                - ../assets/plugins/fuelux/js/spinner.min.js
                 - ../assets/plugins/datatables/media/js/jquery.dataTables.min.js
                 - ../assets/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js
                 - ../assets/plugins/jquery-validation/js/jquery.validate.min.js

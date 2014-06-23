@@ -68,4 +68,15 @@ class Form extends \Nette\Application\UI\Form
         return $this[$name] = new Controls\TouchSpin($caption);
     }
 
+    /**
+     * 
+     * @param type $name
+     * @param type $caption
+     * @return Controls\Spinner
+     */
+    public function addSpinner($name, $caption = NULL)
+    {
+        return $this[$name] = new Controls\Spinner($caption);
+    }
+
 }

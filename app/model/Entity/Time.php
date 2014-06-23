@@ -10,7 +10,7 @@ use DateTimeInterface;
  * @ORM\Entity
  * @ORM\Table(name="time")
  */
-class Time extends \Kdyby\Doctrine\Entities\IdentifiedEntity
+class Time extends Entity
 {
 
     /**
