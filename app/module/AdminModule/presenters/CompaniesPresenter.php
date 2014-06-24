@@ -87,7 +87,7 @@ class CompaniesPresenter extends BasePresenter
                 ->save($this->company, $form);        
         $this->companyFacade->save($this->company);
 
-        if ($form['_submitContinue']->submittedBy) {
+        if ($form['submitContinue']->submittedBy) {
             $this->redirect("edit", $this->company->getId());
         }
         $this->redirect("Companies:");

@@ -6,10 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="role")
- * @method Role setName(string $value)
+ * @ORM\Table(name="status")
+ * @method Status setName(string $value)
  */
-class Role extends NamedEntity
+class Status extends NamedEntity
 {
 
     // <editor-fold defaultstate="collapsed" desc="setters">

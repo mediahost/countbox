@@ -37,6 +37,9 @@
                                 Name
                             </th>
                             <th>
+                                Project
+                            </th>
+                            <th>
                                 Edit
                             </th>
                             <th>
@@ -59,6 +62,11 @@
                             <td>
                                 <a n:href="Tasks:view, $task->id">
                                     {$task}
+                                </a>
+                            </td>
+                            <td>
+                                <a n:href="Projects:view, $task->project->id">
+                                    {$task->project}
                                 </a>
                             </td>
                             <td>

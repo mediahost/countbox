@@ -19,9 +19,21 @@ class Project extends Entity
 
     /**
      * @ORM\ManyToOne(targetEntity="Company", fetch="EAGER")
-     * @var array<Company>
+     * @var Company
      */
     protected $company;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="project", fetch="LAZY")
+     * @ORM\OrderBy({"dueDate" = "ASC"})
+     * @var array<Task>
+     */
+    protected $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new \Doctrine\Common\Collections\ArrayCollection;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="setters">
     // </editor-fold>

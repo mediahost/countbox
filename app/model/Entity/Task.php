@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="task")
- * @property string $name
  * @property string $text
  * @property bool $done
  * @property bool $inProcess
@@ -25,13 +24,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @method Task setPriority(int $value)
  * @method Task setDueDate(\Nette\Utils\DateTime $value)
  */
-class Task extends Entity
+class Task extends NamedEntity
 {
-
-    /**
-     * @ORM\Column(type="string", length=128)
-     */
-    protected $name;
 
     /**
      * @ORM\Column(name="text_html", type="text")
@@ -63,11 +57,53 @@ class Task extends Entity
      */
     protected $dueDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY")
+     * @var User
+     */
+    protected $solver;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Project", fetch="EAGER")
+     * @var Project
+     */
+    protected $project;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Status", fetch="EAGER")
+     * @var Status
+     */
+    protected $status;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tag", fetch="LAZY")
+     * @var array<Project>
+     */
+    protected $tags;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="task", fetch="LAZY")
+     * @ORM\OrderBy({"sendTime" = "ASC"})
+     * @var array<Comment>
+     */
+    protected $comments;
+
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="setters">
 
     public function getName()
     {
-        return $this->name ? $this->name : "Task #" . $this->getId();
+        return $this->name ? $this->name : ($this->getId() ? "Task #" . $this->getId() : NULL);
+    }
+
+    public function getCreateDate()
+    {
+        return $this->createDate ? $this->createDate : new \Nette\Utils\DateTime;
     }
 
     // </editor-fold>

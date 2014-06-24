@@ -16,7 +16,7 @@
             <div class="view-tag-data">
                 <div class="row">
                     <div class="col-md-6">
-                        <ul class="list-inline view-tags">
+                        <ul class="list-inline view-tags" n:if="!$clientMode">
                             <li>
                                 <i class="fa fa-tags"></i>
                                 <a n:href="this">Technology</a>
@@ -33,14 +33,14 @@
                                     {$task->createDate->format('d. m. Y') }
                                 </span>
                             </li>
-                            <li>
+                            <li n:if="!$clientMode">
                                 <i class="fa fa-flag-checkered"></i>
                                 <span>
                                     {$task->dueDate->format('d. m. Y') }
                                 </span>
                             </li>
-                            <li>
-                                <i class="fa fa-bolt"></i>
+                            <li n:if="!$clientMode">
+                                <i class="fa fa-exclamation"></i>
                                 <span>
                                     {$task->priority}
                                 </span>
@@ -53,65 +53,61 @@
                 {!$task->text}
             </div>
             <hr>
+            <div class="space10"></div>
             <!-- BEGIN COMMENTS -->
             <div class="portlet">
                 <div class="portlet-body">
                     <!--<div class="scroller" style="height: 435px;" data-always-visible="1" data-rail-visible1="1">-->
                     <div>
                         <ul class="chats">
-                            <li class="in public">
-                                <img class="avatar" alt="" src="{$basePath}/images/programmer_avatar.png"/>
-                                <div class="message">
-                                    <span class="arrow">
-                                    </span>
-                                    <a href="#" class="name">
-                                        Bob Nilson </a>
-                                    <span class="datetime">
-                                        at 20:09 </span>
-                                    <span class="body">
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
-                                </div>
-                            </li>
-                            <li class="out">
-                                <img class="avatar" alt="" src="{$basePath}/images/client_avatar.png"/>
-                                <div class="message">
-                                    <span class="arrow">
-                                    </span>
-                                    <a href="#" class="name">
-                                        Lisa Wong </a>
-                                    <span class="datetime">
-                                        at 20:11 </span>
-                                    <span class="body">
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
-                                </div>
-                            </li>
-                            <li class="in">
-                                <img class="avatar" alt="" src="{$basePath}/images/programmer_avatar.png"/>
-                                <div class="message">
-                                    <span class="arrow">
-                                    </span>
-                                    <a href="#" class="name">
-                                        Bob Nilson </a>
-                                    <span class="datetime">
-                                        at 20:30 </span>
-                                    <span class="body">
-                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
-                                </div>
-                            </li>
+
+                            {foreach $task->comments as $comment}
+                                {var isClientMessage => $comment->task->project->company->hasUser($comment->getSender())}
+                                {var isOut => $isClientMessage}{** out is client // it can be some role **}
+                                {continueIf $clientMode && !$comment->public}
+                                <li n:class="$isOut ? out : in, $comment->public ? public : private">
+                                    <img class="avatar" alt="" src="{$basePath}/images/{if $isOut}client{else}programmer{/if}_avatar.png"/>
+                                    <div class="message">
+                                        <span class="arrow">
+                                        </span>
+                                        <a n:href="Users:view, $comment->getSender()->getId()" class="name">
+                                            {$comment->getSender()}
+                                        </a>
+                                        <span class="datetime">
+                                            at {$comment->getSendTime()->format('H:i | d.m.Y')} 
+                                        </span>
+                                        <span class="body">
+                                            {!$comment->getMessage()|nl2br}
+                                        </span>
+                                    </div>
+                                </li>
+                            {/foreach}
                         </ul>
                     </div>
+                    <!-- BEGIN CHAT FORM -->
                     <div class="chat-form">
-                        <div class="input-cont">
-                            <input class="form-control" type="text" placeholder="Type a message here..."/>
-                        </div>
-                        <div class="btn-cont">
-                            <span class="arrow">
-                            </span>
-                            <a href="" class="btn blue icn-only">
-                                <i class="fa fa-check icon-white"></i>
-                            </a>
-                        </div>
+                        {form commentForm}
+                            <div class="input-group">
+                                <span class="input-group-btn" n:if="!$clientMode">
+                                    {button sendPublic, class=>'btn red'}
+                                    <i class="fa fa-user icon-white"></i>
+                                    <br>
+                                    Public
+                                    {/button}
+                                </span>
+                                {input message, class => 'form-control'}
+                                {var buttonControl => $clientMode ? 'sendPublic' : 'sendPrivate'}
+                                <span class="input-group-btn">
+                                    {button $buttonControl, class=>'btn blue'}
+                                    <i class="fa fa-send icon-white"></i>
+                                    <br>
+                                    Send
+                                    {/button}
+                                </span>
+                            </div>
+                        {/form}
                     </div>
+                    <!-- END CHAT FORM -->
                 </div>
             </div>
             <!-- END COMMENTS -->
@@ -122,11 +118,13 @@
             <div class="top-news">
                 <a href="#" class="btn red">
                     <span>10h 30min</span>
-                    <em>Total time
+                    <em>
+                        <i class="fa fa-info-circle"></i>
+                        Total time
                     </em>
                     <i class="fa fa-clock-o top-news-icon"></i>
                 </a>
-                <a href="#" class="btn purple">
+                <a href="#" class="btn purple" n:if="!$clientMode">
                     <span>Part time</span>
                     <em>
                         <i class="fa fa-clock-o"></i>
@@ -138,7 +136,7 @@
                     </em>
                     <i class="fa fa-users top-news-icon"></i>
                 </a>
-                <a href="#" class="btn green">
+                <a href="#" class="btn green" n:if="!$clientMode">
                     <span>Actual worker</span>
                     <em>
                         <i class="fa fa-user"></i>
@@ -147,10 +145,10 @@
                     <i class="fa fa-bolt top-news-icon"></i>
                 </a>
                 <a href="#" class="btn blue">
-                    <span>Status</span>
+                    <span>working on</span>
                     <em>
                         <i class="fa fa-info-circle"></i>
-                        working on
+                        Status
                     </em>
                     <i class="fa fa-gears top-news-icon"></i>
                 </a>
@@ -158,5 +156,3 @@
         </div>
     </div>
 </div>
-
-

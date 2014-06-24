@@ -7,19 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="company")
- * @property string $name
  * @property Address $address
- * @method string getName()
  * @method Company setName(string $name)
  */
-class Company extends Entity
+class Company extends NamedEntity
 {
-
-    /**
-     * @ORM\Column(type="string", length=128)
-     * @var string
-     */
-    protected $name;
 
     /**
      * @ORM\OneToOne(targetEntity="Address", fetch="EAGER")
@@ -35,6 +27,7 @@ class Company extends Entity
 
     /**
      * @ORM\OneToMany(targetEntity="Project", mappedBy="company", fetch="LAZY")
+     * @ORM\OrderBy({"name" = "ASC"})
      * @var array<Project>
      */
     protected $projects;
@@ -75,6 +68,11 @@ class Company extends Entity
     {
         $this->users->clear();
         return $this;
+    }
+
+    public function hasUser(User $element)
+    {
+        return $this->users->contains($element);
     }
 
     /**

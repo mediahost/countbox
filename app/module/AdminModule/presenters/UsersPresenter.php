@@ -87,7 +87,7 @@ class UsersPresenter extends BasePresenter
                 ->save($this->user, $form);
         $this->userFacade->save($this->user);
 
-        if ($form['_submitContinue']->submittedBy) {
+        if ($form['submitContinue']->submittedBy) {
             $this->redirect("edit", $this->user->getId());
         }
         $this->redirect("Users:");

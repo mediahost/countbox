@@ -87,7 +87,7 @@ class ProjectsPresenter extends BasePresenter
                 ->save($this->project, $form);
         $this->projectFacade->save($this->project);
 
-        if ($form['_submitContinue']->submittedBy) {
+        if ($form['submitContinue']->submittedBy) {
             $this->redirect("edit", $this->project->getId());
         }
         $this->redirect("Projects:");

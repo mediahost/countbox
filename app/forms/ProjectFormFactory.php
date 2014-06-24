@@ -41,7 +41,7 @@ class ProjectFormFactory extends FormFactory
                 ->setRequired("Client must be selected");
         
         $form->addSubmit('_submit', 'Save');
-        $form->addSubmit('_submitContinue', 'Save and continue edit');
+        $form->addSubmit('submitContinue', 'Save and continue edit');
         return $form;
     }
 

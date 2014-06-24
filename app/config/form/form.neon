@@ -31,6 +31,7 @@ services:
     - App\Forms\TaskFormFactory(@metronicFormFactory)
     - App\Forms\ProjectFormFactory(@metronicFormFactory)
     - App\Forms\CompanyFormFactory(@metronicFormFactory)
+    - App\Forms\CommentFormFactory(@metronicFormFactory)
 
 nette:
     latte:

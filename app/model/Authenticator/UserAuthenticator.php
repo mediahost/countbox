@@ -39,7 +39,7 @@ class UserAuthenticator extends Nette\Object implements Nette\Security\IAuthenti
         }
         
         $arr = $user->toArray();
-        return new Nette\Security\Identity($user->getUsername(), $user->getRolesArray(), $arr);
+        return new Nette\Security\Identity($user->getId(), $user->getRolesArray(), $arr);
     }
 
 }

@@ -23,6 +23,21 @@ class TasksPresenter extends BasePresenter
     /** @var \App\Model\Entity\Task */
     private $task;
 
+    /** @var \App\Model\Facade\UserFacade @inject */
+    public $userFacade;
+
+    /** @var \App\Forms\CommentFormFactory @inject */
+    public $commentFormFactory;
+
+    /** @var \App\Model\Facade\CommentFacade @inject */
+    public $commentFacade;
+
+    /** @var \App\Model\Entity\Comment */
+    private $comment;
+
+    /** @var bool */
+    private $clientMode;
+
     protected function startup()
     {
         parent::startup();
@@ -64,11 +79,18 @@ class TasksPresenter extends BasePresenter
             $this->flashMessage("Requested task was not found.", 'error');
             $this->redirect("default");
         }
+
+        $sender = $this->userFacade->find($this->getUser()->getId());
+        $this->comment = new \App\Model\Entity\Comment;
+        $this->comment->setSender($sender);
+        $this->comment->setTask($this->task);
+        $this->clientMode = $this->task->project->company->hasUser($sender);
     }
 
     public function renderView()
     {
         $this->template->task = $this->task;
+        $this->template->clientMode = $this->clientMode;
     }
 
     public function actionDelete($id)
@@ -77,6 +99,8 @@ class TasksPresenter extends BasePresenter
         $this->redirect("default");
     }
 
+// <editor-fold defaultstate="collapsed" desc="privates">
+// </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="Forms">
 
     public function createComponentTaskForm()
@@ -96,10 +120,32 @@ class TasksPresenter extends BasePresenter
                 ->save($this->task, $form);
         $this->taskFacade->save($this->task);
 
-        if ($form['_submitContinue']->submittedBy) {
+        if ($form['submitContinue']->submittedBy) {
             $this->redirect("edit", $this->task->getId());
         }
         $this->redirect("Tasks:");
+    }
+
+    public function createComponentCommentForm()
+    {
+        $form = $this->formFactoryFactory
+                ->create($this->commentFormFactory)
+                ->setEntity($this->comment)
+                ->create();
+        $form->onSuccess[] = $this->commentFormSuccess;
+        return $form;
+    }
+
+    public function commentFormSuccess($form)
+    {
+        $this->formFactoryFactory
+                ->getEntityMapper()
+                ->save($this->comment, $form);
+        $this->comment->setSendTime(new Nette\Utils\DateTime);
+        $this->comment->setPublic($form['sendPublic']->submittedBy);
+        $this->commentFacade->save($this->comment);
+
+        $this->redirect("this");
     }
 
 // </editor-fold>

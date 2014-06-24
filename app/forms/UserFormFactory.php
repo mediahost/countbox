@@ -52,7 +52,7 @@ class UserFormFactory extends FormFactory
         }
 
         $form->addSubmit('_submit', 'Save');
-        $form->addSubmit('_submitContinue', 'Save and continue edit');
+        $form->addSubmit('submitContinue', 'Save and continue edit');
         return $form;
     }
 
