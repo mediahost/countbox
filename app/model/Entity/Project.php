@@ -27,4 +27,14 @@ class Project extends Entity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
     // </editor-fold>
+
+    /**
+     * Render entity
+     * @return string
+     */
+    public function render()
+    {
+        return $this->getName();
+    }
+
 }

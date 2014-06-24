@@ -23,18 +23,14 @@ class Role extends Entity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
     // </editor-fold>
-    
-    public function __toString()
-    {
-        return $this->render();
-    }
-    
+
     /**
      * Render entity
      * @return string
      */
     public function render()
     {
-        return $this->name;
+        return $this->getName();
     }
+
 }

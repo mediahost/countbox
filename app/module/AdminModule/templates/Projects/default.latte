@@ -28,7 +28,10 @@
                                 ID
                             </th>
                             <th>
-                                Name
+                                Project
+                            </th>
+                            <th>
+                                Company
                             </th>
                             <th>
                                 Edit
@@ -47,6 +50,11 @@
                             <td>
                                 <a n:href="Projects:view, $project->id">
                                     {$project->name}
+                                </a>
+                            </td>
+                            <td>
+                                <a n:href="Company:view, $project->company->id">
+                                    {$project->company}
                                 </a>
                             </td>
                             <td>

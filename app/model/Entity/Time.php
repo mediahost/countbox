@@ -14,6 +14,8 @@ use DateTimeInterface;
  */
 class Time extends Entity
 {
+    
+    private $format = "d.m.Y H:i";
 
     /**
      * @ORM\Column(name="start_time", type="datetime")
@@ -103,4 +105,14 @@ class Time extends Entity
     }
 
     // </editor-fold>
+
+    /**
+     * Render entity
+     * @return string
+     */
+    public function render()
+    {
+        return $this->getStart()->format($this->format) . "-" . $this->getEnd()->format($this->format);
+    }
+
 }

@@ -21,4 +21,14 @@ class Comment extends Entity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
     // </editor-fold>
+
+    /**
+     * Render Entity
+     * @return string
+     */
+    public function render()
+    {
+        return $this->getMessage();
+    }
+
 }

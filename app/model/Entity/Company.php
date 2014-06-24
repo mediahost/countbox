@@ -88,4 +88,14 @@ class Company extends Entity
     }
 
     // </editor-fold>
+
+    /**
+     * Render entity
+     * @return string
+     */
+    public function render()
+    {
+        return $this->getName();
+    }
+
 }

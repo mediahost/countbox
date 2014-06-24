@@ -40,6 +40,11 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
                 "name" => $entity->getName(),
                 "users" => $entity->getUsersArray(TRUE),
             ));
+        } else if ($entity instanceof Entity\Project) {
+            $form->setValues(array(
+                "name" => $entity->getName(),
+                "company" => $entity->getCompany() === NULL ? NULL : $entity->getCompany()->getId(),
+            ));
         } else {
             parent::load($entity, $form);
         }
@@ -68,6 +73,9 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
                     $entity->addUser($item);
                 }
             }
+        } else if ($entity instanceof Entity\Company) {
+            $entity->setName($form->values->name);
+            $entity->setCompany($this->companyFacade->find($id));
         } else {
             parent::save($entity, $form);
         }

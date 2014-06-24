@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM,
  *
  * @author Petr Poupě
  */
-abstract class Entity extends IdentifiedEntity
+abstract class Entity extends IdentifiedEntity implements IEntity
 {
 
     protected function getEntityArray($arrayOfEntities, $keysOnly = FALSE)
@@ -20,6 +20,11 @@ abstract class Entity extends IdentifiedEntity
             $array[$entity->getId()] = $keysOnly ? $entity->getId() : (string) $entity;
         }
         return $array;
+    }
+    
+    public function __toString()
+    {
+        return $this->render();
     }
 
 }
