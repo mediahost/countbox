@@ -64,7 +64,17 @@ class ProjectsPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
-        $this->flashMessage("Not implemented yet.", 'warning');
+        $this->project = $this->projectFacade->find($id);
+        if ($this->project) {
+            if (!$this->project->getTasksCount()) {
+                $this->projectFacade->delete($this->project);
+                $this->flashMessage("Entity was deleted.", 'success');
+            } else {
+                $this->flashMessage("Project cannot be deleted. Remove tasks first", 'warning');
+            }
+        } else {
+            $this->flashMessage("Entity was not found.", 'warning');
+        }
         $this->redirect("default");
     }
 

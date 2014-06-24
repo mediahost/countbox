@@ -39,6 +39,43 @@ class Project extends Entity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="tasks getters & setters">
+
+    /**
+     * 
+     * @return int
+     */
+    public function getTasksCount()
+    {
+        return $this->tasks->count();
+    }
+
+    public function addTask(Task $element, $clear = FALSE)
+    {
+        if ($clear) {
+            $this->clearTasks();
+        }
+        if (!$this->tasks->contains($element)) {
+            $this->tasks->add($element);
+        }
+        return $this;
+    }
+
+    public function removeTask(Task $element)
+    {
+        if ($this->tasks->contains($element)) {
+            $this->tasks->removeElement($element);
+        }
+        return $this;
+    }
+
+    public function clearTasks()
+    {
+        $this->tasks->clear();
+        return $this;
+    }
+
+    // </editor-fold>
 
     /**
      * Render entity
