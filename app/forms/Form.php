@@ -96,11 +96,20 @@ class Form extends \Nette\Application\UI\Form
      * @param type $label
      * @return Controls\DateInput
      */
-    public function addMultiSelect2($name, $label = NULL, array $items = NULL, $size = NULL)
+    public function addSelect2($name, $label = NULL, array $items = NULL)
     {
-        $control = parent::addMultiSelect($name, $label, $items, $size);
-        $control->getControlPrototype()->class = "multi-select";
-        return $control;
+        return $this[$name] = new Controls\Select2($label, $items);
+    }
+
+    /**
+     * 
+     * @param type $name
+     * @param type $label
+     * @return Controls\DateInput
+     */
+    public function addMultiSelect2($name, $label = NULL, array $items = NULL)
+    {
+        return $this[$name] = new Controls\MultiSelect2($label, $items);
     }
 
 }
