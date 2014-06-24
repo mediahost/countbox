@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @method string getName()
  * @method Role setName(string $value)
  */
-class Role extends \Kdyby\Doctrine\Entities\IdentifiedEntity
+class Role extends Entity
 {
 
     /**

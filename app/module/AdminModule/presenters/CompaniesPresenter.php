@@ -74,11 +74,11 @@ class CompaniesPresenter extends BasePresenter
         return $form;
     }
 
-    public function companyFormSuccess($form, $values)
+    public function companyFormSuccess($form)
     {
         $this->formFactoryFactory
                 ->getEntityMapper()
-                ->save($this->company, $form);
+                ->save($this->company, $form);        
         $this->companyFacade->save($this->company);
 
         if ($form['_submitContinue']->submittedBy) {

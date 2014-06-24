@@ -43,7 +43,7 @@ class UserFormFactory extends FormFactory
         if ($this->isAdding()) {
             $password->addRule(Form::FILLED, "Password must be filled");
         }
-        $role = $form->addMultiSelect2('role', 'Role', $this->getRoles())
+        $role = $form->addMultiSelect2('roles', 'Roles', $this->getRoles())
                 ->setRequired("Select any role");
         
         $defaultRole = $this->roleFacade->findByName("client");

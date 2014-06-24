@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @method string getUsername()
  * @method \Doctrine\ORM\PersistentCollection getRoles()
  */
-class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
+class User extends Entity
 {
 
     /**
@@ -127,7 +127,7 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
     }
 
     // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="role getters & setters">
+    // <editor-fold defaultstate="collapsed" desc="roles getters & setters">
 
 
     public function addRole(Role $element, $clear = FALSE)
@@ -148,7 +148,7 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
         }
         return $this;
     }
-    
+
     public function clearRoles()
     {
         $this->roles->clear();
@@ -157,15 +157,12 @@ class User extends \Kdyby\Doctrine\Entities\IdentifiedEntity
 
     /**
      * 
+     * @param bool $keysOnly if TRUE than return only keys
      * @return array
      */
     public function getRolesArray($keysOnly = FALSE)
     {
-        $array = array();
-        foreach ($this->roles as $role) {
-            $array[$role->getId()] = $keysOnly ? $role->getId() : (string) $role;
-        }
-        return $array;
+        return $this->getEntityArray($this->roles, $keysOnly);
     }
 
     // </editor-fold>

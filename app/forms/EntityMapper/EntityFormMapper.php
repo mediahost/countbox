@@ -2,6 +2,9 @@
 
 namespace App\Forms\EntityMapper;
 
+use App\Model\Entity,
+    Doctrine\ORM\EntityManager,
+    App\Model\Facade;
 use Tracy\Debugger as Debug;
 
 /**
@@ -11,22 +14,31 @@ use Tracy\Debugger as Debug;
  */
 class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
 {
-    
-    /** @var \App\Model\Facade\RoleFacade */
+
+    /** @var Facade\RoleFacade */
     private $roleFacade;
-    
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager, \App\Model\Facade\RoleFacade $roleFacade)
+
+    /** @var Facade\UserFacade */
+    private $userFacade;
+
+    public function __construct(EntityManager $entityManager, Facade\RoleFacade $roleFacade, Facade\UserFacade $userFacade)
     {
         parent::__construct($entityManager);
         $this->roleFacade = $roleFacade;
+        $this->userFacade = $userFacade;
     }
 
     public function load($entity, $form)
     {
-        if ($entity instanceof \App\Model\Entity\User) {
+        if ($entity instanceof Entity\User) {
             $form->setValues(array(
                 "username" => $entity->getUsername(),
-                "role" => $entity->getRolesArray(TRUE),
+                "roles" => $entity->getRolesArray(TRUE),
+            ));
+        } else if ($entity instanceof Entity\Company) {
+            $form->setValues(array(
+                "name" => $entity->getName(),
+                "users" => $entity->getUsersArray(TRUE),
             ));
         } else {
             parent::load($entity, $form);
@@ -35,16 +47,25 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
 
     public function save($entity, $form)
     {
-        if ($entity instanceof \App\Model\Entity\User) {
+        if ($entity instanceof Entity\User) {
             $entity->setUsername($form->values->username);
             if ($form->values->password !== NULL && $form->values->password !== "") {
                 $entity->setPassword($form->values->password);
             }
             $entity->clearRoles();
-            foreach ($form->values->role as $roleId) {
-                $role = $this->roleFacade->find($roleId);
-                if ($role) {
-                    $entity->addRole($role);
+            foreach ($form->values->roles as $id) {
+                $item = $this->roleFacade->find($id);
+                if ($item) {
+                    $entity->addRole($item);
+                }
+            }
+        } else if ($entity instanceof Entity\Company) {
+            $entity->setName($form->values->name);
+            $entity->clearUsers();
+            foreach ($form->values->users as $id) {
+                $item = $this->userFacade->find($id);
+                if ($item) {
+                    $entity->addUser($item);
                 }
             }
         } else {

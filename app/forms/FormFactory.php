@@ -10,7 +10,10 @@ namespace App\Forms;
 abstract class FormFactory implements IFormFactory
 {
 
+    /** @var \App\Forms\IFormFactory */
     protected $formFactory;
+
+    /** @var bool */
     protected $add = FALSE;
 
     public function __construct(IFormFactory $formFactory)

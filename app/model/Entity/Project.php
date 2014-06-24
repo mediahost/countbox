@@ -19,6 +19,7 @@ class Project extends Entity
 
     /**
      * @ORM\ManyToOne(targetEntity="Company", fetch="EAGER")
+     * @var array<Company>
      */
     protected $company;
 

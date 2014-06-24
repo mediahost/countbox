@@ -12,5 +12,14 @@ use Doctrine\ORM\Mapping as ORM,
  */
 abstract class Entity extends IdentifiedEntity
 {
-    //put your code here
+
+    protected function getEntityArray($arrayOfEntities, $keysOnly = FALSE)
+    {
+        $array = array();
+        foreach ($arrayOfEntities as $entity) {
+            $array[$entity->getId()] = $keysOnly ? $entity->getId() : (string) $entity;
+        }
+        return $array;
+    }
+
 }
