@@ -2,6 +2,8 @@
 
 namespace App\Forms;
 
+use App\Model\Facade;
+
 /**
  * TaskFormFactory
  *
@@ -18,10 +20,17 @@ class TaskFormFactory extends FormFactory
     /** @var array */
     private $projects;
 
-    public function __construct(IFormFactory $formFactory, \App\Model\Facade\ProjectFacade $projectFacade)
+    /** @var \App\Model\Facade\UserFacade */
+    private $userFacade;
+
+    /** @var array */
+    private $users;
+
+    public function __construct(IFormFactory $formFactory, Facade\ProjectFacade $projectFacade, Facade\UserFacade $userFacade)
     {
         parent::__construct($formFactory);
         $this->projectFacade = $projectFacade;
+        $this->userFacade = $userFacade;
     }
     
     /**
@@ -41,6 +50,14 @@ class TaskFormFactory extends FormFactory
             $this->projects = $this->projectFacade->findPairs("name");
         }
         return $this->projects;
+    }
+
+    private function getUsers()
+    {
+        if ($this->users === NULL) {
+            $this->users = $this->userFacade->findPairs("username");
+        }
+        return $this->users;
     }
 
     public function create()
@@ -67,6 +84,8 @@ class TaskFormFactory extends FormFactory
                 ->setTodayHighlight()
                 ->setDefaultValue($today)
                 ->setPlaceholder($today->format("d.m.Y"));
+        $form->addSelect2("solver", "Solver", $this->getUsers())
+                ->setPrompt("without solver");
         
         $form->addSubmit('_submit', 'Save');
         $form->addSubmit('submitContinue', 'Save and continue edit');

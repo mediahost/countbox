@@ -16,13 +16,14 @@ use Doctrine\ORM\Mapping as ORM;
  * @method bool getDone()
  * @method bool getInProcess()
  * @method int getPriority()
+ * @method \Nette\Utils\DateTime getCreateDate()
  * @method \Nette\Utils\DateTime getDueDate()
- * @method Task setName(string $value)
- * @method Task setText(string $value)
- * @method Task setDone(bool $value)
- * @method Task setInProcess(bool $value)
- * @method Task setPriority(int $value)
- * @method Task setDueDate(\Nette\Utils\DateTime $value)
+ * @method self setName(string $value)
+ * @method self setText(string $value)
+ * @method self setDone(bool $value)
+ * @method self setInProcess(bool $value)
+ * @method self setPriority(int $value)
+ * @method self setDueDate(\Nette\Utils\DateTime $value)
  */
 class Task extends NamedEntity
 {
@@ -91,6 +92,7 @@ class Task extends NamedEntity
 
     public function __construct()
     {
+        $this->createDate = new \Nette\Utils\DateTime;
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection;
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection;
     }
@@ -100,11 +102,6 @@ class Task extends NamedEntity
     public function getName()
     {
         return $this->name ? $this->name : ($this->getId() ? "Task #" . $this->getId() : NULL);
-    }
-
-    public function getCreateDate()
-    {
-        return $this->createDate ? $this->createDate : new \Nette\Utils\DateTime;
     }
 
     // </editor-fold>
