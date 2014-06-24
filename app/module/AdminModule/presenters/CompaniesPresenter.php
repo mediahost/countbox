@@ -82,12 +82,8 @@ class CompaniesPresenter extends BasePresenter
 
     public function companyFormSuccess($form)
     {
-        $this->formFactoryFactory
-                ->getEntityMapper()
-                ->save($this->company, $form);        
-        $this->companyFacade->save($this->company);
-
         if ($form['submitContinue']->submittedBy) {
+            $this->companyFacade->save($this->company);
             $this->redirect("edit", $this->company->getId());
         }
         $this->redirect("Companies:");

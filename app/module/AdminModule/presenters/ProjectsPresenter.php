@@ -82,12 +82,8 @@ class ProjectsPresenter extends BasePresenter
 
     public function projectFormSuccess($form)
     {
-        $this->formFactoryFactory
-                ->getEntityMapper()
-                ->save($this->project, $form);
-        $this->projectFacade->save($this->project);
-
         if ($form['submitContinue']->submittedBy) {
+            $this->projectFacade->save($this->project);
             $this->redirect("edit", $this->project->getId());
         }
         $this->redirect("Projects:");

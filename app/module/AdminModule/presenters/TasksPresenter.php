@@ -115,12 +115,8 @@ class TasksPresenter extends BasePresenter
 
     public function taskFormSuccess($form)
     {
-        $this->formFactoryFactory
-                ->getEntityMapper()
-                ->save($this->task, $form);
-        $this->taskFacade->save($this->task);
-
         if ($form['submitContinue']->submittedBy) {
+            $this->taskFacade->save($this->task);
             $this->redirect("edit", $this->task->getId());
         }
         $this->redirect("Tasks:");

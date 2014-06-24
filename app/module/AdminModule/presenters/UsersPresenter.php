@@ -82,12 +82,8 @@ class UsersPresenter extends BasePresenter
 
     public function userFormSuccess($form)
     {
-        $this->formFactoryFactory
-                ->getEntityMapper()
-                ->save($this->user, $form);
-        $this->userFacade->save($this->user);
-
         if ($form['submitContinue']->submittedBy) {
+            $this->userFacade->save($this->user);
             $this->redirect("edit", $this->user->getId());
         }
         $this->redirect("Users:");
