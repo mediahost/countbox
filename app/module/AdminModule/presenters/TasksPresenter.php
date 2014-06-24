@@ -59,8 +59,16 @@ class TasksPresenter extends BasePresenter
 
     public function actionView($id)
     {
-        $this->flashMessage("Not implemented yet.", 'warning');
-        $this->redirect("default");
+        $this->task = $this->taskFacade->find($id);
+        if ($this->task === NULL) {
+            $this->flashMessage("Requested task was not found.", 'error');
+            $this->redirect("default");
+        }
+    }
+
+    public function renderView()
+    {
+        $this->template->task = $this->task;
     }
 
     public function actionDelete($id)
@@ -73,7 +81,6 @@ class TasksPresenter extends BasePresenter
 
     public function createComponentTaskForm()
     {
-//        Debug::barDump($this->task);
         $form = $this->formFactoryFactory
                 ->create($this->taskFormFactory)
                 ->setEntity($this->task)

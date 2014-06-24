@@ -1,0 +1,162 @@
+{block breadcrumbLast}
+<li>
+    <a n:href="Tasks:">Tasks</a>
+    <span class="fa fa-angle-right"></span>
+</li>
+<li>
+    <a n:href="this">{$task}</a>
+</li>
+{/block}
+
+{block content}
+<div class="row view-page">
+    <div class="col-md-12">
+        <div class="col-md-9 main-block">
+            <h3>{$task}</h3>
+            <div class="view-tag-data">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-inline view-tags">
+                            <li>
+                                <i class="fa fa-tags"></i>
+                                <a n:href="this">Technology</a>
+                                <a n:href="this">Education</a>
+                                <a n:href="this">Internet</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 view-tag-data-inner">
+                        <ul class="list-inline">
+                            <li>
+                                <i class="fa fa-calendar"></i>
+                                <span>
+                                    {$task->createDate->format('d. m. Y') }
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fa fa-flag-checkered"></i>
+                                <span>
+                                    {$task->dueDate->format('d. m. Y') }
+                                </span>
+                            </li>
+                            <li>
+                                <i class="fa fa-bolt"></i>
+                                <span>
+                                    {$task->priority}
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                {!$task->text}
+            </div>
+            <hr>
+            <!-- BEGIN COMMENTS -->
+            <div class="portlet">
+                <div class="portlet-body">
+                    <!--<div class="scroller" style="height: 435px;" data-always-visible="1" data-rail-visible1="1">-->
+                    <div>
+                        <ul class="chats">
+                            <li class="in public">
+                                <img class="avatar" alt="" src="{$basePath}/images/programmer_avatar.png"/>
+                                <div class="message">
+                                    <span class="arrow">
+                                    </span>
+                                    <a href="#" class="name">
+                                        Bob Nilson </a>
+                                    <span class="datetime">
+                                        at 20:09 </span>
+                                    <span class="body">
+                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+                                </div>
+                            </li>
+                            <li class="out">
+                                <img class="avatar" alt="" src="{$basePath}/images/client_avatar.png"/>
+                                <div class="message">
+                                    <span class="arrow">
+                                    </span>
+                                    <a href="#" class="name">
+                                        Lisa Wong </a>
+                                    <span class="datetime">
+                                        at 20:11 </span>
+                                    <span class="body">
+                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+                                </div>
+                            </li>
+                            <li class="in">
+                                <img class="avatar" alt="" src="{$basePath}/images/programmer_avatar.png"/>
+                                <div class="message">
+                                    <span class="arrow">
+                                    </span>
+                                    <a href="#" class="name">
+                                        Bob Nilson </a>
+                                    <span class="datetime">
+                                        at 20:30 </span>
+                                    <span class="body">
+                                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chat-form">
+                        <div class="input-cont">
+                            <input class="form-control" type="text" placeholder="Type a message here..."/>
+                        </div>
+                        <div class="btn-cont">
+                            <span class="arrow">
+                            </span>
+                            <a href="" class="btn blue icn-only">
+                                <i class="fa fa-check icon-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END COMMENTS -->
+        </div>
+        <!--end col-md-9-->
+
+        <div class="col-md-3 view-sidebar">
+            <div class="top-news">
+                <a href="#" class="btn red">
+                    <span>10h 30min</span>
+                    <em>Total time
+                    </em>
+                    <i class="fa fa-clock-o top-news-icon"></i>
+                </a>
+                <a href="#" class="btn purple">
+                    <span>Part time</span>
+                    <em>
+                        <i class="fa fa-clock-o"></i>
+                        0h 30m - pupe.dupe@gmail.com
+                    </em>
+                    <em>
+                        <i class="fa fa-clock-o"></i>
+                        10h 00m - pupe.dupe@gmail.com 
+                    </em>
+                    <i class="fa fa-users top-news-icon"></i>
+                </a>
+                <a href="#" class="btn green">
+                    <span>Actual worker</span>
+                    <em>
+                        <i class="fa fa-user"></i>
+                        user@lorem.ipsum 
+                    </em>
+                    <i class="fa fa-bolt top-news-icon"></i>
+                </a>
+                <a href="#" class="btn blue">
+                    <span>Status</span>
+                    <em>
+                        <i class="fa fa-info-circle"></i>
+                        working on
+                    </em>
+                    <i class="fa fa-gears top-news-icon"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
