@@ -64,7 +64,17 @@ class UsersPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
-        $this->flashMessage("Not implemented yet.", 'warning');
+        $this->user = $this->userFacade->find($id);
+        if ($this->user) {
+            if (!$this->user->getProjectsCount()) {
+                $this->userFacade->delete($this->user);
+                $this->flashMessage("Entity was deleted.", 'success');
+            } else {
+                $this->flashMessage("User cannot be deleted. Remove roles first.", 'warning');
+            }
+        } else {
+            $this->flashMessage("Entity was not found.", 'warning');
+        }
         $this->redirect("default");
     }
 

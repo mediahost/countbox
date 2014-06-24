@@ -129,6 +129,15 @@ class User extends Entity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="roles getters & setters">
 
+    /**
+     * 
+     * @return int
+     */
+    public function getRolesCount()
+    {
+        return $this->roles->count();
+    }
+
 
     public function addRole(Role $element, $clear = FALSE)
     {
