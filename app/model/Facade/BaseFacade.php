@@ -33,4 +33,9 @@ abstract class BaseFacade extends \Nette\Object
         return $this->dao->findAll();
     }
 
+    public function delete(\Kdyby\Doctrine\Entities\IdentifiedEntity $entity)
+    {
+        return $this->dao->delete($entity);
+    }
+
 }

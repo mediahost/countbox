@@ -95,8 +95,15 @@ class TasksPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
-        $this->flashMessage("Not implemented yet.", 'warning');
-        $this->redirect("default");
+        $this->task = $this->taskFacade->find($id);
+        if ($this->task) {
+            $this->taskFacade->delete($this->task);
+            $this->flashMessage("Entity was deleted.", 'success');
+            $this->redirect("default");
+        } else {
+            $this->flashMessage("Entity was not found.", 'warning');
+            $this->redirect("default");
+        }
     }
 
 // <editor-fold defaultstate="collapsed" desc="privates">

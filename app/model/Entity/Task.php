@@ -82,7 +82,8 @@ class Task extends NamedEntity
     protected $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="task", fetch="LAZY")
+     * @ORM\OneToMany(targetEntity="Comment", fetch="LAZY",
+     * mappedBy="task", cascade={"remove"})
      * @ORM\OrderBy({"sendTime" = "ASC"})
      * @var array<Comment>
      */
