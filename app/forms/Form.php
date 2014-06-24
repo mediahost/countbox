@@ -25,7 +25,7 @@ class Form extends \Nette\Application\UI\Form
      * 
      * @param type $name
      * @param type $caption
-     * @return Controls\DateInput
+     * @return Controls\TagInput
      */
     public function addTagInput($name, $caption = NULL)
     {
@@ -94,7 +94,7 @@ class Form extends \Nette\Application\UI\Form
      * 
      * @param type $name
      * @param type $label
-     * @return Controls\DateInput
+     * @return Controls\Select2
      */
     public function addSelect2($name, $label = NULL, array $items = NULL)
     {
@@ -105,7 +105,7 @@ class Form extends \Nette\Application\UI\Form
      * 
      * @param type $name
      * @param type $label
-     * @return Controls\DateInput
+     * @return Controls\MultiSelect2
      */
     public function addMultiSelect2($name, $label = NULL, array $items = NULL)
     {

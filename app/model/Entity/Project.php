@@ -50,6 +50,12 @@ class Project extends Entity
         return $this->tasks->count();
     }
 
+    /**
+     * 
+     * @param Task $element
+     * @param type $clear
+     * @return self
+     */
     public function addTask(Task $element, $clear = FALSE)
     {
         if ($clear) {
@@ -61,6 +67,11 @@ class Project extends Entity
         return $this;
     }
 
+    /**
+     * 
+     * @param Task $element
+     * @return self
+     */
     public function removeTask(Task $element)
     {
         if ($this->tasks->contains($element)) {
@@ -69,6 +80,10 @@ class Project extends Entity
         return $this;
     }
 
+    /**
+     * 
+     * @return self
+     */
     public function clearTasks()
     {
         $this->tasks->clear();

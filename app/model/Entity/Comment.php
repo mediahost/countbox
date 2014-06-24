@@ -8,17 +8,17 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="comment")
  * @property string $message
- * @property DateTime $public
+ * @property \Nette\Utils\DateTime $sendTime
  * @property bool $public
  * @property Task $task
  * @property User $sender
  * @method bool getPublic()
  * @method Task getTask()
  * @method User getSender()
- * @method Comment setSendTime(DateTime $value)
- * @method Comment setPublic(bool $value)
- * @method Comment setTask(Task $value)
- * @method Comment setSender(User $value)
+ * @method self setSendTime(DateTime $value)
+ * @method self setPublic(bool $value)
+ * @method self setTask(Task $value)
+ * @method self setSender(User $value)
  */
 class Comment extends Entity
 {
@@ -54,11 +54,15 @@ class Comment extends Entity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
 
+    /**
+     * 
+     * @return \Nette\Utils\DateTime
+     */
     public function getSendTime()
     {
         return $this->sendTime ? $this->sendTime : new \Nette\Utils\DateTime;
     }
-    
+
     // </editor-fold>
 
     /**

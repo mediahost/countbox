@@ -4,7 +4,6 @@ namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Nette\Utils\DateTime;
-use DateTimeInterface;
 
 /**
  * @ORM\Entity
@@ -14,7 +13,7 @@ use DateTimeInterface;
  */
 class Time extends Entity
 {
-    
+
     private $format = "d.m.Y H:i";
 
     /**
@@ -31,11 +30,11 @@ class Time extends Entity
     /**
      * 
      * @param type $value
-     * @return Time
+     * @return self
      */
     public function setStart($value)
     {
-        if (!$value instanceof DateTimeInterface) {
+        if (!$value instanceof \DateTime) {
             $value = new DateTime($value);
         }
         $this->start = $value;
@@ -45,11 +44,11 @@ class Time extends Entity
     /**
      * 
      * @param type $value
-     * @return Time
+     * @return self
      */
     public function setEnd($value)
     {
-        if (!$value instanceof DateTimeInterface) {
+        if (!$value instanceof \DateTime) {
             $value = new DateTime($value);
         }
         $this->end = $value;
@@ -98,7 +97,7 @@ class Time extends Entity
     {
         return new DateTime($this->end);
     }
-    
+
     public function getMinutes()
     {
         return $this->getEnd() - $this->getStart();

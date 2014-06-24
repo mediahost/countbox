@@ -16,6 +16,11 @@ class TagInput extends \Nette\Forms\Controls\TextInput
         $this->control->class = "select2";
     }
 
+    /**
+     * 
+     * @param array $tags
+     * @return TagInput
+     */
     public function setTags(array $tags)
     {
         $attr = "data-tags";

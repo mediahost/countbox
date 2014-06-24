@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="company")
  * @property Address $address
- * @method Company setName(string $name)
+ * @method self setName(string $name)
  */
 class Company extends NamedEntity
 {
@@ -44,7 +44,12 @@ class Company extends NamedEntity
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="users getters & setters">
 
-
+    /**
+     * 
+     * @param User $element
+     * @param type $clear
+     * @return self
+     */
     public function addUser(User $element, $clear = FALSE)
     {
         if ($clear) {
@@ -56,6 +61,11 @@ class Company extends NamedEntity
         return $this;
     }
 
+    /**
+     * 
+     * @param User $element
+     * @return self
+     */
     public function removeUser(User $element)
     {
         if ($this->users->contains($element)) {
@@ -64,12 +74,21 @@ class Company extends NamedEntity
         return $this;
     }
 
+    /**
+     * 
+     * @return self
+     */
     public function clearUsers()
     {
         $this->users->clear();
         return $this;
     }
 
+    /**
+     * 
+     * @param User $element
+     * @return bool
+     */
     public function hasUser(User $element)
     {
         return $this->users->contains($element);

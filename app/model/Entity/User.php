@@ -48,7 +48,7 @@ class User extends Entity
     /**
      * 
      * @param type $value
-     * @return \App\Model\Entity\User
+     * @return self
      * @throws \Nette\Utils\AssertionException
      */
     public function setMail($value)
@@ -56,14 +56,14 @@ class User extends Entity
         if (!\Nette\Utils\Validators::isEmail($value)) {
             throw new \Nette\Utils\AssertionException("Wrong e-mail format");
         }
-        return $this->setUsername($value, FASE);
+        return $this->setUsername($value, FALSE);
     }
 
     /**
      * 
      * @param type $value
      * @param type $validate
-     * @return \App\Model\Entity\User
+     * @return self
      * @throws \Nette\Utils\AssertionException
      */
     public function setUsername($value, $validate = TRUE)
@@ -77,6 +77,7 @@ class User extends Entity
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
+
     /**
      * 
      * @return string
@@ -88,6 +89,12 @@ class User extends Entity
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="password setters & getters">
+    
+    /**
+     * 
+     * @param string $value
+     * @return self
+     */
     public function setPassword($value)
     {
         if ($value !== "" && $value !== NULL) {
@@ -138,7 +145,12 @@ class User extends Entity
         return $this->roles->count();
     }
 
-
+    /**
+     * 
+     * @param Role $element
+     * @param bool $clear
+     * @return self
+     */
     public function addRole(Role $element, $clear = FALSE)
     {
         if ($clear) {
@@ -150,6 +162,11 @@ class User extends Entity
         return $this;
     }
 
+    /**
+     * 
+     * @param Role $element
+     * @return self
+     */
     public function removeRole(Role $element)
     {
         if ($this->roles->contains($element)) {
@@ -158,6 +175,10 @@ class User extends Entity
         return $this;
     }
 
+    /**
+     * 
+     * @return self
+     */
     public function clearRoles()
     {
         $this->roles->clear();

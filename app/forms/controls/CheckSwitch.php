@@ -24,6 +24,11 @@ class CheckSwitch extends \Nette\Forms\Controls\Checkbox
         }
     }
 
+    /**
+     * 
+     * @param string $text
+     * @return self
+     */
     public function setOnText($text)
     {
         $attr = "data-on-text";
@@ -31,6 +36,11 @@ class CheckSwitch extends \Nette\Forms\Controls\Checkbox
         return $this;
     }
 
+    /**
+     * 
+     * @param string $text
+     * @return self
+     */
     public function setOffText($text)
     {
         $attr = "data-off-text";
@@ -38,6 +48,11 @@ class CheckSwitch extends \Nette\Forms\Controls\Checkbox
         return $this;
     }
 
+    /**
+     * 
+     * @param string $color
+     * @return self
+     */
     public function setOnColor($color)
     {
         $attr = "data-on-color";
@@ -45,6 +60,11 @@ class CheckSwitch extends \Nette\Forms\Controls\Checkbox
         return $this;
     }
 
+    /**
+     * 
+     * @param string $color
+     * @return self
+     */
     public function setOffColor($color)
     {
         $attr = "data-off-color";
@@ -52,6 +72,11 @@ class CheckSwitch extends \Nette\Forms\Controls\Checkbox
         return $this;
     }
 
+    /**
+     * 
+     * @param string $icon
+     * @return self
+     */
     public function setLabelIcon($icon)
     {
         $attr = "data-label-icon";

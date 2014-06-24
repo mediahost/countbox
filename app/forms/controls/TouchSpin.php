@@ -16,6 +16,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         $this->control->class = "touchspin";
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setPrefix($value)
     {
         $attr = "data-prefix";
@@ -23,6 +28,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setPostfix($value)
     {
         $attr = "data-postfix";
@@ -30,6 +40,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setButtonDownClass($value)
     {
         $attr = "data-buttondown-class";
@@ -37,6 +52,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setButtonUpClass($value)
     {
         $attr = "data-buttonup-class";
@@ -44,6 +64,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setMin($value)
     {
         $attr = "data-min";
@@ -51,6 +76,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setMax($value)
     {
         $attr = "data-max";
@@ -58,6 +88,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setStepInterval($value)
     {
         $attr = "data-stepinterval";
@@ -65,6 +100,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setDecimals($value)
     {
         $attr = "data-decimals";
@@ -72,6 +112,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setBoostat($value)
     {
         $attr = "data-boostat";
@@ -79,6 +124,11 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setMaxBoostedStep($value)
     {
         $attr = "data-maxboostedstep";

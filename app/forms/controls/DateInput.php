@@ -22,6 +22,11 @@ class DateInput extends BaseControl
         $this->addRule(__CLASS__ . '::validateDate', 'Date is invalid.');
     }
 
+    /**
+     * 
+     * @param string $value
+     * @return self
+     */
     public function setValue($value)
     {
         if ($value) {
@@ -32,6 +37,7 @@ class DateInput extends BaseControl
         } else {
             $this->day = $this->month = $this->year = NULL;
         }
+        return $this;
     }
 
     /**

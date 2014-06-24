@@ -81,12 +81,22 @@ class Spinner extends \Nette\Forms\Controls\TextInput
                         ->add($button);
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setReadOnly($value = TRUE)
     {
-        $this->setReadOnly($value);
+        $this->readonly = $value;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setDisabled($value = TRUE)
     {
         $this->attributes["data-disabled"] = $value ? "true" : "false";
@@ -94,30 +104,55 @@ class Spinner extends \Nette\Forms\Controls\TextInput
         return parent::setDisabled($value);
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setValue($value)
     {
         $this->attributes["data-value"] = $value;
         return parent::setValue($value);
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setMin($value)
     {
         $this->attributes["data-min"] = $value;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setMax($value)
     {
         $this->attributes["data-max"] = $value;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setStep($value)
     {
         $this->attributes["data-step"] = $value;
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setInverse($inverse = TRUE)
     {
         if ($inverse) {
@@ -129,6 +164,11 @@ class Spinner extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setLeftButton($color = NULL, $faIcon = NULL)
     {
         if ($color) {
@@ -140,6 +180,11 @@ class Spinner extends \Nette\Forms\Controls\TextInput
         return $this;
     }
 
+    /**
+     * 
+     * @param type $value
+     * @return self
+     */
     public function setRightButton($color = NULL, $faIcon = NULL)
     {
         if ($color) {

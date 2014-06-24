@@ -98,6 +98,11 @@ class DatePicker extends BaseControl
         return $block;
     }
 
+    /**
+     * 
+     * @param type $size
+     * @return self
+     */
     public function setSize($size = self::SIZE_FLUID)
     {
         switch ($size) {
@@ -149,12 +154,22 @@ class DatePicker extends BaseControl
                                 ->add($this->getIcon()));
     }
 
+    /**
+     * 
+     * @param DateTime $value
+     * @return self
+     */
     public function setStartDate(DateTime $value)
     {
         $this->attributes["data-start-date"] = $value->format($this->format);
         return $this;
     }
 
+    /**
+     * 
+     * @param DateTime $value
+     * @return self
+     */
     public function setEndDate(DateTime $value)
     {
         $this->attributes["data-end-date"] = $value->format($this->format);
@@ -167,6 +182,7 @@ class DatePicker extends BaseControl
      * Gives the ability to pick only a month or an year. 
      * The day is set to the 1st for “months”, and the month is set to January for “years”.
      * @param type $value
+     * @return self
      */
     public function setMinViewMode($value)
     {
@@ -174,12 +190,22 @@ class DatePicker extends BaseControl
         return $this;
     }
 
+    /**
+     * 
+     * @param bool $value
+     * @return self
+     */
     public function setTodayHighlight($value = TRUE)
     {
         $this->attributes["data-today-highlight"] = $value ? "true" : "false";
         return $this;
     }
 
+    /**
+     * 
+     * @param string $value
+     * @return self
+     */
     public function setPlaceholder($value)
     {
         $this->attributes["placeholder"] = $value;
