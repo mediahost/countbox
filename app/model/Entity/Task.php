@@ -98,14 +98,27 @@ class Task extends NamedEntity
     }
 
     // <editor-fold defaultstate="collapsed" desc="setters">
+    
+    /**
+     * @return self
+     */
+    public function resetSolver()
+    {
+        $this->solver = NULL;
+        return $this;
+    }
+    
+    // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="getters">
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name ? $this->name : ($this->getId() ? "Task #" . $this->getId() : NULL);
     }
 
-    // </editor-fold>
-    // <editor-fold defaultstate="collapsed" desc="getters">
     // </editor-fold>
 
     /**

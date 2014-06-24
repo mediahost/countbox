@@ -45,7 +45,7 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
                 "name" => $entity->getName(),
                 "company" => $entity->getCompany() === NULL ? NULL : $entity->getCompany()->getId(),
             ));
-        } else {
+        } else{
             parent::load($entity, $form);
         }
     }
@@ -76,6 +76,11 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
         } else if ($entity instanceof Entity\Company) {
             $entity->setName($form->values->name);
             $entity->setCompany($this->companyFacade->find($id));
+        } else if ($entity instanceof Entity\Task) {
+            if ($form->values->solver === NULL) {
+                $entity->resetSolver();
+            }
+            parent::save($entity, $form);
         } else {
             parent::save($entity, $form);
         }

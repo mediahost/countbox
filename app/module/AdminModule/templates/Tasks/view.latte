@@ -124,6 +124,7 @@
                     </em>
                     <i class="fa fa-clock-o top-news-icon"></i>
                 </a>
+                
                 <a href="#" class="btn purple" n:if="!$clientMode">
                     <span>Part time</span>
                     <em>
@@ -136,14 +137,20 @@
                     </em>
                     <i class="fa fa-users top-news-icon"></i>
                 </a>
-                <a href="#" class="btn green" n:if="!$clientMode">
+                
+                <a href="#" n:class="btn, $task->solver ? green : yellow" n:if="!$clientMode">
                     <span>Actual worker</span>
-                    <em>
+                    <em n:if="$task->solver">
                         <i class="fa fa-user"></i>
-                        user@lorem.ipsum 
+                        {$task->solver} 
+                    </em>
+                    <em n:if="!$task->solver">
+                        <i class="fa fa-crosshairs"></i>
+                        waiting for assigned 
                     </em>
                     <i class="fa fa-bolt top-news-icon"></i>
                 </a>
+                
                 <a href="#" class="btn blue">
                     <span>working on</span>
                     <em>
