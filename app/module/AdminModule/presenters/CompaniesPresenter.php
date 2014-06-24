@@ -56,6 +56,12 @@ class CompaniesPresenter extends BasePresenter
         $this->template->isAdd = $this->companyFormFactory->isAdding();
     }
 
+    public function actionView($id)
+    {
+        $this->flashMessage("Not implemented yet.", 'warning');
+        $this->redirect("default");
+    }
+
     public function actionDelete($id)
     {
         $this->flashMessage("Not implemented yet.", 'warning');

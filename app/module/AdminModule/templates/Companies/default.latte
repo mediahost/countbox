@@ -45,7 +45,9 @@
                                 {$company->id}
                             </td>
                             <td>
-                                {$company->name}
+                                <a n:href="Companies:view, $company->id">
+                                    {$company}
+                                </a>
                             </td>
                             <td>
                                 <a n:href="Companies:edit, $company->id">

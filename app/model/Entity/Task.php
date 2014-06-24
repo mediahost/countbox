@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @property bool $inProcess
  * @property int $priority
  * @property \Nette\Utils\DateTime $dueDate
- * @method string getName()
  * @method string getText()
  * @method bool getDone()
  * @method bool getInProcess()
@@ -65,6 +64,12 @@ class Task extends Entity
     protected $dueDate;
 
     // <editor-fold defaultstate="collapsed" desc="setters">
+
+    public function getName()
+    {
+        return $this->name ? $this->name : "Task #" . $this->getId();
+    }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
     // </editor-fold>
