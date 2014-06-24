@@ -86,6 +86,18 @@ class Company extends NamedEntity
     }
 
     // </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="projects getters & setters">
+
+    /**
+     * 
+     * @return int
+     */
+    public function getProjectsCount()
+    {
+        return $this->projects->count();
+    }
+
+    // </editor-fold>
 
     /**
      * Render entity

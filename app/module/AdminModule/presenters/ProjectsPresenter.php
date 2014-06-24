@@ -70,7 +70,7 @@ class ProjectsPresenter extends BasePresenter
                 $this->projectFacade->delete($this->project);
                 $this->flashMessage("Entity was deleted.", 'success');
             } else {
-                $this->flashMessage("Project cannot be deleted. Remove tasks first", 'warning');
+                $this->flashMessage("Project cannot be deleted. Remove tasks first.", 'warning');
             }
         } else {
             $this->flashMessage("Entity was not found.", 'warning');

@@ -64,7 +64,17 @@ class CompaniesPresenter extends BasePresenter
 
     public function actionDelete($id)
     {
-        $this->flashMessage("Not implemented yet.", 'warning');
+        $this->company = $this->companyFacade->find($id);
+        if ($this->company) {
+            if (!$this->company->getProjectsCount()) {
+                $this->companyFacade->delete($this->company);
+                $this->flashMessage("Entity was deleted.", 'success');
+            } else {
+                $this->flashMessage("Company cannot be deleted. Remove projects first.", 'warning');
+            }
+        } else {
+            $this->flashMessage("Entity was not found.", 'warning');
+        }
         $this->redirect("default");
     }
 
