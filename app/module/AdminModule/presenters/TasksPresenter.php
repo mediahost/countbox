@@ -73,6 +73,7 @@ class TasksPresenter extends BasePresenter
 
     public function createComponentTaskForm()
     {
+//        Debug::barDump($this->task);
         $form = $this->formFactoryFactory
                 ->create($this->taskFormFactory)
                 ->setEntity($this->task)

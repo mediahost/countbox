@@ -39,10 +39,12 @@ class TaskFormFactory extends FormFactory
                 ->setLeftButton("blue")
                 ->setRightButton("red")
                 ->setOption("description", "max. priority is 1");
+        $today = new \Nette\Utils\DateTime;
         $form->addDatePicker("dueDate", "Due date")
-                ->setStartDate(new \Nette\Utils\DateTime)
+                ->setStartDate($today)
                 ->setTodayHighlight()
-                ->setDefaultValue(new \Nette\Utils\DateTime);
+                ->setDefaultValue($today)
+                ->setPlaceholder($today->format("d.m.Y"));
         
         $form->addSubmit('_submit', 'Save');
         $form->addSubmit('_submitContinue', 'Save and continue edit');

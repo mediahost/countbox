@@ -44,9 +44,9 @@ class DatePicker extends BaseControl
         if (!$control->isRequired() && empty($control->date)) {
             return TRUE;
         } else {
-            $d = DateTime::createFromFormat($control->format, $control->date);
-            $controlDate = $control->date instanceof \DateTimeInterface ? $control->date : DateTime::from($control->date);
-            return $d && $d->format($control->format) == $controlDate->format($control->format);
+            $d = $control->date instanceof \DateTime ?
+                    $control->date : DateTime::createFromFormat($control->format, $control->date);
+            return $d && $d->format($control->format) == DateTime::from($control->date)->format($control->format);
         }
     }
 
@@ -60,11 +60,12 @@ class DatePicker extends BaseControl
     }
 
     /**
-     * @return DateTime|NULL
+     * @return DateTime|string|NULL
      */
     public function getValue($formated = FALSE)
     {
-        $date = DateTime::createFromFormat($this->format, $this->date);
+        $date = $this->date instanceof \DateTime ?
+                $this->date : DateTime::createFromFormat($this->format, $this->date);
         return self::validateDate($this) ? ($formated ? $date->format($this->format) : $date) : NULL;
     }
 
@@ -147,19 +148,19 @@ class DatePicker extends BaseControl
                         ->add(Html::el('button class="btn default" type="button"')
                                 ->add($this->getIcon()));
     }
-    
+
     public function setStartDate(DateTime $value)
     {
         $this->attributes["data-start-date"] = $value->format($this->format);
         return $this;
     }
-    
+
     public function setEndDate(DateTime $value)
     {
         $this->attributes["data-end-date"] = $value->format($this->format);
         return $this;
     }
-    
+
     /**
      * Set a limit for the view mode. 
      * Accepts: “days” or 0, “months” or 1, and “years” or 2. 
@@ -172,10 +173,16 @@ class DatePicker extends BaseControl
         $this->attributes["data-min-view-mode"] = $value;
         return $this;
     }
-    
+
     public function setTodayHighlight($value = TRUE)
     {
         $this->attributes["data-today-highlight"] = $value ? "true" : "false";
+        return $this;
+    }
+
+    public function setPlaceholder($value)
+    {
+        $this->attributes["placeholder"] = $value;
         return $this;
     }
 
