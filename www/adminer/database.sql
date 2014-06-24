@@ -18,24 +18,19 @@ begin
 
 DELIMITER ;
 
-DROP TABLE IF EXISTS `author`;
-CREATE TABLE `author` (
+DROP TABLE IF EXISTS `address`;
+CREATE TABLE `address` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `surname` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `company` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `street` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `country` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `zipcode` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
-
-DROP TABLE IF EXISTS `book`;
-CREATE TABLE `book` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` int(11) DEFAULT NULL,
-  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `published` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_CBE5A331F675F31B` (`author_id`),
-  CONSTRAINT `FK_CBE5A331F675F31B` FOREIGN KEY (`author_id`) REFERENCES `author` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -43,7 +38,38 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `message_html` longtext COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `public` tinyint(1) NOT NULL,
+  `task_id` int(11) DEFAULT NULL,
+  `sender_id` int(11) DEFAULT NULL,
+  `send_time` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_9474526C8DB60186` (`task_id`),
+  KEY `IDX_9474526CF624B39D` (`sender_id`),
+  CONSTRAINT `FK_9474526CF624B39D` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_9474526C8DB60186` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE `company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_id` int(11) DEFAULT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_4FBF094FF5B7AF75` (`address_id`),
+  CONSTRAINT `FK_4FBF094FF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `company_user`;
+CREATE TABLE `company_user` (
+  `company_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`company_id`,`user_id`),
+  KEY `IDX_CEFECCA7979B1AD6` (`company_id`),
+  KEY `IDX_CEFECCA7A76ED395` (`user_id`),
+  CONSTRAINT `FK_CEFECCA7A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_CEFECCA7979B1AD6` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -51,7 +77,10 @@ DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `company_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_2FB3D0EE979B1AD6` (`company_id`),
+  CONSTRAINT `FK_2FB3D0EE979B1AD6` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -59,21 +88,63 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_57698A6A5E237E06` (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `role` (`id`, `name`) VALUES
-(3,	'client'),
+(1,	'programmer'),
 (2,	'manager'),
-(1,	'programmer');
+(3,	'client'),
+(4,	'admin');
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `text_html` longtext COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `done` tinyint(1) NOT NULL,
+  `in_process` tinyint(1) NOT NULL,
+  `priority` smallint(6) NOT NULL,
+  `due_date` datetime NOT NULL,
+  `create_date` datetime NOT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `status_id` int(11) DEFAULT NULL,
+  `solver_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_527EDB25166D1F9C` (`project_id`),
+  KEY `IDX_527EDB256BF700BD` (`status_id`),
+  KEY `IDX_527EDB25BE651DEC` (`solver_id`),
+  CONSTRAINT `FK_527EDB25BE651DEC` FOREIGN KEY (`solver_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_527EDB25166D1F9C` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`),
+  CONSTRAINT `FK_527EDB256BF700BD` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `task_tag`;
+CREATE TABLE `task_tag` (
+  `task_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`task_id`,`tag_id`),
+  KEY `IDX_6C0B4F048DB60186` (`task_id`),
+  KEY `IDX_6C0B4F04BAD26311` (`tag_id`),
+  CONSTRAINT `FK_6C0B4F04BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_6C0B4F048DB60186` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -96,7 +167,11 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `user` (`id`, `username`, `password`) VALUES
-(1,	'pupe.dupe@gmail.com',	'$2y$10$ws51c6qPg4M3nbnca65GKO3LGxViV/6l4lkQ8fNb.rxbLdN/fU6aW');
+(1,	'pupe.dupe@gmail.com',	'$2y$10$ws51c6qPg4M3nbnca65GKO3LGxViV/6l4lkQ8fNb.rxbLdN/fU6aW'),
+(3,	'kapicak@kapicak.com',	'$2y$10$YVimi23IMuGvpj.ZV4CXHO0D9KI3odaov.hxvnF9QzrcW6kYJkhem'),
+(4,	'g.vvoody@gmail.com',	'$2y$10$gnhar4MXds4mDSHKP/7/Gu8KObGHropO1HkLhR0ndth5DLbJPxft.'),
+(5,	'lubox11@gmail.com',	'$2y$10$5Q2etwA/JNJLZ7QujYkbUedBzIYM81z0oqPIzy9OJH2OyO7Iy7fVa'),
+(6,	'g.farrell@source-code.ie',	'$2y$10$QlUAPaCkG9Bjhodzn3pha.k3RnuyUmaLYEC2kxS/bRLbtzS6c1wC2');
 
 DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
@@ -110,7 +185,10 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
-(1,	1),
-(1,	2);
+(1,	4),
+(3,	2),
+(4,	1),
+(5,	3),
+(6,	3);
 
--- 2014-06-20 13:40:26
+-- 2014-06-24 21:07:14
