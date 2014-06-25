@@ -11,28 +11,38 @@ use App\Model\Facade;
  */
 class TaskFormFactory extends FormFactory
 {
-    
+
     private $entityId;
 
-    /** @var \App\Model\Facade\ProjectFacade */
+    /** @var Facade\ProjectFacade */
     private $projectFacade;
 
     /** @var array */
     private $projects;
 
-    /** @var \App\Model\Facade\UserFacade */
+    /** @var Facade\UserFacade */
     private $userFacade;
 
     /** @var array */
     private $users;
 
-    public function __construct(IFormFactory $formFactory, Facade\ProjectFacade $projectFacade, Facade\UserFacade $userFacade)
+    /** @var Facade\StatusFacade */
+    private $statusFacade;
+
+    /** @var array */
+    private $states;
+
+    public function __construct(IFormFactory $formFactory
+    , Facade\ProjectFacade $projectFacade
+    , Facade\UserFacade $userFacade
+    , Facade\StatusFacade $statusFacade)
     {
         parent::__construct($formFactory);
         $this->projectFacade = $projectFacade;
         $this->userFacade = $userFacade;
+        $this->statusFacade = $statusFacade;
     }
-    
+
     /**
      * 
      * @param type $id
@@ -58,6 +68,14 @@ class TaskFormFactory extends FormFactory
             $this->users = $this->userFacade->findPairs("username");
         }
         return $this->users;
+    }
+
+    private function getStates()
+    {
+        if ($this->states === NULL) {
+            $this->states = $this->statusFacade->findPairs("name");
+        }
+        return $this->states;
     }
 
     public function create()
@@ -86,7 +104,8 @@ class TaskFormFactory extends FormFactory
                 ->setPlaceholder($today->format("d.m.Y"));
         $form->addSelect2("solver", "Solver", $this->getUsers())
                 ->setPrompt("without solver");
-        
+        $form->addSelect2("status", "Status", $this->getStates());
+
         $form->addSubmit('_submit', 'Save');
         $form->addSubmit('submitContinue', 'Save and continue edit');
         return $form;
