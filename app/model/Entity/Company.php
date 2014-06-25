@@ -117,14 +117,4 @@ class Company extends NamedEntity
     }
 
     // </editor-fold>
-
-    /**
-     * Render entity
-     * @return string
-     */
-    public function render()
-    {
-        return $this->getName();
-    }
-
 }

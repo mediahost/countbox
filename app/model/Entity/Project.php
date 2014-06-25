@@ -7,15 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="project")
- * @property string $name
  */
-class Project extends Entity
+class Project extends NamedEntity
 {
-
-    /**
-     * @ORM\Column(type="string", length=128)
-     */
-    protected $name;
 
     /**
      * @ORM\ManyToOne(targetEntity="Company", fetch="EAGER")
@@ -91,14 +85,4 @@ class Project extends Entity
     }
 
     // </editor-fold>
-
-    /**
-     * Render entity
-     * @return string
-     */
-    public function render()
-    {
-        return $this->getName();
-    }
-
 }

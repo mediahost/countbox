@@ -17,4 +17,13 @@ abstract class NamedEntity extends Entity
      */
     protected $name;
 
+    /**
+     * Render entity
+     * @return string
+     */
+    public function render()
+    {
+        return $this->getName();
+    }
+
 }
