@@ -9,6 +9,7 @@ includes:
 	- extensions/doctrine.neon
 	- model/model.neon
 	- form/form.neon
+	- presenters/presenters.neon
 
 parameters:
 
