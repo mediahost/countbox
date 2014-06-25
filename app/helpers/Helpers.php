@@ -130,4 +130,11 @@ class Helpers
         return $jsDate;
     }
 
+    public static function linkToAnchor($text, $class = NULL, $target = "_blank")
+    {
+        return preg_replace('@((http|https)://([\w-.]+)+(:\d+)?(/([\w/_\-.]*(\?\S+)?)?)?)@'
+                , '<a href="$1"' . ($class === NULL ? '' : (' class="' . $class . '"')) . ' target="' . $target . '">$1</a>'
+                , $text);
+    }
+
 }

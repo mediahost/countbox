@@ -81,6 +81,12 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
                 $entity->resetSolver();
             }
             parent::save($entity, $form);
+        } else if ($entity instanceof Entity\Comment) {
+            parent::save($entity, $form);
+            if ($form->values->message !== NULL) {
+                $message = htmlspecialchars($form->values->message);
+                $entity->setMessage(\App\Helpers::linkToAnchor($message));
+            }
         } else {
             parent::save($entity, $form);
         }
