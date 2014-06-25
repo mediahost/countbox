@@ -10,6 +10,10 @@ use Nette\Utils\DateTime;
  * @ORM\Table(name="time")
  * @property DateTime $start
  * @property DateTime $end
+ * @method self setStart($value)
+ * @method self setEnd($value)
+ * @method self setUser(User $entity)
+ * @method self setTask(Task $entity)
  */
 class Time extends Entity
 {
@@ -18,42 +22,29 @@ class Time extends Entity
 
     /**
      * @ORM\Column(name="start_time", type="datetime")
+     * @var DateTime
      */
     protected $start;
 
     /**
      * @ORM\Column(name="end_time", type="datetime")
+     * @var DateTime
      */
     protected $end;
 
-    // <editor-fold defaultstate="collapsed" desc="setters">
     /**
-     * 
-     * @param type $value
-     * @return self
+     * @ORM\ManyToOne(targetEntity="User", fetch="LAZY")
+     * @var User
      */
-    public function setStart($value)
-    {
-        if (!$value instanceof \DateTime) {
-            $value = new DateTime($value);
-        }
-        $this->start = $value;
-        return $this;
-    }
+    protected $user;
 
     /**
-     * 
-     * @param type $value
-     * @return self
+     * @ORM\ManyToOne(targetEntity="Task", fetch="LAZY")
+     * @var Task
      */
-    public function setEnd($value)
-    {
-        if (!$value instanceof \DateTime) {
-            $value = new DateTime($value);
-        }
-        $this->end = $value;
-        return $this;
-    }
+    protected $task;
+
+    // <editor-fold defaultstate="collapsed" desc="setters">
 
     /**
      * Set interval from end time(default) or start time
@@ -64,29 +55,30 @@ class Time extends Entity
     {
         $minutesInt = (int) $minutes;
         if ($fromEnd) {
-            $zeroTime = $this->end;
+            $zeroTime = $this->getEnd();
             $modifiedTime = new DateTime($zeroTime);
             $modifiedTime->modify("- {$minutesInt} minute");
-            $this->start = $modifiedTime;
-            $this->end = new DateTime($zeroTime);
+            $this->setStart($modifiedTime);
+            $this->setEnd(new DateTime($zeroTime));
         } else {
-            $zeroTime = $this->start;
+            $zeroTime = $this->getStart();
             $modifiedTime = new DateTime($zeroTime);
             $modifiedTime->modify("+ {$minutesInt} minute");
-            $this->start = new DateTime($zeroTime);
-            $this->end = $modifiedTime;
+            $this->setStart(new DateTime($zeroTime));
+            $this->setEnd($modifiedTime);
         }
     }
 
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
+
     /**
      * 
      * @return DateTime
      */
     public function getStart()
     {
-        return new DateTime($this->start);
+        return DateTime::from($this->start);
     }
 
     /**
@@ -95,12 +87,16 @@ class Time extends Entity
      */
     public function getEnd()
     {
-        return new DateTime($this->end);
+        return DateTime::from($this->end);
     }
 
+    /**
+     * Return absolute diff in minutes
+     * @return string
+     */
     public function getMinutes()
     {
-        return $this->getEnd() - $this->getStart();
+        return $this->getStart()->diff($this->getEnd(), TRUE)->format("%i");
     }
 
     // </editor-fold>
@@ -111,7 +107,7 @@ class Time extends Entity
      */
     public function render()
     {
-        return $this->getStart()->format($this->format) . "-" . $this->getEnd()->format($this->format);
+        return $this->getStart()->format($this->format) . " - " . $this->getEnd()->format($this->format);
     }
 
 }

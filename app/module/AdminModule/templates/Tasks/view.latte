@@ -60,7 +60,6 @@
                     <!--<div class="scroller" style="height: 435px;" data-always-visible="1" data-rail-visible1="1">-->
                     <div>
                         <ul class="chats">
-
                             {foreach $task->comments as $comment}
                                 {var isClientMessage => $comment->task->project->company->hasUser($comment->getSender())}
                                 {var isOut => $isClientMessage}{** out is client // it can be some role **}
@@ -76,6 +75,12 @@
                                         <span class="datetime">
                                             at {$comment->getSendTime()->format('H:i | d.m.Y')} 
                                         </span>
+                                        <span class="time" n:if="$comment->getTime()">
+                                            | {$comment->getTimeInMinutes()} min.
+                                        </span>
+                                        <!--<span class="edit" n:if="!$clientMode">
+                                            | <a n:href="Tasks:deleteComment, $comment->getId()"><i class="fa fa-trash-o font-red"></i></a>
+                                        </span>-->
                                         <span class="body">
                                             {!$comment->getMessage()|nl2br}
                                         </span>
@@ -87,10 +92,10 @@
                     <!-- BEGIN CHAT FORM -->
                     <div class="chat-form">
                         {form commentForm}
-                            <div class="input-group">
+                            <div class="input-group textarea-btn">
                                 <span class="input-group-btn" n:if="!$clientMode">
                                     {button sendPublic, class=>'btn red'}
-                                    <i class="fa fa-user icon-white"></i>
+                                    <i class="fa fa-send icon-white"></i>
                                     <br>
                                     Public
                                     {/button}
@@ -101,9 +106,14 @@
                                     {button $buttonControl, class=>'btn blue'}
                                     <i class="fa fa-send icon-white"></i>
                                     <br>
-                                    Send
+                                    {if $clientMode}Send{else}Private{/if}
                                     {/button}
                                 </span>
+                            </div>
+                            <div class="row" n:if="!$clientMode">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">{input minutes}</div>
+                                <div class="col-md-4"></div>
                             </div>
                         {/form}
                     </div>
@@ -117,27 +127,23 @@
         <div class="col-md-3 view-sidebar">
             <div class="top-news">
                 <a href="#" class="btn red">
-                    <span>10h 30min</span>
+                    <span>{$totalTime->format('%Hh %Imin')}</span>
                     <em>
                         <i class="fa fa-info-circle"></i>
                         Total time
                     </em>
                     <i class="fa fa-clock-o top-news-icon"></i>
                 </a>
-                
+
                 <a href="#" class="btn purple" n:if="!$clientMode">
                     <span>Part time</span>
-                    <em>
+                    <em n:foreach="$solvers as $solver">
                         <i class="fa fa-clock-o"></i>
-                        0h 30m - pupe.dupe@gmail.com
-                    </em>
-                    <em>
-                        <i class="fa fa-clock-o"></i>
-                        10h 00m - pupe.dupe@gmail.com 
+                        {$_timeFacade->getTotalTime($task, $solver, '%Hh %Imin')} - {$solver}
                     </em>
                     <i class="fa fa-users top-news-icon"></i>
                 </a>
-                
+
                 <a href="#" n:class="btn, $task->solver ? green : yellow" n:if="!$clientMode">
                     <span>Actual worker</span>
                     <em n:if="$task->solver">
@@ -150,7 +156,7 @@
                     </em>
                     <i class="fa fa-bolt top-news-icon"></i>
                 </a>
-                
+
                 <a href="#" class="btn blue">
                     <span>{$task->status}</span>
                     <em>

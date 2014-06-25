@@ -87,6 +87,9 @@ class EntityFormMapper extends \Kdyby\DoctrineForms\EntityFormMapper
                 $message = htmlspecialchars($form->values->message);
                 $entity->setMessage(\App\Helpers::linkToAnchor($message));
             }
+            if ($form->values->minutes > 0) {
+                $entity->setMinutes($form->values->minutes);
+            }
         } else {
             parent::save($entity, $form);
         }

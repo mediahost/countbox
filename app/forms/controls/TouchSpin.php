@@ -93,9 +93,9 @@ class TouchSpin extends \Nette\Forms\Controls\TextInput
      * @param type $value
      * @return self
      */
-    public function setStepInterval($value)
+    public function setStep($value)
     {
-        $attr = "data-stepinterval";
+        $attr = "data-step";
         $this->control->$attr = $value;
         return $this;
     }

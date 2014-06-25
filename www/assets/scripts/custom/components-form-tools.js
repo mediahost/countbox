@@ -303,7 +303,7 @@ var ComponentsFormTools = function() {
 
     }
 
-    var handleBootstrapTouchSpin = function() {       
+    var handleBootstrapTouchSpin = function() {
 
         $(".touchspin").each(function() {
             var params = {};
@@ -311,12 +311,27 @@ var ComponentsFormTools = function() {
                 var attr = attrs.item(i).nodeName;
                 if (attr.substring(0, 5) === "data-") {
                     var paramName = attr.substring(5).replace("-", "_");
-                    params[paramName] = $(this).attr(attr);
+                    switch (paramName) {
+                        case "min":
+                        case "max":
+                        case "stepinterval":
+                        case "maxboostedstep":
+                        case "decimals":
+                        case "boostat":
+                            params[paramName] = parseInt($(this).attr(attr));
+                            break;
+                        case "step":
+                            params[paramName] = parseFloat($(this).attr(attr));
+                            break;
+                        default:
+                            params[paramName] = $(this).attr(attr);
+                            break;
+                    }
                 }
             }
             $(this).TouchSpin(params);
         });
-        
+
     };
 
     var handleBootstrapMaxlength = function() {

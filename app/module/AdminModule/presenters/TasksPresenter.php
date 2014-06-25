@@ -35,8 +35,17 @@ class TasksPresenter extends BasePresenter
     /** @var \App\Model\Entity\Comment */
     private $comment;
 
+    /** @var \App\Model\Facade\TimeFacade @inject */
+    public $timeFacade;
+
     /** @var bool */
     private $clientMode;
+
+    /** @var array */
+    private $taskSolvers;
+    
+    /** @var \App\DateInterval */
+    private $taskTotalTime;
 
     protected function startup()
     {
@@ -85,12 +94,17 @@ class TasksPresenter extends BasePresenter
         $this->comment->setSender($sender);
         $this->comment->setTask($this->task);
         $this->clientMode = $this->task->project->company->hasUser($sender);
+        $this->taskSolvers = $this->taskFacade->findSolvers($this->task);
+        $this->taskTotalTime = $this->timeFacade->getTotalTime($this->task);
     }
 
     public function renderView()
     {
         $this->template->task = $this->task;
         $this->template->clientMode = $this->clientMode;
+        $this->template->solvers = $this->taskSolvers;
+        $this->template->totalTime = $this->taskTotalTime;
+        $this->template->_timeFacade = $this->timeFacade;
     }
 
     public function actionDelete($id)
@@ -104,6 +118,12 @@ class TasksPresenter extends BasePresenter
             $this->flashMessage("Entity was not found.", 'warning');
             $this->redirect("default");
         }
+    }
+
+    public function actionDeleteComment($id)
+    {
+        $this->flashMessage("Not implemented yet.", 'warning');
+        $this->redirect("default");
     }
 
 // <editor-fold defaultstate="collapsed" desc="privates">
@@ -139,8 +159,12 @@ class TasksPresenter extends BasePresenter
         return $form;
     }
 
-    public function commentFormSuccess($form)
+    public function commentFormSuccess($form, $values)
     {
+        if (!trim($values->message)) {
+            $this->flashMessage("Message cannot be empty", "warning");
+            $this->redirect("this");
+        }
         $this->formFactoryFactory
                 ->getEntityMapper()
                 ->save($this->comment, $form);

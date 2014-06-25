@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Tracy\Debugger as Debug;
 
 /**
  * @ORM\Entity
@@ -17,8 +18,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @method User getSender()
  * @method self setSendTime(DateTime $value)
  * @method self setPublic(bool $value)
- * @method self setTask(Task $value)
- * @method self setSender(User $value)
  */
 class Comment extends Entity
 {
@@ -50,9 +49,101 @@ class Comment extends Entity
      */
     protected $sender;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Time", fetch="EAGER", 
+     * cascade={"persist", "remove"})
+     * @var Time
+     */
+    protected $time;
+
+    /**
+     * Generator for $time
+     * @var int
+     */
+    private $minutes;
+
     // <editor-fold defaultstate="collapsed" desc="setters">
+
+    /**
+     * Set task & reset time
+     * @param Task $entity
+     * @return self
+     */
+    public function setTask(Task $entity)
+    {
+        $this->task = $entity;
+        $this->resetTime();
+        return $this;
+    }
+
+    /**
+     * Set sender & reset time
+     * @param User $entity
+     * @return self
+     */
+    public function setSender(User $entity)
+    {
+        $this->sender = $entity;
+        $this->resetTime();
+        return $this;
+    }
+
+    /**
+     * Set minutes
+     * @param int $minutes
+     * @return self
+     */
+    public function setMinutes($minutes)
+    {
+        $this->minutes = $minutes;
+        $this->resetTime();
+        return $this;
+    }
+
+    /**
+     * 
+     * @return Time|NULL
+     */
+    private function resetTime()
+    {
+        if ($this->minutes > 0) {
+            $sender = $this->getSender();
+            $task = $this->getTask();
+            if ($sender && $task) {
+                $this->initTime()
+                        ->setUser($sender)
+                        ->setTask($task)
+                        ->setInterval($this->minutes);
+            }
+        }
+    }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
+
+    /**
+     * @return Time|NULL
+     */
+    private function initTime()
+    {
+        if ($this->time === NULL) {
+            $this->time = new Time;
+        }
+        return $this->time;
+    }
+
+    /**
+     * Return minutes
+     * @return int
+     */
+    public function getTimeInMinutes()
+    {
+        if ($this->time) {
+            return $this->time->getMinutes();
+        } else {
+            return 0;
+        }
+    }
 
     /**
      * 

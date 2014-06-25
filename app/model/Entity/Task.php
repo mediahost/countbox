@@ -3,6 +3,8 @@
 namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Tracy\Debugger as Debug;
 
 /**
  * @ORM\Entity
@@ -16,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @method bool getDone()
  * @method bool getInProcess()
  * @method int getPriority()
+ * @method ArrayCollection getComments()
  * @method \Nette\Utils\DateTime getCreateDate()
  * @method \Nette\Utils\DateTime getDueDate()
  * @method self setName(string $value)
@@ -93,12 +96,12 @@ class Task extends NamedEntity
     public function __construct()
     {
         $this->createDate = new \Nette\Utils\DateTime;
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection;
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection;
+        $this->tags = new ArrayCollection;
+        $this->comments = new ArrayCollection;
     }
 
     // <editor-fold defaultstate="collapsed" desc="setters">
-    
+
     /**
      * @return self
      */
@@ -107,7 +110,7 @@ class Task extends NamedEntity
         $this->solver = NULL;
         return $this;
     }
-    
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="getters">
 
@@ -119,6 +122,21 @@ class Task extends NamedEntity
         return $this->name ? $this->name : ($this->getId() ? "Task #" . $this->getId() : NULL);
     }
 
-    // </editor-fold>
+    /**
+     * Return total project time
+     * @return \App\DateInterval
+     * @deprecated Use TimeFacade::getTotalTime()
+     */
+    public function getTotalTime($format = NULL)
+    {
+        $minutes = 0;
+        /* @var $comment Comment */
+        foreach ($this->getComments() as $comment) {
+            $minutes += $comment->getTimeInMinutes();
+        }
+        $interval = \App\DateInterval::create(0, 0, 0, $minutes, 0);
+        return $format ? $interval->format($format) : $interval;
+    }
 
+    // </editor-fold>
 }

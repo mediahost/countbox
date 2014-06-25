@@ -42,11 +42,14 @@ CREATE TABLE `comment` (
   `task_id` int(11) DEFAULT NULL,
   `sender_id` int(11) DEFAULT NULL,
   `send_time` datetime NOT NULL,
+  `time_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9474526C5EEADD3B` (`time_id`),
   KEY `IDX_9474526C8DB60186` (`task_id`),
   KEY `IDX_9474526CF624B39D` (`sender_id`),
-  CONSTRAINT `FK_9474526CF624B39D` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_9474526C8DB60186` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`)
+  CONSTRAINT `FK_9474526C5EEADD3B` FOREIGN KEY (`time_id`) REFERENCES `time` (`id`),
+  CONSTRAINT `FK_9474526C8DB60186` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`),
+  CONSTRAINT `FK_9474526CF624B39D` FOREIGN KEY (`sender_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -60,6 +63,9 @@ CREATE TABLE `company` (
   CONSTRAINT `FK_4FBF094FF5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `company` (`id`, `address_id`, `name`) VALUES
+(1,	NULL,	'G.P. Farrell Ltd.'),
+(2,	NULL,	'GRIFIN, s.r.o.');
 
 DROP TABLE IF EXISTS `company_user`;
 CREATE TABLE `company_user` (
@@ -72,6 +78,9 @@ CREATE TABLE `company_user` (
   CONSTRAINT `FK_CEFECCA7979B1AD6` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `company_user` (`company_id`, `user_id`) VALUES
+(1,	6),
+(2,	5);
 
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
@@ -83,6 +92,10 @@ CREATE TABLE `project` (
   CONSTRAINT `FK_2FB3D0EE979B1AD6` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `project` (`id`, `name`, `company_id`) VALUES
+(1,	'Source-Code',	1),
+(2,	'MobilneTelefony.sk',	2),
+(3,	'MobilneTelefony.cz',	2);
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
@@ -104,6 +117,10 @@ CREATE TABLE `status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+INSERT INTO `status` (`id`, `name`) VALUES
+(1,	'waiting for answer'),
+(2,	'working on'),
+(3,	'DONE');
 
 DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag` (
@@ -153,7 +170,13 @@ CREATE TABLE `time` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `start_time` datetime NOT NULL,
   `end_time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` int(11) DEFAULT NULL,
+  `task_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_6F949845A76ED395` (`user_id`),
+  KEY `IDX_6F9498458DB60186` (`task_id`),
+  CONSTRAINT `time_ibfk_4` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`),
+  CONSTRAINT `time_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -191,4 +214,4 @@ INSERT INTO `user_role` (`user_id`, `role_id`) VALUES
 (5,	3),
 (6,	3);
 
--- 2014-06-24 21:07:14
+-- 2014-06-25 19:21:51
