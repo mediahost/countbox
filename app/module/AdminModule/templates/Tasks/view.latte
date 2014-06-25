@@ -75,7 +75,7 @@
                                         <span class="datetime">
                                             at {$comment->getSendTime()->format('H:i | d.m.Y')} 
                                         </span>
-                                        <span class="time" n:if="$comment->getTime()">
+                                        <span class="time" n:if="!$clientMode && $comment->getTime()">
                                             | {$comment->getTimeInMinutes()} min.
                                         </span>
                                         <!--<span class="edit" n:if="!$clientMode">
